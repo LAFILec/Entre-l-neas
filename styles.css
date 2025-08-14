@@ -23,9 +23,6 @@ body {
     padding: 0 20px;
 }
 
-/* ===============================
-   ELEMENTOS DE FONDO NOSTÁLGICOS
-   =============================== */
 .background-elements {
     position: fixed;
     top: 0;
@@ -78,7 +75,6 @@ body {
     box-shadow: 0 0 10px rgba(0,255,255,0.3);
 }
 
-/* Estatua Geek Central */
 .geek-statue {
     position: absolute;
     top: 50%;
@@ -126,7 +122,6 @@ body {
     border: 1px solid rgba(0,255,255,0.15);
 }
 
-/* Efectos hover en la estatua */
 .geek-statue:hover {
     opacity: 0.08;
     transform: translate(-50%, -50%) scale(1.05);
@@ -141,7 +136,6 @@ body {
     box-shadow: inset 0 0 5px rgba(0,255,255,0.4);
 }
 
-/* Space Invaders */
 .space-invaders {
     position: absolute;
     top: 25%;
@@ -162,7 +156,6 @@ body {
 .invader-2 { top: 0; left: 40px; animation-delay: 1s; }
 .invader-3 { top: 30px; left: 20px; animation-delay: 2s; }
 
-/* Pac-Man */
 .pacman-container {
     position: absolute;
     bottom: 20%;
@@ -199,7 +192,6 @@ body {
 .dot:nth-child(3) { left: 70px; animation-delay: 1s; }
 .dot:nth-child(4) { left: 90px; animation-delay: 1.5s; }
 
-/* Pong */
 .pong-game {
     position: absolute;
     top: 60%;
@@ -232,7 +224,6 @@ body {
     box-shadow: 0 0 8px rgba(0,255,255,0.4);
 }
 
-/* Asteroids */
 .asteroids {
     position: absolute;
     top: 35%;
@@ -252,7 +243,6 @@ body {
 .asteroid-2 { top: 40px; left: 30px; animation-delay: 3s; }
 .asteroid-3 { top: 80px; left: -20px; animation-delay: 6s; }
 
-/* Matrix Rain */
 .matrix-rain {
     position: absolute;
     top: 0;
@@ -307,9 +297,6 @@ body {
     animation: scanline 2s linear infinite;
 }
 
-/* ===============================
-   ANIMACIONES
-   =============================== */
 @keyframes float {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
     50% { transform: translateY(-10px) rotate(5deg); }
@@ -335,7 +322,6 @@ body {
     50% { opacity: 1; transform: scale(1); }
 }
 
-/* Animaciones Space Invaders */
 @keyframes invaderMove {
     0% { transform: translateX(0) translateY(0); }
     25% { transform: translateX(20px) translateY(-10px); }
@@ -344,7 +330,6 @@ body {
     100% { transform: translateX(0) translateY(0); }
 }
 
-/* Animaciones Pac-Man */
 @keyframes pacmanMove {
     0% { transform: translateX(0) scaleX(1); }
     25% { transform: translateX(100px) scaleX(1); }
@@ -359,7 +344,6 @@ body {
     100% { opacity: 0.8; transform: scale(1); }
 }
 
-/* Animaciones Pong */
 @keyframes paddleMove {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(30px); }
@@ -373,13 +357,11 @@ body {
     100% { transform: translate(10px, 10px); }
 }
 
-/* Animaciones Asteroids */
 @keyframes asteroidRotate {
     0% { transform: rotate(0deg) translateX(20px) rotate(0deg); }
     100% { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
 }
 
-/* Animación Matrix Rain */
 @keyframes matrixRain {
     0% { 
         background-position: 0 -100px;
@@ -394,7 +376,6 @@ body {
     }
 }
 
-/* Animaciones de la Estatua Geek */
 @keyframes statueBreath {
     0%, 100% { 
         transform: translate(-50%, -50%) scale(1); 
@@ -417,9 +398,6 @@ body {
     }
 }
 
-/* ===============================
-   HEADER Y NAVEGACIÓN
-   =============================== */
 .header {
     background: linear-gradient(180deg, #001122 0%, #003344 100%);
     border-bottom: 3px solid #00ffff;
@@ -460,7 +438,6 @@ body {
     box-shadow: 0 0 20px rgba(0,255,255,0.6);
 }
 
-/* Menú hamburguesa */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -540,7 +517,6 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-/* Iconos pixelados */
 .icon {
     width: 16px;
     height: 16px;
@@ -561,9 +537,6 @@ body {
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="%2300ffff" d="M5 1h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H5c-2.2 0-4-1.8-4-4V5c0-2.2 1.8-4 4-4zm3 3a3 3 0 100 6 3 3 0 000-6zm0 1a2 2 0 110 4 2 2 0 010-4zm4-2a1 1 0 110 2 1 1 0 010-2z"/></svg>') no-repeat center;
 }
 
-/* ===============================
-   INDICADORES ESTILO NOKIA
-   =============================== */
 .nokia-status {
     display: flex;
     justify-content: flex-end;
@@ -624,9 +597,6 @@ body {
     50% { opacity: 1; }
 }
 
-/* ===============================
-   CONTENIDO PRINCIPAL
-   =============================== */
 .main {
     padding: 40px 0;
     position: relative;
@@ -813,9 +783,6 @@ body {
     50% { transform: scale(1.1); }
 }
 
-/* ===============================
-   MODAL
-   =============================== */
 .modal {
     display: none;
     position: fixed;
@@ -934,9 +901,6 @@ body {
     }
 }
 
-/* ===============================
-   FOOTER
-   =============================== */
 .footer {
     background: linear-gradient(180deg, #003344 0%, #001122 100%);
     border-top: 3px solid #00ffff;
@@ -969,11 +933,6 @@ body {
     margin: 0;
 }
 
-/* ===============================
-   RESPONSIVE DESIGN
-   =============================== */
-
-/* Tablets */
 @media (max-width: 1024px) {
     .container {
         padding: 0 15px;
@@ -1027,8 +986,7 @@ body {
         right: 0.5%;
         opacity: 0.06;
     }
-    
-    /* Ajustar estatua para tablet */
+
     .geek-statue {
         transform: translate(-50%, -50%) scale(0.8);
         opacity: 0.03;
@@ -1040,7 +998,6 @@ body {
     }
 }
 
-/* Móviles grandes */
 @media (max-width: 768px) {
     body {
         font-size: 9px;
@@ -1118,8 +1075,7 @@ body {
         justify-content: center;
         margin: 15px 0;
     }
-    
-    /* Ocultar algunos elementos decorativos en móvil */
+
     .tetris-blocks,
     .bounce-ball,
     .space-invaders,
@@ -1136,8 +1092,7 @@ body {
         top: 50px;
         right: 15px;
     }
-    
-    /* Estatua más pequeña en móvil */
+
     .geek-statue {
         transform: translate(-50%, -50%) scale(0.6);
         opacity: 0.02;
@@ -1154,7 +1109,6 @@ body {
     }
 }
 
-/* Móviles pequeños */
 @media (max-width: 480px) {
     body {
         font-size: 8px;
@@ -1231,7 +1185,6 @@ body {
     .signal-bars .bar:nth-child(4) { height: 12px; }
 }
 
-/* Animación para menú hamburguesa */
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -1243,7 +1196,6 @@ body {
     }
 }
 
-/* Mejoras para accesibilidad */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -1254,14 +1206,12 @@ body {
     }
 }
 
-/* Tema oscuro adicional para dispositivos que lo prefieren */
 @media (prefers-color-scheme: dark) {
     body {
         background: linear-gradient(45deg, #000000 0%, #0f0f1e 50%, #0f1f2e 100%);
     }
 }
 
-/* Orientación landscape en móviles */
 @media (max-width: 768px) and (orientation: landscape) {
     .header {
         padding: 10px 0;
