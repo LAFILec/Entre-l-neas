@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Elementos visuales de fondo -->
     <div class="background-elements">
         <canvas id="snakeCanvas"></canvas>
         <div class="tetris-blocks">
@@ -18,10 +17,8 @@
         </div>
         <div class="bounce-ball"></div>
         
-        <!-- Estatua Geek Central -->
         <div class="geek-statue">
             <div class="statue-container">
-                <!-- Cabeza -->
                 <div class="pixel-row row-1">
                     <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
                 </div>
@@ -31,14 +28,12 @@
                 <div class="pixel-row row-3">
                     <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
                 </div>
-                <!-- Lentes -->
                 <div class="pixel-row row-4">
                     <div class="pixel glasses"></div><div class="pixel glasses"></div><div class="pixel empty"></div><div class="pixel glasses"></div><div class="pixel glasses"></div>
                 </div>
                 <div class="pixel-row row-5">
                     <div class="pixel"></div><div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div><div class="pixel"></div>
                 </div>
-                <!-- Torso -->
                 <div class="pixel-row row-6">
                     <div class="pixel empty"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel empty"></div>
                 </div>
@@ -51,14 +46,12 @@
                 <div class="pixel-row row-9">
                     <div class="pixel"></div><div class="pixel shirt"></div><div class="pixel shirt"></div><div class="pixel shirt"></div><div class="pixel"></div>
                 </div>
-                <!-- Brazos -->
                 <div class="pixel-row row-10">
                     <div class="pixel"></div><div class="pixel"></div><div class="pixel shirt"></div><div class="pixel"></div><div class="pixel"></div>
                 </div>
                 <div class="pixel-row row-11">
                     <div class="pixel empty"></div><div class="pixel"></div><div class="pixel shirt"></div><div class="pixel"></div><div class="pixel empty"></div>
                 </div>
-                <!-- Piernas -->
                 <div class="pixel-row row-12">
                     <div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div>
                 </div>
@@ -71,14 +64,12 @@
             </div>
         </div>
         
-        <!-- Space Invaders -->
         <div class="space-invaders">
             <div class="invader invader-1">👾</div>
             <div class="invader invader-2">👾</div>
             <div class="invader invader-3">👾</div>
         </div>
         
-        <!-- Pac-Man -->
         <div class="pacman-container">
             <div class="pacman">🟡</div>
             <div class="pacman-dots">
@@ -89,20 +80,17 @@
             </div>
         </div>
         
-        <!-- Pong Paddle -->
         <div class="pong-game">
             <div class="pong-paddle"></div>
             <div class="pong-ball"></div>
         </div>
         
-        <!-- Asteroids -->
         <div class="asteroids">
             <div class="asteroid asteroid-1">◆</div>
             <div class="asteroid asteroid-2">◇</div>
             <div class="asteroid asteroid-3">◆</div>
         </div>
         
-        <!-- Matrix Rain -->
         <div class="matrix-rain">
             <div class="matrix-column column-1"></div>
             <div class="matrix-column column-2"></div>
@@ -120,16 +108,14 @@
                     <img src="lafilp.png" alt="Logo" class="logo-image" onclick="goToHomePage()">
                 </div>
                 
-                <!-- Menú hamburguesa para móviles -->
                 <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
                 
-                <!-- Navegación -->
                 <nav class="nav-buttons" id="navButtons">
-                    <a href="#" class="btn" onclick="goBack()">
+                    <a href="https://lafilec.github.io/LAFILec/" class="btn" onclick="goBack()">
                         <div class="icon icon-back"></div>
                         <span class="btn-text">RETORNAR</span>
                     </a>
@@ -148,7 +134,6 @@
 
     <main class="main">
         <div class="container">
-            <!-- Indicador de nivel de batería estilo Nokia -->
             <div class="nokia-status">
                 <div class="battery-indicator">
                     <div class="battery-level"></div>
@@ -162,7 +147,6 @@
             </div>
             
             <div class="products-grid">
-                <!-- Producto 1 -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="HB.jpg" alt="Producto 1" class="product-img">
@@ -178,7 +162,6 @@
                     </button>
                 </div>
 
-                <!-- Producto 2 -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="rose.jpg" alt="Producto 2" class="product-img">
@@ -194,7 +177,6 @@
                     </button>
                 </div>
 
-                <!-- Producto 3 -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="dark.jpg" alt="Producto 3" class="product-img">
@@ -210,7 +192,6 @@
                     </button>
                 </div>
 
-                <!-- Producto 4 -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="historia.jpg" alt="Producto 4" class="product-img">
@@ -226,7 +207,6 @@
                     </button>
                 </div>
 
-                <!-- Producto 5 -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="art.jpg" alt="Producto 5" class="product-img">
@@ -242,10 +222,9 @@
                     </button>
                 </div>
 
-                <!-- Producto Personalizado -->
                 <div class="product-card special-card">
                     <div class="product-image">
-                        <img src="personalizacion.png" alt="Personalización" class="product-img">
+                        <img src="rose.jpg" alt="Personalización" class="product-img">
                         <div class="pixel-border special-border"></div>
                         <div class="sparkles">
                             <div class="sparkle"></div>
@@ -267,7 +246,6 @@
         </div>
     </main>
 
-    <!-- Modal de Personalización -->
     <div id="customModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -298,7 +276,7 @@
                 <div class="footer-pixel"></div>
                 <div class="footer-pixel"></div>
             </div>
-            <p>© 2025 - TODOS LOS DERECHOS RESERVADOS</p>
+            <p>© 2025 La Fil. Todos los derechos reservados.</p>
         </div>
     </footer>
 
