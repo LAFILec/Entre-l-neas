@@ -1,0 +1,1286 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(45deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    color: #00ffff;
+    min-height: 100vh;
+    font-size: 10px;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===============================
+   ELEMENTOS DE FONDO NOSTÁLGICOS
+   =============================== */
+.background-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+#snakeCanvas {
+    position: absolute;
+    top: 100px;
+    right: 80px;
+    opacity: 0.12;
+    border: 1px solid #00ffff;
+}
+
+.tetris-blocks {
+    position: absolute;
+    top: 15%;
+    left: 2%;
+    opacity: 0.15;
+}
+
+.tetris-block {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: #00ffff;
+    box-shadow: inset 2px 2px 0 rgba(255,255,255,0.3);
+    animation: float 6s ease-in-out infinite;
+}
+
+.block-1 { top: 0; left: 0; animation-delay: 0s; }
+.block-2 { top: 0; left: 20px; animation-delay: 1s; }
+.block-3 { top: 20px; left: 0; animation-delay: 2s; }
+.block-4 { top: 20px; left: 20px; animation-delay: 3s; }
+
+.bounce-ball {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: radial-gradient(circle, #00ffff, #0088ff);
+    border-radius: 50%;
+    top: 45%;
+    left: 1%;
+    opacity: 0.25;
+    animation: bounce 4s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(0,255,255,0.3);
+}
+
+/* Estatua Geek Central */
+.geek-statue {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    opacity: 0.04;
+    animation: statueBreath 8s ease-in-out infinite;
+}
+
+.statue-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.pixel-row {
+    display: flex;
+    gap: 2px;
+}
+
+.pixel {
+    width: 12px;
+    height: 12px;
+    background: #000000;
+    border: 1px solid rgba(0,255,255,0.1);
+    image-rendering: pixelated;
+    transition: all 0.3s ease;
+}
+
+.pixel.empty {
+    background: transparent;
+    border: none;
+}
+
+.pixel.glasses {
+    background: #333333;
+    border: 1px solid rgba(0,255,255,0.3);
+    box-shadow: inset 0 0 3px rgba(0,255,255,0.2);
+}
+
+.pixel.shirt {
+    background: #111111;
+    border: 1px solid rgba(0,255,255,0.15);
+}
+
+/* Efectos hover en la estatua */
+.geek-statue:hover {
+    opacity: 0.08;
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.geek-statue:hover .pixel {
+    border-color: rgba(0,255,255,0.3);
+}
+
+.geek-statue:hover .pixel.glasses {
+    background: #444444;
+    box-shadow: inset 0 0 5px rgba(0,255,255,0.4);
+}
+
+/* Space Invaders */
+.space-invaders {
+    position: absolute;
+    top: 25%;
+    right: 3%;
+    opacity: 0.18;
+}
+
+.invader {
+    position: absolute;
+    font-size: 22px;
+    color: #00ff88;
+    filter: hue-rotate(0deg);
+    animation: invaderMove 8s linear infinite;
+    text-shadow: 0 0 5px rgba(0,255,136,0.5);
+}
+
+.invader-1 { top: 0; left: 0; animation-delay: 0s; }
+.invader-2 { top: 0; left: 40px; animation-delay: 1s; }
+.invader-3 { top: 30px; left: 20px; animation-delay: 2s; }
+
+/* Pac-Man */
+.pacman-container {
+    position: absolute;
+    bottom: 20%;
+    left: 1%;
+    opacity: 0.22;
+}
+
+.pacman {
+    position: absolute;
+    font-size: 20px;
+    animation: pacmanMove 10s linear infinite;
+    filter: hue-rotate(45deg);
+    text-shadow: 0 0 8px rgba(255,255,0,0.4);
+}
+
+.pacman-dots {
+    position: absolute;
+    top: 10px;
+}
+
+.dot {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #ffff00;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: dotEat 2.5s ease-in-out infinite;
+    box-shadow: 0 0 3px rgba(255,255,0,0.4);
+}
+
+.dot:nth-child(1) { left: 30px; animation-delay: 0s; }
+.dot:nth-child(2) { left: 50px; animation-delay: 0.5s; }
+.dot:nth-child(3) { left: 70px; animation-delay: 1s; }
+.dot:nth-child(4) { left: 90px; animation-delay: 1.5s; }
+
+/* Pong */
+.pong-game {
+    position: absolute;
+    top: 60%;
+    right: 2%;
+    width: 120px;
+    height: 80px;
+    border: 1px dashed #00ffff;
+    opacity: 0.15;
+    box-shadow: 0 0 10px rgba(0,255,255,0.1);
+}
+
+.pong-paddle {
+    position: absolute;
+    left: 5px;
+    top: 30px;
+    width: 4px;
+    height: 20px;
+    background: #00ffff;
+    animation: paddleMove 3s ease-in-out infinite;
+    box-shadow: 0 0 5px rgba(0,255,255,0.5);
+}
+
+.pong-ball {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #00ffff;
+    border-radius: 50%;
+    animation: pongBallMove 4s linear infinite;
+    box-shadow: 0 0 8px rgba(0,255,255,0.4);
+}
+
+/* Asteroids */
+.asteroids {
+    position: absolute;
+    top: 35%;
+    left: 2%;
+    opacity: 0.16;
+}
+
+.asteroid {
+    position: absolute;
+    font-size: 18px;
+    color: #888888;
+    animation: asteroidRotate 12s linear infinite;
+    text-shadow: 0 0 3px rgba(136,136,136,0.6);
+}
+
+.asteroid-1 { top: 0; left: 0; animation-delay: 0s; }
+.asteroid-2 { top: 40px; left: 30px; animation-delay: 3s; }
+.asteroid-3 { top: 80px; left: -20px; animation-delay: 6s; }
+
+/* Matrix Rain */
+.matrix-rain {
+    position: absolute;
+    top: 0;
+    right: 1%;
+    height: 100%;
+    opacity: 0.08;
+}
+
+.matrix-column {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        #00ff88 10%,
+        #00ff88 90%,
+        transparent 100%
+    );
+    animation: matrixRain 6s linear infinite;
+}
+
+.column-1 { left: 0; animation-delay: 0s; }
+.column-2 { left: 20px; animation-delay: 2s; }
+.column-3 { left: 40px; animation-delay: 4s; }
+
+.pixel-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.5;
+}
+
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        transparent 0%,
+        rgba(0,255,255,0.02) 50%,
+        transparent 100%
+    );
+    background-size: 100% 4px;
+    animation: scanline 2s linear infinite;
+}
+
+/* ===============================
+   ANIMACIONES
+   =============================== */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-50px); }
+}
+
+@keyframes scanline {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 4px; }
+}
+
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 5px #00ffff; }
+    50% { text-shadow: 0 0 20px #00ffff, 0 0 30px #0088ff; }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+/* Animaciones Space Invaders */
+@keyframes invaderMove {
+    0% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(20px) translateY(-10px); }
+    50% { transform: translateX(0) translateY(-5px); }
+    75% { transform: translateX(-20px) translateY(-15px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
+/* Animaciones Pac-Man */
+@keyframes pacmanMove {
+    0% { transform: translateX(0) scaleX(1); }
+    25% { transform: translateX(100px) scaleX(1); }
+    50% { transform: translateX(100px) scaleX(-1); }
+    75% { transform: translateX(0) scaleX(-1); }
+    100% { transform: translateX(0) scaleX(1); }
+}
+
+@keyframes dotEat {
+    0%, 80% { opacity: 0.8; transform: scale(1); }
+    90% { opacity: 0; transform: scale(1.5); }
+    100% { opacity: 0.8; transform: scale(1); }
+}
+
+/* Animaciones Pong */
+@keyframes paddleMove {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(30px); }
+}
+
+@keyframes pongBallMove {
+    0% { transform: translate(10px, 10px); }
+    25% { transform: translate(100px, 60px); }
+    50% { transform: translate(10px, 60px); }
+    75% { transform: translate(100px, 10px); }
+    100% { transform: translate(10px, 10px); }
+}
+
+/* Animaciones Asteroids */
+@keyframes asteroidRotate {
+    0% { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+}
+
+/* Animación Matrix Rain */
+@keyframes matrixRain {
+    0% { 
+        background-position: 0 -100px;
+        opacity: 0;
+    }
+    10%, 90% { 
+        opacity: 1;
+    }
+    100% { 
+        background-position: 0 100vh;
+        opacity: 0;
+    }
+}
+
+/* Animaciones de la Estatua Geek */
+@keyframes statueBreath {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1); 
+        opacity: 0.04;
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.02); 
+        opacity: 0.06;
+    }
+}
+
+@keyframes pixelGlow {
+    0%, 100% { 
+        border-color: rgba(0,255,255,0.1);
+        box-shadow: none;
+    }
+    50% { 
+        border-color: rgba(0,255,255,0.2);
+        box-shadow: 0 0 2px rgba(0,255,255,0.1);
+    }
+}
+
+/* ===============================
+   HEADER Y NAVEGACIÓN
+   =============================== */
+.header {
+    background: linear-gradient(180deg, #001122 0%, #003344 100%);
+    border-bottom: 3px solid #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    padding: 20px 0;
+    position: relative;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-image {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #00ffff;
+    image-rendering: pixelated;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+    animation: glow 3s ease-in-out infinite;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    object-fit: contain;
+    background: linear-gradient(45deg, #00ffff, #0088ff);
+}
+
+.logo-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0,255,255,0.6);
+}
+
+/* Menú hamburguesa */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #00ffff;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px rgba(0,255,255,0.5);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    background: linear-gradient(145deg, #003366, #001122);
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 9px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    background: linear-gradient(145deg, #004488, #002244);
+    box-shadow: 0 0 15px rgba(0,255,255,0.5);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Iconos pixelados */
+.icon {
+    width: 16px;
+    height: 16px;
+    image-rendering: pixelated;
+    background-size: contain;
+    flex-shrink: 0;
+}
+
+.icon-back {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="%2300ffff" d="M8 0L3 5h2v6h2V7h4V5H8z"/></svg>') no-repeat center;
+}
+
+.icon-crowd {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="%2300ffff" d="M2 2h12v12H2V2zm2 2v8h8V4H4zm2 2h4v4H6V6z"/></svg>') no-repeat center;
+}
+
+.icon-instagram {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="%2300ffff" d="M5 1h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H5c-2.2 0-4-1.8-4-4V5c0-2.2 1.8-4 4-4zm3 3a3 3 0 100 6 3 3 0 000-6zm0 1a2 2 0 110 4 2 2 0 010-4zm4-2a1 1 0 110 2 1 1 0 010-2z"/></svg>') no-repeat center;
+}
+
+/* ===============================
+   INDICADORES ESTILO NOKIA
+   =============================== */
+.nokia-status {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+    opacity: 0.7;
+}
+
+.battery-indicator {
+    width: 30px;
+    height: 12px;
+    border: 2px solid #00ffff;
+    position: relative;
+}
+
+.battery-indicator::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 3px;
+    width: 2px;
+    height: 6px;
+    background: #00ffff;
+}
+
+.battery-level {
+    height: 100%;
+    width: 80%;
+    background: linear-gradient(90deg, #00ff88, #00ffff);
+    animation: batteryPulse 2s ease-in-out infinite;
+}
+
+.signal-bars {
+    display: flex;
+    gap: 2px;
+    align-items: flex-end;
+}
+
+.signal-bars .bar {
+    width: 4px;
+    background: #00ffff;
+    animation: signal 1.5s ease-in-out infinite;
+}
+
+.signal-bars .bar:nth-child(1) { height: 4px; animation-delay: 0s; }
+.signal-bars .bar:nth-child(2) { height: 8px; animation-delay: 0.2s; }
+.signal-bars .bar:nth-child(3) { height: 12px; animation-delay: 0.4s; }
+.signal-bars .bar:nth-child(4) { height: 16px; animation-delay: 0.6s; }
+
+@keyframes batteryPulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+@keyframes signal {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ===============================
+   CONTENIDO PRINCIPAL
+   =============================== */
+.main {
+    padding: 40px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.product-card {
+    background: linear-gradient(145deg, #001122, #002233);
+    border: 2px solid #00ffff;
+    border-radius: 0;
+    padding: 25px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00ffff, #0088ff, #00ffff);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover::before {
+    opacity: 0.3;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,255,255,0.2);
+}
+
+.special-card {
+    border-color: #ff00ff;
+    background: linear-gradient(145deg, #220011, #330022);
+}
+
+.special-card::before {
+    background: linear-gradient(45deg, #ff00ff, #ff0088, #ff00ff);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(45deg, #003366, #004488);
+    border: 1px solid #00ffff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    image-rendering: pixelated;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    filter: contrast(1.1) brightness(0.9);
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.product-card:hover .product-img {
+    filter: contrast(1.2) brightness(1.1);
+    transform: scale(1.05);
+}
+
+.image-placeholder {
+    z-index: 2;
+    text-align: center;
+}
+
+.pixel-border {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1px dashed #00ffff;
+    opacity: 0.5;
+}
+
+.special-border {
+    border-color: #ff00ff;
+}
+
+.sparkles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ff00ff;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.sparkle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+.sparkle:nth-child(2) { top: 60%; right: 30%; animation-delay: 0.7s; }
+.sparkle:nth-child(3) { bottom: 20%; left: 70%; animation-delay: 1.4s; }
+
+.product-title {
+    font-size: 11px;
+    margin-bottom: 15px;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0,255,255,0.5);
+}
+
+.product-description {
+    font-size: 8px;
+    margin-bottom: 20px;
+    color: #88ccff;
+    line-height: 1.4;
+}
+
+.download-btn, .customize-btn {
+    border: 2px solid;
+    padding: 12px 15px;
+    width: 100%;
+    font-family: inherit;
+    font-size: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.download-btn {
+    background: linear-gradient(145deg, #006600, #004400);
+    border-color: #00ff88;
+    color: #00ff88;
+}
+
+.download-btn:hover {
+    background: linear-gradient(145deg, #008800, #006600);
+    box-shadow: 0 0 15px rgba(0,255,136,0.5);
+    transform: translateY(-2px);
+}
+
+.customize-btn {
+    background: linear-gradient(145deg, #660066, #440044);
+    border-color: #ff00ff;
+    color: #ff00ff;
+}
+
+.customize-btn:hover {
+    background: linear-gradient(145deg, #880088, #660066);
+    box-shadow: 0 0 15px rgba(255,0,255,0.5);
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    font-size: 10px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* ===============================
+   MODAL
+   =============================== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #001122, #002233);
+    margin: 5% auto;
+    padding: 0;
+    border: 3px solid #00ffff;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 30px rgba(0,255,255,0.3);
+    animation: modalSlide 0.3s ease;
+    position: relative;
+}
+
+.modal-header {
+    padding: 20px 30px 0;
+    position: relative;
+}
+
+.modal-decoration {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00ffff;
+    background: linear-gradient(45deg, transparent 30%, #00ffff 30%, #00ffff 70%, transparent 70%);
+}
+
+.close {
+    color: #ff6666;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    color: #ff0000;
+    text-shadow: 0 0 10px rgba(255,0,0,0.5);
+    transform: scale(1.2);
+}
+
+.modal-body {
+    padding: 20px 30px 30px;
+}
+
+.modal h3 {
+    color: #00ffff;
+    margin-bottom: 20px;
+    font-size: 12px;
+    text-align: center;
+    animation: glow 2s ease-in-out infinite;
+}
+
+.modal p {
+    color: #88ccff;
+    font-size: 8px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.contact-info {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px dashed #00ffff;
+    background: rgba(0,255,255,0.05);
+}
+
+.contact-name {
+    color: #00ffff !important;
+    font-weight: bold;
+    font-size: 10px !important;
+    margin: 10px 0 !important;
+    animation: glow 3s ease-in-out infinite;
+}
+
+.modal-pixels {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.modal-pixel {
+    width: 8px;
+    height: 8px;
+    background: #00ffff;
+    animation: float 2s ease-in-out infinite;
+}
+
+.modal-pixel:nth-child(2) { animation-delay: 0.5s; }
+.modal-pixel:nth-child(3) { animation-delay: 1s; }
+
+@keyframes modalSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===============================
+   FOOTER
+   =============================== */
+.footer {
+    background: linear-gradient(180deg, #003344 0%, #001122 100%);
+    border-top: 3px solid #00ffff;
+    padding: 30px 0;
+    margin-top: 60px;
+    text-align: center;
+    position: relative;
+}
+
+.footer-decoration {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-pixel {
+    width: 6px;
+    height: 6px;
+    background: #00ffff;
+    animation: float 3s ease-in-out infinite;
+}
+
+.footer-pixel:nth-child(2) { animation-delay: 1s; }
+.footer-pixel:nth-child(3) { animation-delay: 2s; }
+
+.footer p {
+    font-size: 8px;
+    color: #88ccff;
+    margin: 0;
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+    
+    #snakeCanvas {
+        top: 80px;
+        right: 50px;
+        width: 80px;
+        height: 80px;
+    }
+    
+    .tetris-blocks {
+        left: 1%;
+        transform: scale(0.8);
+    }
+    
+    .bounce-ball {
+        left: 0.5%;
+        width: 14px;
+        height: 14px;
+    }
+    
+    .space-invaders {
+        right: 2%;
+        transform: scale(0.8);
+    }
+    
+    .pacman-container {
+        left: 1%;
+        bottom: 15%;
+        transform: scale(0.9);
+    }
+    
+    .pong-game {
+        right: 1%;
+        transform: scale(0.8);
+    }
+    
+    .asteroids {
+        left: 1%;
+        transform: scale(0.8);
+    }
+    
+    .matrix-rain {
+        right: 0.5%;
+        opacity: 0.06;
+    }
+    
+    /* Ajustar estatua para tablet */
+    .geek-statue {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0.03;
+    }
+    
+    .pixel {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* Móviles grandes */
+@media (max-width: 768px) {
+    body {
+        font-size: 9px;
+    }
+    
+    .header-content {
+        flex-wrap: wrap;
+    }
+    
+    .hamburger {
+        display: flex;
+        order: 3;
+    }
+    
+    .nav-buttons {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: linear-gradient(180deg, #003344 0%, #001122 100%);
+        border: 2px solid #00ffff;
+        border-top: none;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    }
+    
+    .nav-buttons.active {
+        display: flex;
+        animation: slideDown 0.3s ease;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 15px 20px;
+        font-size: 8px;
+    }
+    
+    .btn-text {
+        margin-left: 5px;
+    }
+    
+    .logo-image {
+        width: 50px;
+        height: 50px;
+        font-size: 10px;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .product-card {
+        padding: 20px;
+    }
+    
+    .product-image {
+        height: 180px;
+    }
+    
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+    }
+    
+    .modal-body {
+        padding: 15px 20px 25px;
+    }
+    
+    .nokia-status {
+        justify-content: center;
+        margin: 15px 0;
+    }
+    
+    /* Ocultar algunos elementos decorativos en móvil */
+    .tetris-blocks,
+    .bounce-ball,
+    .space-invaders,
+    .pacman-container,
+    .pong-game,
+    .asteroids,
+    .matrix-rain {
+        display: none;
+    }
+    
+    #snakeCanvas {
+        width: 60px;
+        height: 60px;
+        top: 50px;
+        right: 15px;
+    }
+    
+    /* Estatua más pequeña en móvil */
+    .geek-statue {
+        transform: translate(-50%, -50%) scale(0.6);
+        opacity: 0.02;
+    }
+    
+    .pixel {
+        width: 8px;
+        height: 8px;
+        gap: 1px;
+    }
+    
+    .pixel-row {
+        gap: 1px;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    body {
+        font-size: 8px;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+    
+    .header {
+        padding: 15px 0;
+    }
+    
+    .logo-image {
+        width: 40px;
+        height: 40px;
+        font-size: 8px;
+    }
+    
+    .products-grid {
+        gap: 15px;
+    }
+    
+    .product-card {
+        padding: 15px;
+    }
+    
+    .product-image {
+        height: 150px;
+    }
+    
+    .product-title {
+        font-size: 9px;
+    }
+    
+    .product-description {
+        font-size: 7px;
+    }
+    
+    .download-btn,
+    .customize-btn {
+        font-size: 7px;
+        padding: 10px 12px;
+    }
+    
+    .modal h3 {
+        font-size: 10px;
+    }
+    
+    .modal p {
+        font-size: 7px;
+    }
+    
+    .contact-name {
+        font-size: 8px !important;
+    }
+    
+    .footer p {
+        font-size: 7px;
+    }
+    
+    .battery-indicator {
+        width: 25px;
+        height: 10px;
+    }
+    
+    .signal-bars .bar {
+        width: 3px;
+    }
+    
+    .signal-bars .bar:nth-child(1) { height: 3px; }
+    .signal-bars .bar:nth-child(2) { height: 6px; }
+    .signal-bars .bar:nth-child(3) { height: 9px; }
+    .signal-bars .bar:nth-child(4) { height: 12px; }
+}
+
+/* Animación para menú hamburguesa */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mejoras para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Tema oscuro adicional para dispositivos que lo prefieren */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(45deg, #000000 0%, #0f0f1e 50%, #0f1f2e 100%);
+    }
+}
+
+/* Orientación landscape en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+    .header {
+        padding: 10px 0;
+    }
+    
+    .main {
+        padding: 20px 0;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    
+    .product-card {
+        padding: 15px;
+    }
+    
+    .product-image {
+        height: 120px;
+    }
+}

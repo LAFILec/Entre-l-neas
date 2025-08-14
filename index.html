@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro-Tech Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Elementos visuales de fondo -->
+    <div class="background-elements">
+        <canvas id="snakeCanvas"></canvas>
+        <div class="tetris-blocks">
+            <div class="tetris-block block-1"></div>
+            <div class="tetris-block block-2"></div>
+            <div class="tetris-block block-3"></div>
+            <div class="tetris-block block-4"></div>
+        </div>
+        <div class="bounce-ball"></div>
+        
+        <!-- Estatua Geek Central -->
+        <div class="geek-statue">
+            <div class="statue-container">
+                <!-- Cabeza -->
+                <div class="pixel-row row-1">
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                </div>
+                <div class="pixel-row row-2">
+                    <div class="pixel"></div><div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div><div class="pixel"></div>
+                </div>
+                <div class="pixel-row row-3">
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                </div>
+                <!-- Lentes -->
+                <div class="pixel-row row-4">
+                    <div class="pixel glasses"></div><div class="pixel glasses"></div><div class="pixel empty"></div><div class="pixel glasses"></div><div class="pixel glasses"></div>
+                </div>
+                <div class="pixel-row row-5">
+                    <div class="pixel"></div><div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div><div class="pixel"></div>
+                </div>
+                <!-- Torso -->
+                <div class="pixel-row row-6">
+                    <div class="pixel empty"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel empty"></div>
+                </div>
+                <div class="pixel-row row-7">
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                </div>
+                <div class="pixel-row row-8">
+                    <div class="pixel"></div><div class="pixel shirt"></div><div class="pixel shirt"></div><div class="pixel shirt"></div><div class="pixel"></div>
+                </div>
+                <div class="pixel-row row-9">
+                    <div class="pixel"></div><div class="pixel shirt"></div><div class="pixel shirt"></div><div class="pixel shirt"></div><div class="pixel"></div>
+                </div>
+                <!-- Brazos -->
+                <div class="pixel-row row-10">
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel shirt"></div><div class="pixel"></div><div class="pixel"></div>
+                </div>
+                <div class="pixel-row row-11">
+                    <div class="pixel empty"></div><div class="pixel"></div><div class="pixel shirt"></div><div class="pixel"></div><div class="pixel empty"></div>
+                </div>
+                <!-- Piernas -->
+                <div class="pixel-row row-12">
+                    <div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div>
+                </div>
+                <div class="pixel-row row-13">
+                    <div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div>
+                </div>
+                <div class="pixel-row row-14">
+                    <div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div><div class="pixel"></div><div class="pixel empty"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Space Invaders -->
+        <div class="space-invaders">
+            <div class="invader invader-1">👾</div>
+            <div class="invader invader-2">👾</div>
+            <div class="invader invader-3">👾</div>
+        </div>
+        
+        <!-- Pac-Man -->
+        <div class="pacman-container">
+            <div class="pacman">🟡</div>
+            <div class="pacman-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+        
+        <!-- Pong Paddle -->
+        <div class="pong-game">
+            <div class="pong-paddle"></div>
+            <div class="pong-ball"></div>
+        </div>
+        
+        <!-- Asteroids -->
+        <div class="asteroids">
+            <div class="asteroid asteroid-1">◆</div>
+            <div class="asteroid asteroid-2">◇</div>
+            <div class="asteroid asteroid-3">◆</div>
+        </div>
+        
+        <!-- Matrix Rain -->
+        <div class="matrix-rain">
+            <div class="matrix-column column-1"></div>
+            <div class="matrix-column column-2"></div>
+            <div class="matrix-column column-3"></div>
+        </div>
+        
+        <div class="pixel-grid"></div>
+        <div class="scanlines"></div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="lafilp.png" alt="Logo" class="logo-image" onclick="goToHomePage()">
+                </div>
+                
+                <!-- Menú hamburguesa para móviles -->
+                <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <!-- Navegación -->
+                <nav class="nav-buttons" id="navButtons">
+                    <a href="#" class="btn" onclick="goBack()">
+                        <div class="icon icon-back"></div>
+                        <span class="btn-text">RETORNAR</span>
+                    </a>
+                    <a href="#" class="btn" onclick="openNewTab('crowdfunding')">
+                        <div class="icon icon-crowd"></div>
+                        <span class="btn-text">CROWDFUNDING</span>
+                    </a>
+                    <a href="#" class="btn" onclick="openNewTab('instagram')">
+                        <div class="icon icon-instagram"></div>
+                        <span class="btn-text">INSTAGRAM</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Indicador de nivel de batería estilo Nokia -->
+            <div class="nokia-status">
+                <div class="battery-indicator">
+                    <div class="battery-level"></div>
+                </div>
+                <div class="signal-bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Producto 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="HB.jpg" alt="Producto 1" class="product-img">
+                        <div class="pixel-border"></div>
+                    </div>
+                    <h3 class="product-title">Sopla y Pide un Deseo</h3>
+                    <p class="product-description">
+                        Celebra con alegría cada año de vida.
+                    </p>
+                    <button class="download-btn" onclick="downloadFile('feliz dia.html')">
+                        <div class="btn-icon">⬇</div>
+                        DESCARGAR ARCHIVO
+                    </button>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="rose.jpg" alt="Producto 2" class="product-img">
+                        <div class="pixel-border"></div>
+                    </div>
+                    <h3 class="product-title">Latidos en Papel</h3>
+                    <p class="product-description">
+                        Un mensaje eterno para quien hace vibrar tu corazón.
+                    </p>
+                    <button class="download-btn" onclick="downloadFile('producto2.zip')">
+                        <div class="btn-icon">⬇</div>
+                        DESCARGAR ARCHIVO
+                    </button>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="dark.jpg" alt="Producto 3" class="product-img">
+                        <div class="pixel-border"></div>
+                    </div>
+                    <h3 class="product-title">Oro sobre Oscuridad</h3>
+                    <p class="product-description">
+                        El arte de invitar con distinción.
+                    </p>
+                    <button class="download-btn" onclick="downloadFile('producto3.zip')">
+                        <div class="btn-icon">⬇</div>
+                        DESCARGAR ARCHIVO
+                    </button>
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="historia.jpg" alt="Producto 4" class="product-img">
+                        <div class="pixel-border"></div>
+                    </div>
+                    <h3 class="product-title">Tinta del Recuerdo</h3>
+                    <p class="product-description">
+                        Un viaje al pasado en cada palabra.
+                    </p>
+                    <button class="download-btn" onclick="downloadFile('producto4.zip')">
+                        <div class="btn-icon">⬇</div>
+                        DESCARGAR ARCHIVO
+                    </button>
+                </div>
+
+                <!-- Producto 5 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="art.jpg" alt="Producto 5" class="product-img">
+                        <div class="pixel-border"></div>
+                    </div>
+                    <h3 class="product-title">Colores que Hablan</h3>
+                    <p class="product-description">
+                        Un lienzo digital para expresar lo que sientes.
+                    </p>
+                    <button class="download-btn" onclick="downloadFile('producto5.zip')">
+                        <div class="btn-icon">⬇</div>
+                        DESCARGAR ARCHIVO
+                    </button>
+                </div>
+
+                <!-- Producto Personalizado -->
+                <div class="product-card special-card">
+                    <div class="product-image">
+                        <img src="personalizacion.png" alt="Personalización" class="product-img">
+                        <div class="pixel-border special-border"></div>
+                        <div class="sparkles">
+                            <div class="sparkle"></div>
+                            <div class="sparkle"></div>
+                            <div class="sparkle"></div>
+                        </div>
+                    </div>
+                    <h3 class="product-title">PRODUCTOS PERSONALIZADOS</h3>
+                    <p class="product-description">
+                        ¿Tienes una idea específica? Creamos productos únicos 
+                        adaptados a tus necesidades y visión retro-futurista.
+                    </p>
+                    <button class="customize-btn" onclick="openCustomModal()">
+                        <div class="btn-icon">✨</div>
+                        PERSONALIZAR
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Personalización -->
+    <div id="customModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeCustomModal()">&times;</span>
+                <div class="modal-decoration"></div>
+            </div>
+            <h3>PRODUCTOS PERSONALIZADOS</h3>
+            <div class="modal-body">
+                <p>Ofrecemos productos completamente personalizados para satisfacer tus necesidades específicas.</p>
+                <div class="contact-info">
+                    <p>Para más información y cotización de precios, contáctate con:</p>
+                    <p class="contact-name">[TU NOMBRE AQUÍ]</p>
+                </div>
+                <p>Juntos crearemos algo único con estética retro-futurista que supere tus expectativas.</p>
+                <div class="modal-pixels">
+                    <div class="modal-pixel"></div>
+                    <div class="modal-pixel"></div>
+                    <div class="modal-pixel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-decoration">
+                <div class="footer-pixel"></div>
+                <div class="footer-pixel"></div>
+                <div class="footer-pixel"></div>
+            </div>
+            <p>© 2025 - TODOS LOS DERECHOS RESERVADOS</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

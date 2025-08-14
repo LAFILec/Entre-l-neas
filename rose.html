@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Romántica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #f8f6f0 0%, #f5f2e8 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .letter-container {
+            max-width: 600px;
+            width: 100%;
+            background: #fefcf8;
+            border: 3px solid #d4af37;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roses-decoration {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 120px;
+            height: 120px;
+            animation: floatRoses 6s ease-in-out infinite;
+        }
+
+        .rose {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .rose-center {
+            position: absolute;
+            top: 48px;
+            left: 48px;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #4a0000, #2d0000);
+            border-radius: 50%;
+            z-index: 15;
+        }
+
+        .petal {
+            position: absolute;
+            border-radius: 60% 40% 60% 40%;
+        }
+
+        .petal-1 {
+            top: 42px;
+            left: 42px;
+            width: 16px;
+            height: 20px;
+            background: linear-gradient(135deg, #8b0000 0%, #660000 60%, #4a0000 100%);
+            transform: rotate(0deg);
+            z-index: 14;
+            box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .petal-2 {
+            top: 39px;
+            left: 45px;
+            width: 18px;
+            height: 22px;
+            background: linear-gradient(45deg, #a00000 0%, #8b0000 60%, #660000 100%);
+            transform: rotate(60deg);
+            z-index: 13;
+            box-shadow: inset -1px 1px 2px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .petal-3 {
+            top: 42px;
+            left: 48px;
+            width: 18px;
+            height: 22px;
+            background: linear-gradient(225deg, #8b0000 0%, #660000 60%, #4a0000 100%);
+            transform: rotate(120deg);
+            z-index: 12;
+            box-shadow: inset 1px -1px 2px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .petal-4 {
+            top: 36px;
+            left: 36px;
+            width: 24px;
+            height: 28px;
+            background: linear-gradient(315deg, #dc143c 0%, #b91c3c 50%, #8b0000 100%);
+            transform: rotate(15deg);
+            z-index: 11;
+            box-shadow: inset 2px 2px 3px rgba(0,0,0,0.2), 0 2px 3px rgba(0,0,0,0.15);
+        }
+
+        .petal-5 {
+            top: 30px;
+            left: 45px;
+            width: 26px;
+            height: 30px;
+            background: linear-gradient(75deg, #ff1744 0%, #dc143c 50%, #b91c3c 100%);
+            transform: rotate(75deg);
+            z-index: 10;
+            box-shadow: inset -2px 2px 3px rgba(0,0,0,0.2), 0 2px 3px rgba(0,0,0,0.15);
+        }
+
+        .petal-6 {
+            top: 36px;
+            left: 54px;
+            width: 26px;
+            height: 30px;
+            background: linear-gradient(135deg, #dc143c 0%, #b91c3c 50%, #8b0000 100%);
+            transform: rotate(135deg);
+            z-index: 9;
+            box-shadow: inset 2px -2px 3px rgba(0,0,0,0.2), 0 2px 3px rgba(0,0,0,0.15);
+        }
+
+        .petal-7 {
+            top: 48px;
+            left: 58px;
+            width: 28px;
+            height: 32px;
+            background: linear-gradient(195deg, #ff1744 0%, #dc143c 50%, #b91c3c 100%);
+            transform: rotate(195deg);
+            z-index: 8;
+            box-shadow: inset -2px -2px 3px rgba(0,0,0,0.2), 0 2px 3px rgba(0,0,0,0.15);
+        }
+
+        .petal-8 {
+            top: 58px;
+            left: 48px;
+            width: 28px;
+            height: 32px;
+            background: linear-gradient(255deg, #dc143c 0%, #b91c3c 50%, #8b0000 100%);
+            transform: rotate(255deg);
+            z-index: 7;
+            box-shadow: inset 2px -2px 3px rgba(0,0,0,0.2), 0 2px 3px rgba(0,0,0,0.15);
+        }
+
+        .petal-9 {
+            top: 58px;
+            left: 36px;
+            width: 28px;
+            height: 32px;
+            background: linear-gradient(315deg, #ff1744 0%, #dc143c 50%, #b91c3c 100%);
+            transform: rotate(315deg);
+            z-index: 6;
+            box-shadow: inset 2px 2px 3px rgba(0,0,0,0.2), 0 2px 3px rgba(0,0,0,0.15);
+        }
+
+        .stem {
+            position: absolute;
+            top: 80px;
+            left: 48px;
+            width: 4px;
+            height: 35px;
+            background: linear-gradient(180deg, #32cd32 0%, #228b22 50%, #006400 100%);
+            border-radius: 2px;
+            box-shadow: 1px 0 2px rgba(0, 100, 0, 0.4);
+            z-index: 5;
+        }
+
+        .leaf-1, .leaf-2 {
+            position: absolute;
+            background: linear-gradient(45deg, #32cd32 0%, #228b22 70%, #006400 100%);
+            border-radius: 0 12px 8px 0;
+            box-shadow: inset 1px 1px 2px rgba(34, 139, 34, 0.3), 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .leaf-1 {
+            top: 92px;
+            left: 38px;
+            width: 18px;
+            height: 10px;
+            transform: rotate(-30deg);
+            z-index: 4;
+        }
+
+        .leaf-2 {
+            top: 98px;
+            left: 54px;
+            width: 16px;
+            height: 8px;
+            transform: rotate(25deg);
+            z-index: 4;
+        }
+
+        .letter-content {
+            padding: 60px 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #8b0000;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #5d4037;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 0 auto;
+        }
+
+        .letter-body {
+            line-height: 1.8;
+            color: #3e2723;
+            font-size: 1.1rem;
+            margin: 40px 0;
+            text-align: justify;
+        }
+
+        .letter-body p {
+            margin-bottom: 25px;
+        }
+
+        .letter-body p:first-letter {
+            font-size: 3rem;
+            float: left;
+            line-height: 1;
+            margin-right: 8px;
+            margin-top: -3px;
+            font-family: 'Dancing Script', cursive;
+            color: #8b0000;
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 50px;
+        }
+
+        .signature-line {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #8b0000;
+            margin-bottom: 10px;
+        }
+
+        .date {
+            font-style: italic;
+            color: #5d4037;
+            font-size: 0.9rem;
+        }
+
+        .heart-accent {
+            display: inline-block;
+            color: #dc143c;
+            font-size: 1.2em;
+            margin: 0 5px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            }
+            50% {
+                text-shadow: 1px 1px 15px rgba(220, 20, 60, 0.4);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+        }
+
+        @keyframes floatRoses {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { border-color: #d4af37; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            50% { border-color: #f4e775; box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3); }
+        }
+
+        .letter-container {
+            animation: fadeInUp 1s ease-out, borderGlow 4s ease-in-out infinite;
+        }
+
+        .title {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        .roses-decoration {
+            animation: floatRoses 6s ease-in-out infinite;
+        }
+
+        .divider {
+            background: linear-gradient(90deg, transparent, #d4af37, #f4e775, #d4af37, transparent);
+            background-size: 200px 100%;
+            animation: shimmer 2s linear infinite;
+        }
+
+        .letter-body p {
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .letter-body p:nth-child(1) { animation-delay: 0.2s; }
+        .letter-body p:nth-child(2) { animation-delay: 0.4s; }
+        .letter-body p:nth-child(3) { animation-delay: 0.6s; }
+        .letter-body p:nth-child(4) { animation-delay: 0.8s; }
+        .letter-body p:nth-child(5) { animation-delay: 1s; }
+
+        .signature {
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+
+        @media (max-width: 768px) {
+            .letter-content {
+                padding: 40px 30px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .letter-body {
+                font-size: 1rem;
+            }
+            
+            .roses-decoration {
+                width: 150px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="letter-container">
+        <div class="roses-decoration">
+            <div class="rose">
+                <div class="petal petal-9"></div>
+                <div class="petal petal-8"></div>
+                <div class="petal petal-7"></div>
+                <div class="petal petal-6"></div>
+                <div class="petal petal-5"></div>
+                <div class="petal petal-4"></div>
+                <div class="petal petal-3"></div>
+                <div class="petal petal-2"></div>
+                <div class="petal petal-1"></div>
+                <div class="rose-center"></div>
+                <div class="stem"></div>
+                <div class="leaf-1"></div>
+                <div class="leaf-2"></div>
+            </div>
+        </div>
+        
+        <div class="letter-content">
+            <div class="header">
+                <h1 class="title">Para ti, mi amor</h1>
+                <p class="subtitle">Con todo mi corazón</p>
+                <div class="divider"></div>
+            </div>
+
+            <div class="letter-body">
+                <p>Querida mía,</p>
+                
+                <p>Únicamente tú puedes hacer que mi corazón se acelere de esta manera. Cada vez que te veo, el mundo se detiene y solo existimos tú y yo en este universo infinito de amor.</p>
+                
+                <p>Eternamente agradecido estoy por haberte encontrado en el momento perfecto de mi vida. Eres la respuesta a todas las preguntas que mi alma se hacía en silencio.</p>
+                
+                <p>Recordar nuestros momentos juntos me llena de una felicidad inexplicable. Cada sonrisa tuya se ha convertido en mi refugio, cada abrazo en mi hogar.</p>
+                
+                <p>Infinitas son las razones por las que te amo. Tu bondad, tu inteligencia, tu forma única de ver la vida y esa manera especial que tienes de hacerme sentir completo.</p>
+                
+                <p>Dulces son los sueños que construyo a tu lado. Imagino un futuro lleno de aventuras, crecimiento mutuo y un amor que trasciende el tiempo y las circunstancias.</p>
+                
+                <p>Amarte es la decisión más fácil que he tomado en mi vida, porque contigo todo tiene sentido. Eres mi compañera perfecta, mi alma gemela, mi para siempre.</p>
+            </div>
+
+            <div class="signature">
+                <div class="signature-line">Con amor eterno</div>
+                <div class="date">Septiembre 2025</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
