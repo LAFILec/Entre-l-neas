@@ -1,22 +1,15 @@
-// ===============================
-// VARIABLES GLOBALES
-// ===============================
 let snake = [];
 let direction = { x: 1, y: 0 };
 let food = {};
 let gameRunning = false;
 let canvas, ctx;
 
-// ===============================
-// INICIALIZACIÓN
-// ===============================
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     handleImageErrors();
 });
 
 function handleImageErrors() {
-    // Manejar errores de carga del logo
     const logoImg = document.querySelector('.logo-image');
     if (logoImg) {
         logoImg.addEventListener('error', function() {
@@ -28,8 +21,7 @@ function handleImageErrors() {
             this.parentNode.appendChild(placeholder);
         });
     }
-    
-    // Manejar errores de carga de productos
+
     const productImages = document.querySelectorAll('.product-img');
     productImages.forEach((img, index) => {
         img.addEventListener('error', function() {
@@ -49,8 +41,7 @@ function handleImageErrors() {
             `;
             this.parentNode.appendChild(placeholder);
         });
-        
-        // Verificar si la imagen existe
+ 
         img.addEventListener('load', function() {
             console.log(`Imagen cargada: ${this.src}`);
         });
@@ -66,9 +57,6 @@ function initializeApp() {
     setupResponsiveHandlers();
 }
 
-// ===============================
-// MENÚ HAMBURGUESA
-// ===============================
 function setupHamburgerMenu() {
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const navButtons = document.getElementById('navButtons');
@@ -77,12 +65,10 @@ function setupHamburgerMenu() {
         hamburgerBtn.addEventListener('click', function() {
             hamburgerBtn.classList.toggle('active');
             navButtons.classList.toggle('active');
-            
-            // Efecto de sonido simulado
+ 
             playRetroSound('menu');
         });
-        
-        // Cerrar menú al hacer clic en un enlace (móvil)
+
         const navLinks = navButtons.querySelectorAll('.btn');
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
@@ -92,8 +78,7 @@ function setupHamburgerMenu() {
                 }
             });
         });
-        
-        // Cerrar menú al redimensionar ventana
+
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
                 hamburgerBtn.classList.remove('active');
@@ -103,21 +88,16 @@ function setupHamburgerMenu() {
     }
 }
 
-// ===============================
-// JUEGO DE LA SERPIENTE (SNAKE)
-// ===============================
 function initSnakeGame() {
     canvas = document.getElementById('snakeCanvas');
     if (!canvas) return;
     
     ctx = canvas.getContext('2d');
-    
-    // Ajustar tamaño según pantalla
+  
     const size = window.innerWidth <= 480 ? 60 : window.innerWidth <= 768 ? 80 : 100;
     canvas.width = size;
     canvas.height = size;
-    
-    // Inicializar juego
+
     resetSnakeGame();
     startSnakeGame();
 }
@@ -158,64 +138,55 @@ function gameLoop() {
         if (gameRunning) {
             requestAnimationFrame(gameLoop);
         }
-    }, 300); // Velocidad del juego
+    }, 300); 
 }
 
 function updateSnake() {
     const head = { ...snake[0] };
     head.x += direction.x * 10;
     head.y += direction.y * 10;
-    
-    // Colisión con bordes - reiniciar posición
+
     if (head.x >= canvas.width || head.x < 0 || head.y >= canvas.height || head.y < 0) {
         resetSnakeGame();
         return;
     }
     
     snake.unshift(head);
-    
-    // Verificar si comió comida
+
     if (head.x === food.x && head.y === food.y) {
         food = generateFood();
         playRetroSound('eat');
     } else {
         snake.pop();
     }
-    
-    // Cambiar dirección aleatoriamente
     if (Math.random() < 0.1) {
         const directions = [
-            { x: 0, y: -1 }, // arriba
-            { x: 1, y: 0 },  // derecha
-            { x: 0, y: 1 },  // abajo
-            { x: -1, y: 0 }  // izquierda
+            { x: 0, y: -1 },
+            { x: 1, y: 0 },  
+            { x: 0, y: 1 },  
+            { x: -1, y: 0 } 
         ];
         direction = directions[Math.floor(Math.random() * directions.length)];
     }
 }
 
 function drawGame() {
-    // Limpiar canvas
     ctx.fillStyle = '#001122';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Dibujar serpiente
+
     ctx.fillStyle = '#00ffff';
     snake.forEach((segment, index) => {
         if (index === 0) {
-            // Cabeza más brillante
             ctx.fillStyle = '#00ffff';
         } else {
             ctx.fillStyle = '#0088bb';
         }
         ctx.fillRect(segment.x, segment.y, 8, 8);
     });
-    
-    // Dibujar comida
+
     ctx.fillStyle = '#ff6666';
     ctx.fillRect(food.x, food.y, 8, 8);
-    
-    // Efecto de píxeles
+
     ctx.strokeStyle = '#003366';
     ctx.lineWidth = 1;
     for (let x = 0; x < canvas.width; x += 10) {
@@ -225,9 +196,6 @@ function drawGame() {
     }
 }
 
-// ===============================
-// EFECTOS RETRO ADICIONALES
-// ===============================
 function createRetroEffects() {
     createFloatingPixels();
     animateBatteryLevel();
@@ -240,14 +208,12 @@ function createRetroEffects() {
 function initGeekStatueEffects() {
     const statue = document.querySelector('.geek-statue');
     if (!statue) return;
-    
-    // Efecto hover especial
+
     statue.addEventListener('mouseenter', function() {
         playRetroSound('hover');
         statue.style.opacity = '0.12';
         statue.style.transform = 'translate(-50%, -50%) scale(1.1)';
-        
-        // Animar píxeles individualmente
+
         const pixels = statue.querySelectorAll('.pixel:not(.empty)');
         pixels.forEach((pixel, index) => {
             setTimeout(() => {
@@ -260,16 +226,14 @@ function initGeekStatueEffects() {
     statue.addEventListener('mouseleave', function() {
         statue.style.opacity = '0.04';
         statue.style.transform = 'translate(-50%, -50%) scale(1)';
-        
-        // Restaurar píxeles
+
         const pixels = statue.querySelectorAll('.pixel:not(.empty)');
         pixels.forEach(pixel => {
             pixel.style.borderColor = 'rgba(0,255,255,0.1)';
             pixel.style.boxShadow = 'none';
         });
     });
-    
-    // Efecto de click especial
+
     statue.addEventListener('click', function() {
         playRetroSound('click');
         activateGeekMode();
@@ -279,13 +243,11 @@ function initGeekStatueEffects() {
 function activateGeekMode() {
     const statue = document.querySelector('.geek-statue');
     if (!statue) return;
-    
-    // Efecto de "activación"
+
     statue.style.animation = 'none';
     statue.style.opacity = '0.2';
     statue.style.transform = 'translate(-50%, -50%) scale(1.2)';
     
-    // Cambiar todos los píxeles a cian brillante
     const pixels = statue.querySelectorAll('.pixel:not(.empty)');
     pixels.forEach((pixel, index) => {
         setTimeout(() => {
@@ -295,11 +257,9 @@ function activateGeekMode() {
         }, index * 30);
     });
     
-    // Mensaje especial
     setTimeout(() => {
         alert('🤓 ¡MODO GEEK ACTIVADO! 🕹️\n¡El maestro del retro-tech ha despertado!');
         
-        // Restaurar después de 3 segundos
         setTimeout(() => {
             statue.style.animation = 'statueBreath 8s ease-in-out infinite';
             statue.style.opacity = '0.04';
@@ -311,7 +271,6 @@ function activateGeekMode() {
                 pixel.style.boxShadow = 'none';
             });
             
-            // Restaurar colores especiales
             const glassesPixels = statue.querySelectorAll('.pixel.glasses');
             glassesPixels.forEach(pixel => {
                 pixel.style.background = '#333333';
@@ -326,7 +285,6 @@ function activateGeekMode() {
 }
 
 function addRetroLoadingEffect() {
-    // Crear efecto de "carga" inicial estilo Nokia
     const loadingBar = document.createElement('div');
     loadingBar.style.cssText = `
         position: fixed;
@@ -341,13 +299,11 @@ function addRetroLoadingEffect() {
     `;
     
     document.body.appendChild(loadingBar);
-    
-    // Animar barra de carga
+
     setTimeout(() => {
         loadingBar.style.width = '100%';
     }, 100);
     
-    // Quitar barra después de completar
     setTimeout(() => {
         loadingBar.style.opacity = '0';
         setTimeout(() => {
@@ -359,7 +315,6 @@ function addRetroLoadingEffect() {
 }
 
 function createSubtleParticles() {
-    // Crear partículas sutiles que no afecten el rendimiento
     setInterval(() => {
         if (Math.random() < 0.1 && document.querySelectorAll('.subtle-particle').length < 5) {
             createSubtleParticle();
@@ -382,7 +337,6 @@ function createSubtleParticle() {
         animation: subtleFloat 8s ease-in-out forwards;
     `;
     
-    // Posicionar solo en los lados
     const isLeft = Math.random() < 0.5;
     particle.style.left = isLeft ? Math.random() * 100 + 'px' : (window.innerWidth - 100 + Math.random() * 100) + 'px';
     particle.style.top = Math.random() * window.innerHeight + 'px';
@@ -438,7 +392,7 @@ function animateBatteryLevel() {
     let level = 80;
     setInterval(() => {
         level = Math.max(20, level - Math.random() * 5);
-        if (level <= 20) level = 80; // Recarga
+        if (level <= 20) level = 80; 
         batteryLevel.style.width = level + '%';
         
         if (level <= 30) {
@@ -464,9 +418,6 @@ function createGlitchEffect() {
     });
 }
 
-// ===============================
-// EFECTOS DE BOTONES
-// ===============================
 function addButtonEffects() {
     const buttons = document.querySelectorAll('.btn, .download-btn, .customize-btn');
     
@@ -538,12 +489,7 @@ function createClickEffect(element) {
     }, 600);
 }
 
-// ===============================
-// SONIDOS RETRO SIMULADOS
-// ===============================
 function playRetroSound(type) {
-    // En una implementación real, aquí reproducirías archivos de sonido
-    // Por ahora, solo agregamos una vibración visual
     
     const soundEffects = {
         'menu': () => flashScreen('#00ffff', 0.1),
@@ -581,30 +527,23 @@ function flashScreen(color, opacity) {
     }, 200);
 }
 
-// ===============================
-// FUNCIONES DE NAVEGACIÓN
-// ===============================
 function goToHomePage() {
     playRetroSound('click');
     console.log('Navegando a página principal...');
-    
-    // Efecto visual de transición
+
     document.body.style.transform = 'scale(0.95)';
     document.body.style.transition = 'transform 0.3s ease-in-out';
     
     setTimeout(() => {
         document.body.style.transform = 'scale(1)';
-        alert('Ir a Página Principal\nAquí pondrías tu URL: /home o /index');
-        // window.location.href = '/home'; // Descomenta para usar
+        window.location.href = 'https://lafilec.github.io/LAFILec/'; 
     }, 300);
 }
 
 function goBack() {
     playRetroSound('click');
-    // Simular navegación hacia atrás
     console.log('Navegando hacia atrás...');
-    
-    // Efecto visual de transición
+
     document.body.style.transform = 'translateX(-100%)';
     document.body.style.transition = 'transform 0.3s ease-in-out';
     
@@ -618,23 +557,19 @@ function openNewTab(platform) {
     playRetroSound('click');
     
     const urls = {
-        'crowdfunding': 'https://tu-crowdfunding-url.com',
-        'instagram': 'https://instagram.com/tu-usuario'
+        'crowdfunding': 'https://vaki.co/es/vaki/9bw4pe0KavU7nMg0O8XH?utm_source=copy&utm_medium=toolbar&utm_campaign=v4',
+        'instagram': 'https://www.instagram.com/lafil.ec/?igsh=MTc1MzY4MjdsYXZhYg%3D%3D'
     };
     
     if (platform === 'crowdfunding') {
-        alert('Abrir pestaña de Crowdfunding\nAquí pondrías tu URL real: ' + urls.crowdfunding);
-        // window.open(urls.crowdfunding, '_blank');
+        window.open(urls.crowdfunding, 'https://vaki.co/es/vaki/9bw4pe0KavU7nMg0O8XH?utm_source=copy&utm_medium=toolbar&utm_campaign=v4');
     } else if (platform === 'instagram') {
-        alert('Abrir Instagram\nAquí pondrías tu URL real: ' + urls.instagram);
-        // window.open(urls.instagram, '_blank');
+        window.open(urls.instagram, 'https://www.instagram.com/lafil.ec/?igsh=MTc1MzY4MjdsYXZhYg%3D%3D');
     }
 }
 
 function downloadFile(filename) {
     playRetroSound('click');
-    
-    // Efecto de descarga simulado
     const downloadEffect = document.createElement('div');
     downloadEffect.style.cssText = `
         position: fixed;
@@ -662,9 +597,6 @@ function downloadFile(filename) {
     }, 2000);
 }
 
-// ===============================
-// MODAL DE PERSONALIZACIÓN
-// ===============================
 function setupModalHandlers() {
     const modal = document.getElementById('customModal');
     const closeBtn = document.querySelector('.close');
@@ -672,15 +604,13 @@ function setupModalHandlers() {
     if (closeBtn) {
         closeBtn.addEventListener('click', closeCustomModal);
     }
-    
-    // Cerrar modal al hacer clic fuera
+
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
             closeCustomModal();
         }
     });
-    
-    // Cerrar modal con tecla Escape
+
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape' && modal && modal.style.display === 'block') {
             closeCustomModal();
@@ -693,9 +623,7 @@ function openCustomModal() {
     const modal = document.getElementById('customModal');
     if (modal) {
         modal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Prevenir scroll
-        
-        // Efecto de aparición con píxeles
+        document.body.style.overflow = 'hidden'; 
         createModalPixels();
     }
 }
@@ -705,7 +633,7 @@ function closeCustomModal() {
     const modal = document.getElementById('customModal');
     if (modal) {
         modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restaurar scroll
+        document.body.style.overflow = 'auto'; 
     }
 }
 
@@ -740,28 +668,21 @@ function createModalPixels() {
     }
 }
 
-// ===============================
-// MANEJADORES RESPONSIVE
-// ===============================
 function setupResponsiveHandlers() {
     window.addEventListener('resize', handleResize);
     window.addEventListener('orientationchange', handleOrientationChange);
 }
 
 function handleResize() {
-    // Reajustar canvas de Snake
     if (canvas) {
         const size = window.innerWidth <= 480 ? 60 : window.innerWidth <= 768 ? 80 : 100;
         canvas.width = size;
         canvas.height = size;
     }
-    
-    // Reajustar efectos según el tamaño de pantalla
+
     if (window.innerWidth <= 768) {
-        // Reducir efectos en móvil para mejor rendimiento
         gameRunning = false;
     } else {
-        // Reactivar efectos en desktop
         if (!gameRunning) {
             resetSnakeGame();
             startSnakeGame();
@@ -772,8 +693,7 @@ function handleResize() {
 function handleOrientationChange() {
     setTimeout(() => {
         handleResize();
-        
-        // Cerrar menú hamburguesa si está abierto
+    
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const navButtons = document.getElementById('navButtons');
         
@@ -784,9 +704,6 @@ function handleOrientationChange() {
     }, 100);
 }
 
-// ===============================
-// ANIMACIONES CSS ADICIONALES
-// ===============================
 function addDynamicStyles() {
     const style = document.createElement('style');
     style.textContent = `
@@ -860,12 +777,8 @@ function addDynamicStyles() {
     document.head.appendChild(style);
 }
 
-// Agregar estilos dinámicos al cargar
 document.addEventListener('DOMContentLoaded', addDynamicStyles);
 
-// ===============================
-// UTILIDADES
-// ===============================
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -878,11 +791,9 @@ function debounce(func, wait) {
     };
 }
 
-// Optimizar eventos de resize
 const debouncedResize = debounce(handleResize, 250);
 window.addEventListener('resize', debouncedResize);
 
-// Limpiar recursos al salir de la página
 window.addEventListener('beforeunload', function() {
     gameRunning = false;
 });
