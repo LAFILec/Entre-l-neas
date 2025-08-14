@@ -549,7 +549,6 @@ function goBack() {
     
     setTimeout(() => {
         document.body.style.transform = 'translateX(0)';
-        alert('Función RETORNAR - Aquí irías a la página principal');
     }, 300);
 }
 
@@ -593,7 +592,7 @@ function downloadFile(filename) {
         if (downloadEffect.parentNode) {
             downloadEffect.parentNode.removeChild(downloadEffect);
         }
-        alert(`Archivo ${filename} descargado\nAquí conectarías con tu archivo real`);
+        alert(`Archivo ${filename} descargado\nAquí conectarías con tu archivo`);
     }, 2000);
 }
 
