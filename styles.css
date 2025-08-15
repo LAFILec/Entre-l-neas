@@ -597,6 +597,205 @@ body {
     50% { opacity: 1; }
 }
 
+.instructions-section {
+    margin: 40px 0 60px 0;
+    position: relative;
+}
+
+.instructions-container {
+    background: linear-gradient(145deg, #001122, #002233);
+    border: 3px solid #00ffff;
+    border-radius: 0;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.instructions-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00ffff, #0088ff, #00ffff);
+    z-index: -1;
+    opacity: 0.1;
+}
+
+.instructions-header {
+    text-align: center;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.header-decoration {
+    display: flex;
+    gap: 5px;
+}
+
+.pixel-dot {
+    width: 6px;
+    height: 6px;
+    background: #00ffff;
+    animation: float 2s ease-in-out infinite;
+}
+
+.pixel-dot:nth-child(2) { animation-delay: 0.5s; }
+.pixel-dot:nth-child(3) { animation-delay: 1s; }
+
+.instructions-title {
+    font-size: 12px;
+    color: #00ffff;
+    text-shadow: 0 0 15px rgba(0,255,255,0.6);
+    animation: glow 3s ease-in-out infinite;
+    margin: 0;
+    text-align: center;
+}
+
+.instructions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.instruction-card {
+    background: linear-gradient(145deg, #002244, #001133);
+    border: 2px solid;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.download-instruction {
+    border-color: #00ff88;
+}
+
+.link-instruction {
+    border-color: #00aaff;
+}
+
+.instruction-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.download-instruction:hover {
+    box-shadow: 0 8px 20px rgba(0,255,136,0.2);
+}
+
+.link-instruction:hover {
+    box-shadow: 0 8px 20px rgba(0,170,255,0.2);
+}
+
+.instruction-icon {
+    font-size: 24px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.instruction-card h3 {
+    font-size: 10px;
+    margin-bottom: 15px;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0,255,255,0.4);
+}
+
+.download-instruction h3 {
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0,255,136,0.4);
+}
+
+.link-instruction h3 {
+    color: #00aaff;
+    text-shadow: 0 0 10px rgba(0,170,255,0.4);
+}
+
+.instruction-card p {
+    font-size: 8px;
+    line-height: 1.5;
+    color: #88ccff;
+    margin-bottom: 20px;
+}
+
+.instruction-card strong {
+    color: #00ffff;
+    text-shadow: 0 0 5px rgba(0,255,255,0.3);
+}
+
+.instruction-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.instruction-steps span {
+    font-size: 7px;
+    color: #aaccff;
+    padding: 5px 10px;
+    border: 1px dashed rgba(0,255,255,0.3);
+    background: rgba(0,255,255,0.05);
+    transition: all 0.3s ease;
+}
+
+.download-instruction .instruction-steps span {
+    border-color: rgba(0,255,136,0.3);
+    background: rgba(0,255,136,0.05);
+}
+
+.link-instruction .instruction-steps span {
+    border-color: rgba(0,170,255,0.3);
+    background: rgba(0,170,255,0.05);
+}
+
+.instruction-steps span:hover {
+    background: rgba(0,255,255,0.15);
+    color: #ffffff;
+}
+
+.instructions-footer {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(0,255,255,0.3);
+}
+
+.footer-message {
+    font-size: 10px;
+    color: #88ccff;
+    margin-bottom: 15px;
+}
+
+.glow-text {
+    color: #00ffff;
+    text-shadow: 0 0 15px rgba(0,255,255,0.6);
+    animation: glow 2s ease-in-out infinite;
+}
+
+.footer-pixels {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.footer-pixel {
+    width: 4px;
+    height: 4px;
+    background: #00ffff;
+    animation: sparkle 3s ease-in-out infinite;
+}
+
+.footer-pixel:nth-child(1) { animation-delay: 0s; }
+.footer-pixel:nth-child(2) { animation-delay: 0.5s; }
+.footer-pixel:nth-child(3) { animation-delay: 1s; }
+.footer-pixel:nth-child(4) { animation-delay: 1.5s; }
+.footer-pixel:nth-child(5) { animation-delay: 2s; }
+
 .main {
     padding: 40px 0;
     position: relative;
@@ -735,7 +934,7 @@ body {
     line-height: 1.4;
 }
 
-.download-btn, .customize-btn {
+.download-btn, .customize-btn, .link-btn {
     border: 2px solid;
     padding: 12px 15px;
     width: 100%;
@@ -758,6 +957,18 @@ body {
 .download-btn:hover {
     background: linear-gradient(145deg, #008800, #006600);
     box-shadow: 0 0 15px rgba(0,255,136,0.5);
+    transform: translateY(-2px);
+}
+
+.link-btn {
+    background: linear-gradient(145deg, #004466, #002244);
+    border-color: #00aaff;
+    color: #00aaff;
+}
+
+.link-btn:hover {
+    background: linear-gradient(145deg, #0066aa, #004466);
+    box-shadow: 0 0 15px rgba(0,170,255,0.5);
     transform: translateY(-2px);
 }
 
@@ -869,8 +1080,62 @@ body {
     color: #00ffff !important;
     font-weight: bold;
     font-size: 10px !important;
-    margin: 10px 0 !important;
+    margin: 10px 0 15px 0 !important;
     animation: glow 3s ease-in-out infinite;
+}
+
+.whatsapp-contact {
+    margin-top: 15px;
+}
+
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(145deg, #25D366, #128C7E);
+    border: 2px solid #25D366;
+    color: #ffffff;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 7px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.whatsapp-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.whatsapp-btn:hover::before {
+    left: 100%;
+}
+
+.whatsapp-btn:hover {
+    background: linear-gradient(145deg, #20B358, #0E6B47);
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.6);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.whatsapp-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-icon {
+    font-size: 12px;
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
 .modal-pixels {
@@ -996,6 +1261,30 @@ body {
         width: 10px;
         height: 10px;
     }
+
+    .instructions-container {
+        padding: 25px;
+    }
+    
+    .instructions-title {
+        font-size: 11px;
+    }
+    
+    .instructions-grid {
+        gap: 20px;
+    }
+    
+    .instruction-card {
+        padding: 20px;
+    }
+    
+    .instruction-card h3 {
+        font-size: 9px;
+    }
+    
+    .instruction-card p {
+        font-size: 7px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1074,6 +1363,52 @@ body {
     .nokia-status {
         justify-content: center;
         margin: 15px 0;
+    }
+
+    .instructions-section {
+        margin: 30px 0 40px 0;
+    }
+    
+    .instructions-container {
+        padding: 20px;
+    }
+    
+    .instructions-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .instructions-title {
+        font-size: 9px;
+    }
+    
+    .instructions-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .instruction-card {
+        padding: 20px;
+    }
+    
+    .instruction-icon {
+        font-size: 20px;
+    }
+    
+    .instruction-card h3 {
+        font-size: 8px;
+    }
+    
+    .instruction-card p {
+        font-size: 7px;
+    }
+    
+    .instruction-steps span {
+        font-size: 6px;
+    }
+    
+    .footer-message {
+        font-size: 8px;
     }
 
     .tetris-blocks,
@@ -1183,6 +1518,46 @@ body {
     .signal-bars .bar:nth-child(2) { height: 6px; }
     .signal-bars .bar:nth-child(3) { height: 9px; }
     .signal-bars .bar:nth-child(4) { height: 12px; }
+
+    .instructions-container {
+        padding: 15px;
+    }
+    
+    .instructions-title {
+        font-size: 8px;
+    }
+    
+    .instruction-card {
+        padding: 15px;
+    }
+    
+    .instruction-icon {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .instruction-card h3 {
+        font-size: 7px;
+        margin-bottom: 10px;
+    }
+    
+    .instruction-card p {
+        font-size: 6px;
+        margin-bottom: 15px;
+    }
+    
+    .instruction-steps {
+        gap: 6px;
+    }
+    
+    .instruction-steps span {
+        font-size: 5px;
+        padding: 4px 8px;
+    }
+    
+    .footer-message {
+        font-size: 7px;
+    }
 }
 
 @keyframes slideDown {
