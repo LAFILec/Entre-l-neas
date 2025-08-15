@@ -21,7 +21,6 @@ function handleImageErrors() {
             this.parentNode.appendChild(placeholder);
         });
     }
-
     const productImages = document.querySelectorAll('.product-img');
     productImages.forEach((img, index) => {
         img.addEventListener('error', function() {
@@ -41,7 +40,6 @@ function handleImageErrors() {
             `;
             this.parentNode.appendChild(placeholder);
         });
- 
         img.addEventListener('load', function() {
             console.log(`Imagen cargada: ${this.src}`);
         });
@@ -65,7 +63,6 @@ function setupHamburgerMenu() {
         hamburgerBtn.addEventListener('click', function() {
             hamburgerBtn.classList.toggle('active');
             navButtons.classList.toggle('active');
- 
             playRetroSound('menu');
         });
 
@@ -93,11 +90,9 @@ function initSnakeGame() {
     if (!canvas) return;
     
     ctx = canvas.getContext('2d');
-  
     const size = window.innerWidth <= 480 ? 60 : window.innerWidth <= 768 ? 80 : 100;
     canvas.width = size;
     canvas.height = size;
-
     resetSnakeGame();
     startSnakeGame();
 }
@@ -161,9 +156,9 @@ function updateSnake() {
     }
     if (Math.random() < 0.1) {
         const directions = [
-            { x: 0, y: -1 },
+            { x: 0, y: -1 }, 
             { x: 1, y: 0 },  
-            { x: 0, y: 1 },  
+            { x: 0, y: 1 }, 
             { x: -1, y: 0 } 
         ];
         direction = directions[Math.floor(Math.random() * directions.length)];
@@ -173,7 +168,6 @@ function updateSnake() {
 function drawGame() {
     ctx.fillStyle = '#001122';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
     ctx.fillStyle = '#00ffff';
     snake.forEach((segment, index) => {
         if (index === 0) {
@@ -186,7 +180,6 @@ function drawGame() {
 
     ctx.fillStyle = '#ff6666';
     ctx.fillRect(food.x, food.y, 8, 8);
-
     ctx.strokeStyle = '#003366';
     ctx.lineWidth = 1;
     for (let x = 0; x < canvas.width; x += 10) {
@@ -247,7 +240,7 @@ function activateGeekMode() {
     statue.style.animation = 'none';
     statue.style.opacity = '0.2';
     statue.style.transform = 'translate(-50%, -50%) scale(1.2)';
-    
+
     const pixels = statue.querySelectorAll('.pixel:not(.empty)');
     pixels.forEach((pixel, index) => {
         setTimeout(() => {
@@ -256,10 +249,10 @@ function activateGeekMode() {
             pixel.style.boxShadow = '0 0 8px rgba(0,255,255,0.8)';
         }, index * 30);
     });
-    
+
     setTimeout(() => {
         alert('🤓 ¡MODO GEEK ACTIVADO! 🕹️\n¡El maestro del retro-tech ha despertado!');
-        
+
         setTimeout(() => {
             statue.style.animation = 'statueBreath 8s ease-in-out infinite';
             statue.style.opacity = '0.04';
@@ -270,7 +263,7 @@ function activateGeekMode() {
                 pixel.style.borderColor = 'rgba(0,255,255,0.1)';
                 pixel.style.boxShadow = 'none';
             });
-            
+
             const glassesPixels = statue.querySelectorAll('.pixel.glasses');
             glassesPixels.forEach(pixel => {
                 pixel.style.background = '#333333';
@@ -303,7 +296,6 @@ function addRetroLoadingEffect() {
     setTimeout(() => {
         loadingBar.style.width = '100%';
     }, 100);
-    
     setTimeout(() => {
         loadingBar.style.opacity = '0';
         setTimeout(() => {
@@ -336,7 +328,6 @@ function createSubtleParticle() {
         border-radius: 50%;
         animation: subtleFloat 8s ease-in-out forwards;
     `;
-    
     const isLeft = Math.random() < 0.5;
     particle.style.left = isLeft ? Math.random() * 100 + 'px' : (window.innerWidth - 100 + Math.random() * 100) + 'px';
     particle.style.top = Math.random() * window.innerHeight + 'px';
@@ -419,7 +410,7 @@ function createGlitchEffect() {
 }
 
 function addButtonEffects() {
-    const buttons = document.querySelectorAll('.btn, .download-btn, .customize-btn');
+    const buttons = document.querySelectorAll('.btn, .download-btn, .customize-btn, .link-btn');
     
     buttons.forEach(button => {
         button.addEventListener('mouseenter', function() {
@@ -490,7 +481,6 @@ function createClickEffect(element) {
 }
 
 function playRetroSound(type) {
-    
     const soundEffects = {
         'menu': () => flashScreen('#00ffff', 0.1),
         'hover': () => flashScreen('#0088ff', 0.05),
@@ -530,25 +520,24 @@ function flashScreen(color, opacity) {
 function goToHomePage() {
     playRetroSound('click');
     console.log('Navegando a página principal...');
-
     document.body.style.transform = 'scale(0.95)';
     document.body.style.transition = 'transform 0.3s ease-in-out';
     
     setTimeout(() => {
         document.body.style.transform = 'scale(1)';
-        window.location.href = 'https://lafilec.github.io/LAFILec/'; 
+        alert('Ir a Página Principal\nAquí pondrías tu URL: /home o /index');
     }, 300);
 }
 
 function goBack() {
     playRetroSound('click');
     console.log('Navegando hacia atrás...');
-
     document.body.style.transform = 'translateX(-100%)';
     document.body.style.transition = 'transform 0.3s ease-in-out';
     
     setTimeout(() => {
         document.body.style.transform = 'translateX(0)';
+        alert('Función RETORNAR - Aquí irías a la página principal');
     }, 300);
 }
 
@@ -556,19 +545,26 @@ function openNewTab(platform) {
     playRetroSound('click');
     
     const urls = {
-        'crowdfunding': 'https://vaki.co/es/vaki/9bw4pe0KavU7nMg0O8XH?utm_source=copy&utm_medium=toolbar&utm_campaign=v4',
-        'instagram': 'https://www.instagram.com/lafil.ec/?igsh=MTc1MzY4MjdsYXZhYg%3D%3D'
+        'crowdfunding': 'https://tu-crowdfunding-url.com',
+        'instagram': 'https://instagram.com/tu-usuario'
     };
     
     if (platform === 'crowdfunding') {
-        window.open(urls.crowdfunding, 'https://vaki.co/es/vaki/9bw4pe0KavU7nMg0O8XH?utm_source=copy&utm_medium=toolbar&utm_campaign=v4');
+        alert('Abrir pestaña de Crowdfunding\nAquí pondrías tu URL real: ' + urls.crowdfunding);
     } else if (platform === 'instagram') {
-        window.open(urls.instagram, 'https://www.instagram.com/lafil.ec/?igsh=MTc1MzY4MjdsYXZhYg%3D%3D');
+        alert('Abrir Instagram\nAquí pondrías tu URL real: ' + urls.instagram);
     }
 }
 
 function downloadFile(filename) {
     playRetroSound('click');
+    
+    const downloadLink = document.createElement('a');
+    downloadLink.href = filename;
+    downloadLink.download = filename;
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
+
     const downloadEffect = document.createElement('div');
     downloadEffect.style.cssText = `
         position: fixed;
@@ -583,17 +579,75 @@ function downloadFile(filename) {
         font-size: 8px;
         z-index: 9999;
         animation: downloadPulse 2s ease-in-out;
+        text-align: center;
+        min-width: 200px;
+        box-shadow: 0 0 20px rgba(0,255,136,0.3);
     `;
-    downloadEffect.textContent = `Descargando ${filename}...`;
+    downloadEffect.innerHTML = `
+        <div>📄 DESCARGANDO...</div>
+        <div style="margin-top: 10px; font-size: 6px;">${filename}</div>
+        <div style="margin-top: 15px;">
+            <div style="width: 100%; height: 4px; background: #003366; border: 1px solid #00ff88;">
+                <div style="width: 0%; height: 100%; background: #00ff88; animation: progressBar 1.5s ease-out forwards;"></div>
+            </div>
+        </div>
+    `;
     
     document.body.appendChild(downloadEffect);
-    
+
+    setTimeout(() => {
+        downloadLink.click();
+        console.log(`Iniciando descarga: ${filename}`);
+    }, 500);
+
     setTimeout(() => {
         if (downloadEffect.parentNode) {
             downloadEffect.parentNode.removeChild(downloadEffect);
         }
-        alert(`Archivo ${filename} descargado\nAquí conectarías con tu archivo`);
+        if (downloadLink.parentNode) {
+            downloadLink.parentNode.removeChild(downloadLink);
+        }
     }, 2000);
+}
+
+function openExternalLink(url) {
+    playRetroSound('click');
+    
+    const linkEffect = document.createElement('div');
+    linkEffect.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(145deg, #001122, #002233);
+        border: 2px solid #00aaff;
+        color: #00aaff;
+        padding: 20px;
+        font-family: 'Press Start 2P', cursive;
+        font-size: 8px;
+        z-index: 9999;
+        animation: linkPulse 1.5s ease-in-out;
+        text-align: center;
+        min-width: 200px;
+        box-shadow: 0 0 20px rgba(0,170,255,0.3);
+    `;
+    linkEffect.innerHTML = `
+        <div>🔗 ABRIENDO ENLACE...</div>
+        <div style="margin-top: 15px; font-size: 6px; word-break: break-all;">${url}</div>
+    `;
+    
+    document.body.appendChild(linkEffect);
+
+    setTimeout(() => {
+        window.open(url, '_blank', 'noopener,noreferrer');
+        console.log(`Abriendo enlace: ${url}`);
+    }, 800);
+
+    setTimeout(() => {
+        if (linkEffect.parentNode) {
+            linkEffect.parentNode.removeChild(linkEffect);
+        }
+    }, 1500);
 }
 
 function setupModalHandlers() {
@@ -615,6 +669,48 @@ function setupModalHandlers() {
             closeCustomModal();
         }
     });
+
+    const whatsappBtn = document.querySelector('.whatsapp-btn');
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('mouseenter', function() {
+            playRetroSound('hover');
+            createButtonSparkles(this);
+        });
+        
+        whatsappBtn.addEventListener('click', function() {
+            playRetroSound('click');
+            createClickEffect(this);
+            const whatsappEffect = document.createElement('div');
+            whatsappEffect.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(145deg, #25D366, #128C7E);
+                border: 2px solid #25D366;
+                color: #ffffff;
+                padding: 15px 20px;
+                font-family: 'Press Start 2P', cursive;
+                font-size: 8px;
+                z-index: 10000;
+                animation: whatsappPulse 1s ease-out;
+                text-align: center;
+                box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+            `;
+            whatsappEffect.innerHTML = `
+                <div>💬 ABRIENDO WHATSAPP...</div>
+                <div style="margin-top: 8px; font-size: 6px;">¡Listo para personalizar!</div>
+            `;
+            
+            document.body.appendChild(whatsappEffect);
+            
+            setTimeout(() => {
+                if (whatsappEffect.parentNode) {
+                    whatsappEffect.parentNode.removeChild(whatsappEffect);
+                }
+            }, 1000);
+        });
+    }
 }
 
 function openCustomModal() {
@@ -623,6 +719,7 @@ function openCustomModal() {
     if (modal) {
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden'; 
+
         createModalPixels();
     }
 }
@@ -632,7 +729,7 @@ function closeCustomModal() {
     const modal = document.getElementById('customModal');
     if (modal) {
         modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; 
+        document.body.style.overflow = 'auto';
     }
 }
 
@@ -692,7 +789,6 @@ function handleResize() {
 function handleOrientationChange() {
     setTimeout(() => {
         handleResize();
-    
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const navButtons = document.getElementById('navButtons');
         
@@ -717,7 +813,23 @@ function addDynamicStyles() {
         
         @keyframes downloadPulse {
             0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+        
+        @keyframes linkPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+        
+        @keyframes whatsappPulse {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+        
+        @keyframes progressBar {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
         
         @keyframes modalPixelFloat {
