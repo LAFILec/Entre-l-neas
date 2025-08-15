@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro-Tech Store</title>
+    <title>Virtual Store</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,7 +16,6 @@
             <div class="tetris-block block-4"></div>
         </div>
         <div class="bounce-ball"></div>
-        
         <div class="geek-statue">
             <div class="statue-container">
                 <div class="pixel-row row-1">
@@ -63,13 +62,13 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="space-invaders">
             <div class="invader invader-1">👾</div>
             <div class="invader invader-2">👾</div>
             <div class="invader invader-3">👾</div>
         </div>
-        
+
         <div class="pacman-container">
             <div class="pacman">🟡</div>
             <div class="pacman-dots">
@@ -79,18 +78,18 @@
                 <div class="dot"></div>
             </div>
         </div>
-        
+
         <div class="pong-game">
             <div class="pong-paddle"></div>
             <div class="pong-ball"></div>
         </div>
-        
+
         <div class="asteroids">
             <div class="asteroid asteroid-1">◆</div>
             <div class="asteroid asteroid-2">◇</div>
             <div class="asteroid asteroid-3">◆</div>
         </div>
-        
+
         <div class="matrix-rain">
             <div class="matrix-column column-1"></div>
             <div class="matrix-column column-2"></div>
@@ -107,7 +106,7 @@
                 <div class="logo">
                     <img src="lafilp.png" alt="Logo" class="logo-image" onclick="goToHomePage()">
                 </div>
-                
+
                 <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
                     <span></span>
                     <span></span>
@@ -115,7 +114,7 @@
                 </button>
                 
                 <nav class="nav-buttons" id="navButtons">
-                    <a href="https://lafilec.github.io/LAFILec/" class="btn" onclick="goBack()">
+                    <a href="#" class="btn" onclick="goBack()">
                         <div class="icon icon-back"></div>
                         <span class="btn-text">RETORNAR</span>
                     </a>
@@ -145,6 +144,73 @@
                     <div class="bar"></div>
                 </div>
             </div>
+
+            <div class="instructions-section">
+                <div class="instructions-container">
+                    <div class="instructions-header">
+                        <div class="header-decoration">
+                            <div class="pixel-dot"></div>
+                            <div class="pixel-dot"></div>
+                            <div class="pixel-dot"></div>
+                        </div>
+                        <h2 class="instructions-title">CÓMO COMPARTIR LA CARTA</h2>
+                        <div class="header-decoration">
+                            <div class="pixel-dot"></div>
+                            <div class="pixel-dot"></div>
+                            <div class="pixel-dot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="instructions-grid">
+                        <div class="instruction-card download-instruction">
+                            <div class="instruction-icon">📄⬇️</div>
+                            <h3>VITRINAS 1-3: ARCHIVOS HTML</h3>
+                            <p>
+                                Descarga estos archivos HTML especiales y compártelos 
+                                por <strong>WhatsApp</strong> con tu mejor amigo. 
+                                ¡Solo tiene que abrirlos en su navegador y disfrutar 
+                                de una carta retro personalizada! 
+                            </p>
+                            <div class="instruction-steps">
+                                <span>1. Click en DESCARGAR</span>
+                                <span>2. Envía por WhatsApp</span>
+                                <span>3. Tu amigo lo abre</span>
+                                <span>4. ¡A disfrutar!</span>
+                            </div>
+                        </div>
+
+                        <div class="instruction-card link-instruction">
+                            <div class="instruction-icon">🔗🌐</div>
+                            <h3>VITRINAS 4-5: ENLACES WEB</h3>
+                            <p>
+                                Estos abren páginas web especiales. Copia el enlace 
+                                que se abre y compártelo con tu mejor amigo. 
+                                ¡Ambos pueden disfrutar de experiencias retro 
+                                únicas juntos!
+                            </p>
+                            <div class="instruction-steps">
+                                <span>1. Click en ABRIR ENLACE</span>
+                                <span>2. Copia la URL</span>
+                                <span>3. Comparte con tu amigo</span>
+                                <span>4. ¡Disfruten juntos!</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="instructions-footer">
+                        <div class="footer-message">
+                            🕹️ <span class="glow-text">¡COMPARTE LA NOSTALGIA!</span> 🕹️
+                        </div>
+                        <div class="footer-pixels">
+                            <div class="footer-pixel"></div>
+                            <div class="footer-pixel"></div>
+                            <div class="footer-pixel"></div>
+                            <div class="footer-pixel"></div>
+                            <div class="footer-pixel"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <div class="products-grid">
                 <div class="product-card">
@@ -154,11 +220,11 @@
                     </div>
                     <h3 class="product-title">Sopla y Pide un Deseo</h3>
                     <p class="product-description">
-                        Celebra con alegría cada año de vida.
+                       Celebra con alegría cada año de vida.
                     </p>
                     <button class="download-btn" onclick="downloadFile('feliz dia.html')">
                         <div class="btn-icon">⬇</div>
-                        DESCARGAR ARCHIVO
+                        DESCARGAR HTML
                     </button>
                 </div>
 
@@ -171,9 +237,9 @@
                     <p class="product-description">
                         Un mensaje eterno para quien hace vibrar tu corazón.
                     </p>
-                    <button class="download-btn" onclick="downloadFile('producto2.zip')">
+                    <button class="download-btn" onclick="downloadFile('rose.html')">
                         <div class="btn-icon">⬇</div>
-                        DESCARGAR ARCHIVO
+                        DESCARGAR HTML
                     </button>
                 </div>
 
@@ -186,9 +252,9 @@
                     <p class="product-description">
                         El arte de invitar con distinción.
                     </p>
-                    <button class="download-btn" onclick="downloadFile('producto3.zip')">
+                    <button class="download-btn" onclick="downloadFile('sombras.html')">
                         <div class="btn-icon">⬇</div>
-                        DESCARGAR ARCHIVO
+                        DESCARGAR HTML
                     </button>
                 </div>
 
@@ -201,30 +267,30 @@
                     <p class="product-description">
                         Un viaje al pasado en cada palabra.
                     </p>
-                    <button class="download-btn" onclick="downloadFile('producto4.zip')">
-                        <div class="btn-icon">⬇</div>
-                        DESCARGAR ARCHIVO
+                    <button class="link-btn" onclick="openExternalLink('https://erick04a.github.io/Historia/')">
+                        <div class="btn-icon">🔗</div>
+                        ABRIR ENLACE
                     </button>
                 </div>
 
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="art.jpg" alt="Producto 5" class="product-img">
+                        <img src="VL.jpg" alt="Producto 5" class="product-img">
                         <div class="pixel-border"></div>
                     </div>
-                    <h3 class="product-title">Colores que Hablan</h3>
+                    <h3 class="product-title">Vía Láctea</h3>
                     <p class="product-description">
-                        Un lienzo digital para expresar lo que sientes.
+                        Explora la inmensidad del universo y déjate envolver por el brillo eterno de las estrellas.
                     </p>
-                    <button class="download-btn" onclick="downloadFile('producto5.zip')">
-                        <div class="btn-icon">⬇</div>
-                        DESCARGAR ARCHIVO
+                    <button class="link-btn" onclick="openExternalLink('https://erick04a.github.io/galaxy/')">
+                        <div class="btn-icon">🔗</div>
+                        ABRIR ENLACE
                     </button>
                 </div>
 
                 <div class="product-card special-card">
                     <div class="product-image">
-                        <img src="rose.jpg" alt="Personalización" class="product-img">
+                        <img src="carta.jpg" alt="Personalización" class="product-img">
                         <div class="pixel-border special-border"></div>
                         <div class="sparkles">
                             <div class="sparkle"></div>
@@ -257,7 +323,13 @@
                 <p>Ofrecemos productos completamente personalizados para satisfacer tus necesidades específicas.</p>
                 <div class="contact-info">
                     <p>Para más información y cotización de precios, contáctate con:</p>
-                    <p class="contact-name">[TU NOMBRE AQUÍ]</p>
+                    <p class="contact-name">Erick</p>
+                    <div class="whatsapp-contact">
+                        <a href="https://wa.me/593991389252" target="_blank" class="whatsapp-btn">
+                            <div class="whatsapp-icon">💬</div>
+                            <span>WhatsApp: +593 991 389 252</span>
+                        </a>
+                    </div>
                 </div>
                 <p>Juntos crearemos algo único con estética retro-futurista que supere tus expectativas.</p>
                 <div class="modal-pixels">
@@ -276,7 +348,7 @@
                 <div class="footer-pixel"></div>
                 <div class="footer-pixel"></div>
             </div>
-            <p>© 2025 La Fil. Todos los derechos reservados.</p>
+            <p>© 2025 - TODOS LOS DERECHOS RESERVADOS</p>
         </div>
     </footer>
 
