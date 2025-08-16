@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Feliz Cumpleaños!</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
         
         * {
             margin: 0;
@@ -14,123 +14,200 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #FFE5F1 0%, #E8F4FD 25%, #FFF2E8 50%, #F0F8E8 75%, #F8E8FF 100%);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-        }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        .container {
-            position: relative;
-            z-index: 10;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
+            width: 100vw;
+        }
+
+        .confetti-border {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            animation: gentleFloat 6s ease-in-out infinite;
+        }
+
+        .confetti-piece:nth-child(1) { background: #FF6B9D; top: 5%; left: 3%; animation-delay: 0s; }
+        .confetti-piece:nth-child(2) { background: #4ECDC4; top: 10%; right: 5%; animation-delay: 1s; }
+        .confetti-piece:nth-child(3) { background: #FFE66D; bottom: 15%; left: 2%; animation-delay: 2s; }
+        .confetti-piece:nth-child(4) { background: #A8E6CF; top: 25%; left: 1%; animation-delay: 3s; }
+        .confetti-piece:nth-child(5) { background: #DDA0DD; bottom: 25%; right: 3%; animation-delay: 1.5s; }
+        .confetti-piece:nth-child(6) { background: #87CEEB; top: 40%; right: 1%; animation-delay: 2.5s; }
+        .confetti-piece:nth-child(7) { background: #FFA07A; bottom: 40%; left: 4%; animation-delay: 0.5s; }
+        .confetti-piece:nth-child(8) { background: #98FB98; top: 60%; left: 0.5%; animation-delay: 3.5s; }
+        .confetti-piece:nth-child(9) { background: #F0E68C; bottom: 60%; right: 2%; animation-delay: 1.8s; }
+        .confetti-piece:nth-child(10) { background: #DDA0DD; top: 80%; right: 4%; animation-delay: 2.8s; }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(120deg); }
+            66% { transform: translateY(5px) rotate(240deg); }
+        }
+
+        .envelope-container {
+            position: relative;
+            z-index: 100;
+            cursor: pointer;
+            transition: all 0.6s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(135deg, #FF6B9D, #4ECDC4);
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            animation: envelopePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes envelopePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .envelope-flap {
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 100px solid #FFE66D;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 8px 8px 0 0;
+            z-index: 2;
+            transition: all 0.8s ease;
+            transform-origin: bottom center;
+        }
+
+        .envelope-body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #FF6B9D, #4ECDC4);
+            border-radius: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .surprise-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            z-index: 3;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+            100% { text-shadow: 2px 2px 20px rgba(255,255,255,0.8); }
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666;
+            font-size: 1rem;
+            font-weight: 600;
+            animation: bounce 2s infinite;
         }
 
         .birthday-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            padding: 40px 25px;
             text-align: center;
             max-width: 600px;
-            width: 100%;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            animation: cardEntrance 2s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .birthday-card::before {
-            content: '';
+            width: 95vw;
+            min-height: 650px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(
-                from 0deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
-            animation: rotate 10s linear infinite;
-            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.3) rotateY(180deg);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            opacity: 0;
+            transition: all 1s ease;
         }
 
-        @keyframes cardEntrance {
-            0% {
-                opacity: 0;
-                transform: scale(0.5) rotateY(180deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotateY(0deg);
-            }
+        .birthday-card.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1) rotateY(0deg);
         }
 
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .envelope-container.opened {
+            opacity: 0;
+            transform: scale(0.1);
+            pointer-events: none;
+        }
+
+        .envelope-container.opened .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .card-header {
+            margin-bottom: 25px;
         }
 
         .birthday-emoji {
-            font-size: 80px;
-            margin-bottom: 30px;
+            font-size: 55px;
+            margin-bottom: 15px;
             animation: bounce 2s infinite;
             display: inline-block;
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-20px);
-            }
-            60% {
-                transform: translateY(-10px);
-            }
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
         }
 
         .main-title {
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347, #FF1493, #9370DB, #00CED1);
+            background: linear-gradient(45deg, #FF6B9D, #4ECDC4, #FFE66D, #A8E6CF, #DDA0DD);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-            margin-bottom: 20px;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            animation: gradientShift 4s ease-in-out infinite;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: none;
+            padding: 0 10px;
         }
 
         @keyframes gradientShift {
@@ -139,137 +216,112 @@
         }
 
         .subtitle {
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 40px;
-            animation: slideInUp 1s ease-out 0.5s both;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
 
-        @keyframes slideInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .balloons-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 12px;
+            margin: 25px 0;
+            height: 100px;
+        }
+
+        .balloon {
+            position: relative;
+            animation: floatBalloon 4s ease-in-out infinite;
+        }
+
+        .balloon-body {
+            width: 35px;
+            height: 48px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            box-shadow: inset -3px -3px 8px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .balloon:nth-child(1) .balloon-body { 
+            background: linear-gradient(135deg, #FF6B9D, #FF8FA3); 
+            animation-delay: 0s; 
+        }
+        .balloon:nth-child(2) .balloon-body { 
+            background: linear-gradient(135deg, #4ECDC4, #7EDBD3); 
+            animation-delay: 0.8s; 
+        }
+        .balloon:nth-child(3) .balloon-body { 
+            background: linear-gradient(135deg, #FFE66D, #FFED8A); 
+            animation-delay: 1.6s; 
+        }
+        .balloon:nth-child(4) .balloon-body { 
+            background: linear-gradient(135deg, #A8E6CF, #C3EFDC); 
+            animation-delay: 2.4s; 
+        }
+        .balloon:nth-child(5) .balloon-body { 
+            background: linear-gradient(135deg, #DDA0DD, #E6B8E6); 
+            animation-delay: 3.2s; 
+        }
+
+        .balloon-string {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 25px;
+            background: #999;
+        }
+
+        .balloon-highlight {
+            position: absolute;
+            top: 6px;
+            left: 10px;
+            width: 6px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+        }
+
+        @keyframes floatBalloon {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-18px); }
+        }
+
+        .message-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 15px 0;
         }
 
         .message {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.8;
-            margin-bottom: 40px;
-            animation: slideInUp 1s ease-out 1s both;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .balloons {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin-bottom: 40px;
-            animation: slideInUp 1s ease-out 1.5s both;
-        }
-
-        .candle {
-            position: relative;
-            width: 12px;
-            height: 60px;
-            margin: 0 8px;
-            animation: float 3s ease-in-out infinite;
-            display: inline-block;
-        }
-
-        .candle-body {
-            width: 100%;
-            height: 80%;
-            border-radius: 6px 6px 2px 2px;
-            position: relative;
-            box-shadow: inset -2px 0 4px rgba(0,0,0,0.2), 0 0 10px rgba(255,255,255,0.3);
-        }
-
-        .candle:nth-child(1) .candle-body {
-            background: linear-gradient(135deg, #FF6B6B, #FF4757);
-            animation-delay: 0s;
-        }
-
-        .candle:nth-child(2) .candle-body {
-            background: linear-gradient(135deg, #4ECDC4, #26d0ce);
-            animation-delay: 0.5s;
-        }
-
-        .candle:nth-child(3) .candle-body {
-            background: linear-gradient(135deg, #FFE66D, #ffd32a);
-            animation-delay: 1s;
-        }
-
-        .candle:nth-child(4) .candle-body {
-            background: linear-gradient(135deg, #A8E6CF, #7bed9f);
-            animation-delay: 1.5s;
-        }
-
-        .candle:nth-child(5) .candle-body {
-            background: linear-gradient(135deg, #DDA0DD, #c44569);
-            animation-delay: 2s;
-        }
-
-        .wick {
-            position: absolute;
-            top: -3px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 6px;
-            background: #2c2c2c;
-            border-radius: 1px;
-        }
-
-        .flame {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8px;
-            height: 12px;
-            background: radial-gradient(circle, #FFD700 20%, #FF6B35 70%, #FF4757 100%);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            animation: flicker 1.5s ease-in-out infinite alternate;
-            box-shadow: 0 0 10px #FFD700, 0 0 20px #FF6B35, 0 0 30px #FF4757;
-        }
-
-        @keyframes flicker {
-            0% { transform: translateX(-50%) scale(1) rotate(-1deg); }
-            25% { transform: translateX(-50%) scale(1.05) rotate(1deg); }
-            50% { transform: translateX(-50%) scale(0.95) rotate(-0.5deg); }
-            75% { transform: translateX(-50%) scale(1.02) rotate(0.5deg); }
-            100% { transform: translateX(-50%) scale(1) rotate(0deg); }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 18px;
+            border: 2px solid rgba(255, 182, 193, 0.3);
         }
 
         .celebrate-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B9D, #4ECDC4);
             color: white;
             border: none;
             padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            animation: slideInUp 1s ease-out 2s both;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+            font-family: 'Nunito', sans-serif;
             position: relative;
             overflow: hidden;
         }
@@ -282,7 +334,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: all 0.5s;
+            transition: all 0.6s;
         }
 
         .celebrate-btn:hover::before {
@@ -291,7 +343,15 @@
 
         .celebrate-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.6);
+        }
+
+        .wish-text {
+            font-size: 0.95rem;
+            color: #777;
+            margin-top: 20px;
+            font-style: italic;
+            font-weight: 600;
         }
 
         .confetti-container {
@@ -304,13 +364,12 @@
             z-index: 1000;
         }
 
-        .confetti {
+        .confetti-fall {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #FFD700;
-            border-radius: 50%;
-            animation: confettiFall 3s linear infinite;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            animation: confettiFall 4s linear infinite;
         }
 
         @keyframes confettiFall {
@@ -324,138 +383,230 @@
             }
         }
 
-        .music-icon {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            animation: musicFloat 4s ease-in-out infinite;
-            opacity: 0.7;
-        }
-
-        .music-icon::before {
-            content: '';
-            position: absolute;
-            width: 3px;
-            height: 15px;
-            background: rgba(255, 255, 255, 0.8);
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        .music-icon::after {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50% 50% 50% 0;
-            right: 0;
-            top: 0;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            border-left: none;
-        }
-
-        .music-icon-2::after {
-            width: 6px;
-            height: 4px;
-            top: 8px;
-        }
-
-        @keyframes musicFloat {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-                opacity: 0.6;
-            }
-            50% {
-                transform: translateY(-30px) rotate(180deg);
-                opacity: 1;
-            }
-        }
-
-        .wish-text {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-top: 30px;
-            font-style: italic;
-            animation: slideInUp 1s ease-out 2.5s both;
-        }
-
         @media (max-width: 768px) {
+            .envelope {
+                width: 280px;
+                height: 180px;
+            }
+
+            .envelope-flap {
+                border-left: 140px solid transparent;
+                border-right: 140px solid transparent;
+                border-bottom: 90px solid #FFD700;
+            }
+
+            .envelope-flap::before {
+                bottom: -85px;
+                left: -135px;
+                width: 270px;
+                height: 80px;
+            }
+
+            .wax-seal {
+                top: 70px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .wax-seal::before {
+                font-size: 16px;
+            }
+
+            .stamp {
+                width: 40px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .surprise-text {
+                font-size: 2.2rem;
+            }
+
             .birthday-card {
-                padding: 40px 20px;
-                margin: 10px;
+                padding: 30px 20px;
+                min-height: 580px;
+                max-width: 450px;
+                width: 90vw;
+                transform: translate(-50%, -50%) scale(0.3) rotateY(180deg);
+            }
+            
+            .birthday-card.show {
+                transform: translate(-50%, -50%) scale(1) rotateY(0deg);
             }
             
             .main-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+                padding: 0 5px;
             }
             
             .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .message {
                 font-size: 1rem;
             }
             
-            .candle {
-                width: 30px;
-                height: 45px;
+            .message {
+                font-size: 0.95rem;
+                padding: 18px;
+            }
+            
+            .balloon-body {
+                width: 28px;
+                height: 38px;
+            }
+            
+            .balloons-container {
+                height: 80px;
+                gap: 8px;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .envelope {
+                width: 240px;
+                height: 160px;
+            }
+
+            .envelope-flap {
+                border-left: 120px solid transparent;
+                border-right: 120px solid transparent;
+                border-bottom: 80px solid #FFD700;
+            }
+
+            .envelope-flap::before {
+                bottom: -75px;
+                left: -115px;
+                width: 230px;
+                height: 70px;
+            }
+
+            .wax-seal {
+                top: 60px;
+                width: 35px;
+                height: 35px;
+            }
+
+            .wax-seal::before {
+                font-size: 14px;
+            }
+
+            .stamp {
+                width: 35px;
+                height: 28px;
+                font-size: 12px;
+                top: 15px;
+                right: 15px;
+            }
+
+            .surprise-text {
+                font-size: 1.8rem;
+                letter-spacing: 1px;
+            }
+
+            .birthday-card {
+                max-width: 380px;
+                width: 95vw;
+                padding: 25px 15px;
+                transform: translate(-50%, -50%) scale(0.3) rotateY(180deg);
+            }
+
+            .birthday-card.show {
+                transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+            }
+
+            .main-title {
+                font-size: 1.9rem;
+                padding: 0 5px;
+                line-height: 1.3;
+            }
+
+            body {
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="stars"></div>
-    
-    <div class="container">
-        <div class="birthday-card">
-            <div class="music-icon" style="top: 10%; left: 10%;"></div>
-            <div class="music-icon music-icon-2" style="top: 20%; right: 15%;"></div>
-            <div class="music-icon" style="bottom: 30%; left: 20%;"></div>
-            <div class="music-icon music-icon-2" style="bottom: 40%; right: 10%;"></div>
-            
-            <div class="birthday-emoji">🎉</div>
-            
-            <h1 class="main-title">¡FELIZ CUMPLEAÑOS!</h1>
-            
-            <p class="subtitle">Que este día sea tan especial como tú</p>
-            
-            <div class="balloons">
-                <div class="candle">
-                    <div class="candle-body"></div>
-                    <div class="wick"></div>
-                    <div class="flame"></div>
-                </div>
-                <div class="candle">
-                    <div class="candle-body"></div>
-                    <div class="wick"></div>
-                    <div class="flame"></div>
-                </div>
-                <div class="candle">
-                    <div class="candle-body"></div>
-                    <div class="wick"></div>
-                    <div class="flame"></div>
-                </div>
-                <div class="candle">
-                    <div class="candle-body"></div>
-                    <div class="wick"></div>
-                    <div class="flame"></div>
-                </div>
-                <div class="candle">
-                    <div class="candle-body"></div>
-                    <div class="wick"></div>
-                    <div class="flame"></div>
+    <div class="confetti-border">
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+    </div>
+
+    <div class="envelope-container" id="envelopeContainer" onclick="openEnvelope()">
+        <div class="envelope">
+            <div class="envelope-back"></div>
+            <div class="envelope-decorations">
+                <div class="stamp">🎂</div>
+                <div class="address-lines">
+                    <div class="address-line"></div>
+                    <div class="address-line"></div>
+                    <div class="address-line"></div>
                 </div>
             </div>
-            
-            <p class="message">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal"></div>
+            <div class="surprise-text">SORPRESA</div>
+        </div>
+        <div class="click-hint">👆 Haz click para abrir</div>
+    </div>
+    
+    <div class="birthday-card" id="birthdayCard">
+        <div class="card-header">
+            <div class="birthday-emoji">🎉</div>
+            <h1 class="main-title">¡FELIZ CUMPLEAÑOS!</h1>
+            <p class="subtitle">Que este día sea tan especial como tú</p>
+        </div>
+        
+        <div class="balloons-container">
+            <div class="balloon">
+                <div class="balloon-body">
+                    <div class="balloon-highlight"></div>
+                </div>
+                <div class="balloon-string"></div>
+            </div>
+            <div class="balloon">
+                <div class="balloon-body">
+                    <div class="balloon-highlight"></div>
+                </div>
+                <div class="balloon-string"></div>
+            </div>
+            <div class="balloon">
+                <div class="balloon-body">
+                    <div class="balloon-highlight"></div>
+                </div>
+                <div class="balloon-string"></div>
+            </div>
+            <div class="balloon">
+                <div class="balloon-body">
+                    <div class="balloon-highlight"></div>
+                </div>
+                <div class="balloon-string"></div>
+            </div>
+            <div class="balloon">
+                <div class="balloon-body">
+                    <div class="balloon-highlight"></div>
+                </div>
+                <div class="balloon-string"></div>
+            </div>
+        </div>
+        
+        <div class="message-section">
+            <div class="message">
                 En tu día especial, quiero que sepas lo importante que eres para mí. 
                 Que este nuevo año de vida esté lleno de aventuras increíbles, 
                 momentos mágicos y toda la felicidad que mereces. 
                 ¡Eres una persona extraordinaria y hoy celebramos tu existencia!
-            </p>
+            </div>
             
             <button class="celebrate-btn" onclick="celebrate()">¡CELEBRAR! 🎊</button>
             
@@ -466,108 +617,76 @@
     <div class="confetti-container" id="confettiContainer"></div>
 
     <script>
-        // Crear estrellas animadas
-        function createStars() {
-            const starsContainer = document.querySelector('.stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = star.style.height = Math.random() * 3 + 1 + 'px';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-
-        // Función de celebración con confetti
-        function celebrate() {
-            const confettiContainer = document.getElementById('confettiContainer');
-            const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98FB98'];
+        function openEnvelope() {
+            const envelopeContainer = document.getElementById('envelopeContainer');
+            const birthdayCard = document.getElementById('birthdayCard');
             
-            // Crear confetti
-            for (let i = 0; i < 100; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.animationDelay = Math.random() * 3 + 's';
-                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    
-                    confettiContainer.appendChild(confetti);
-                    
-                    // Remover confetti después de la animación
-                    setTimeout(() => {
-                        confetti.remove();
-                    }, 5000);
-                }, i * 50);
-            }
-
-            // Efectos de sonido simulados con vibración en móviles
-            if (navigator.vibrate) {
-                navigator.vibrate([100, 50, 100, 50, 100]);
-            }
-
-            // Cambiar el texto del botón temporalmente
-            const btn = document.querySelector('.celebrate-btn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '¡INCREÍBLE! 🎆';
-            btn.style.background = 'linear-gradient(135deg, #FF6B6B, #4ECDC4)';
+            envelopeContainer.classList.add('opened');
             
             setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-            }, 3000);
+                birthdayCard.classList.add('show');
 
-            // Hacer que las velas floten más rápido
-            const candles = document.querySelectorAll('.candle');
-            candles.forEach((candle, index) => {
-                candle.style.animationDuration = '1s';
-                setTimeout(() => {
-                    candle.style.animationDuration = '3s';
-                }, 3000);
-            });
-        }
-
-        // Efectos adicionales al cargar la página
-        window.addEventListener('load', () => {
-            createStars();
-            
-            // Pequeña celebración automática después de 3 segundos
-            setTimeout(() => {
-                const colors = ['#FFD700', '#FF6B6B', '#4ECDC4'];
+                const colors = ['#FF6B9D', '#4ECDC4', '#FFE66D'];
                 for (let i = 0; i < 20; i++) {
                     setTimeout(() => {
                         const confetti = document.createElement('div');
-                        confetti.className = 'confetti';
+                        confetti.className = 'confetti-fall';
                         confetti.style.left = Math.random() * 100 + '%';
                         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                        confetti.style.width = confetti.style.height = Math.random() * 8 + 4 + 'px';
+                        confetti.style.width = confetti.style.height = Math.random() * 6 + 4 + 'px';
                         document.getElementById('confettiContainer').appendChild(confetti);
                         
                         setTimeout(() => {
                             confetti.remove();
-                        }, 3000);
+                        }, 4000);
                     }, i * 100);
                 }
-            }, 3000);
-        });
+            }, 800);
+        }
 
-        // Efectos de parallax suaves
-        document.addEventListener('mousemove', (e) => {
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
+        function celebrate() {
+            const confettiContainer = document.getElementById('confettiContainer');
+            const colors = ['#FF6B9D', '#4ECDC4', '#FFE66D', '#A8E6CF', '#DDA0DD', '#87CEEB', '#FFA07A', '#98FB98'];
             
-            const card = document.querySelector('.birthday-card');
-            card.style.transform = `perspective(1000px) rotateY(${(mouseX - 0.5) * 10}deg) rotateX(${(mouseY - 0.5) * -10}deg)`;
-        });
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-fall';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    
+                    confettiContainer.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 6000);
+                }, i * 30);
+            }
 
-        // Resetear la transformación cuando el mouse sale
-        document.addEventListener('mouseleave', () => {
-            const card = document.querySelector('.birthday-card');
-            card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-        });
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100, 50, 100]);
+            }
+
+            const btn = document.querySelector('.celebrate-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '¡INCREÍBLE! 🎆';
+            btn.style.background = 'linear-gradient(135deg, #FFE66D, #A8E6CF)';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = 'linear-gradient(135deg, #FF6B9D, #4ECDC4)';
+            }, 3000);
+
+            const balloons = document.querySelectorAll('.balloon');
+            balloons.forEach((balloon) => {
+                balloon.style.animationDuration = '1.5s';
+                setTimeout(() => {
+                    balloon.style.animationDuration = '4s';
+                }, 3000);
+            });
+        }
     </script>
 </body>
 </html>
