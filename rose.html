@@ -64,7 +64,6 @@
             border-radius: 60% 40% 60% 40%;
         }
 
-        /* Pétalos internos más pequeños */
         .petal-1 {
             top: 42px;
             left: 42px;
@@ -98,7 +97,6 @@
             box-shadow: inset 1px -1px 2px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
         }
 
-        /* Pétalos medios */
         .petal-4 {
             top: 36px;
             left: 36px;
@@ -132,7 +130,6 @@
             box-shadow: inset 2px -2px 3px rgba(0,0,0,0.2), 0 2px 3px rgba(0,0,0,0.15);
         }
 
-        /* Pétalos externos */
         .petal-7 {
             top: 48px;
             left: 58px;
@@ -283,15 +280,123 @@
             margin: 0 5px;
         }
 
-        /* Animaciones románticas */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            }
+            50% {
+                text-shadow: 1px 1px 20px rgba(220, 20, 60, 0.5), 0 0 30px rgba(220, 20, 60, 0.3);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -400px 0; }
+            100% { background-position: 400px 0; }
+        }
+
+        @keyframes floatRoses {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-20px) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) translateX(var(--drift)) rotate(var(--rotation));
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes petalSway {
+            0%, 100% { transform: translateX(0px) rotate(0deg); }
+            25% { transform: translateX(8px) rotate(3deg); }
+            50% { transform: translateX(0px) rotate(0deg); }
+            75% { transform: translateX(-8px) rotate(-3deg); }
+        }
+
+        .falling-petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .falling-petal {
+            position: absolute;
+            width: 12px;
+            height: 8px;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1744 30%, #dc143c 70%, #8b0000 100%);
+            border-radius: 50% 10% 50% 10%;
+            opacity: 1;
+            animation: petalFall linear infinite;
+        }
+
+        .falling-petal::before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            right: 1px;
+            bottom: 1px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+            border-radius: 50% 10% 50% 10%;
+        }
+
+        .falling-petal::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 4px;
+            background: linear-gradient(180deg, #8b0000, #660000);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .falling-petal:nth-child(2n) {
+            width: 10px;
+            height: 6px;
+            background: linear-gradient(145deg, #ff69b4 0%, #ff1744 40%, #b91c3c 100%);
+        }
+
+        .falling-petal:nth-child(3n) {
+            width: 14px;
+            height: 9px;
+            background: linear-gradient(125deg, #ff1744 0%, #dc143c 50%, #8b0000 100%);
+            border-radius: 60% 15% 60% 15%;
+        }
+
+        .falling-petal:nth-child(1) { left: 5%; animation-duration: 8s; animation-delay: 0s; --drift: 30px; --rotation: 180deg; }
+        .falling-petal:nth-child(2) { left: 10%; animation-duration: 12s; animation-delay: 2s; --drift: -20px; --rotation: 270deg; }
+        .falling-petal:nth-child(3) { left: 15%; animation-duration: 10s; animation-delay: 4s; --drift: 40px; --rotation: 360deg; }
+        .falling-petal:nth-child(4) { left: 85%; animation-duration: 14s; animation-delay: 1s; --drift: -30px; --rotation: 450deg; }
+        .falling-petal:nth-child(5) { left: 90%; animation-duration: 9s; animation-delay: 6s; --drift: 25px; --rotation: 200deg; }
+        .falling-petal:nth-child(6) { left: 95%; animation-duration: 11s; animation-delay: 3s; --drift: -40px; --rotation: 320deg; }
+
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
-
         @keyframes sparkle {
             0%, 100% { opacity: 0; transform: scale(0.8) rotate(0deg); }
-            50% { opacity: 1; transform: scale(1) rotate(180deg); }
         }
 
         @keyframes gentleGlow {
@@ -313,8 +418,6 @@
         .title {
             animation: pulseGlow 3s ease-in-out infinite, heartbeat 2s ease-in-out infinite;
         }
-
-        /* Pequeños destellos románticos */
         .sparkle {
             position: absolute;
             width: 6px;
@@ -404,7 +507,20 @@
     </style>
 </head>
 <body>
+    <div class="falling-petals">
+        <div class="falling-petal"></div>
+        <div class="falling-petal"></div>
+        <div class="falling-petal"></div>
+        <div class="falling-petal"></div>
+        <div class="falling-petal"></div>
+        <div class="falling-petal"></div>
+    </div>
+    
     <div class="letter-container">
+        <div class="sparkle sparkle-1"></div>
+        <div class="sparkle sparkle-2"></div>
+        <div class="sparkle sparkle-3"></div>
+        
         <div class="roses-decoration">
             <div class="rose">
                 <div class="petal petal-9"></div>
@@ -433,21 +549,21 @@
             <div class="letter-body">
                 <p>Querida mía,</p>
                 
-                <p>Únicamente tú puedes hacer que mi corazón se acelere de esta manera. Cada vez que te veo, el mundo se detiene y solo existimos tú y yo en este universo infinito de amor.</p>
+                <p>Únicamente tú puedes hacer que mi corazón se acelere de esta manera. Cada vez que te veo, el mundo se detiene y solo existimos tú y yo en este universo infinito de amor que hemos creado juntos.</p>
                 
-                <p>Eternamente agradecido estoy por haberte encontrado en el momento perfecto de mi vida. Eres la respuesta a todas las preguntas que mi alma se hacía en silencio.</p>
+                <p>Eternamente agradecido estoy por haberte encontrado en el momento perfecto de mi vida. Eres la respuesta a todas las preguntas que mi alma se hacía en silencio, la melodía que mi corazón esperaba escuchar.</p>
                 
-                <p>Recordar nuestros momentos juntos me llena de una felicidad inexplicable. Cada sonrisa tuya se ha convertido en mi refugio, cada abrazo en mi hogar.</p>
+                <p>Recordar nuestros momentos juntos me llena de una felicidad inexplicable. Cada sonrisa tuya se ha convertido en mi refugio seguro, cada abrazo en mi hogar más hermoso, cada palabra tuya en mi poesía favorita.</p>
                 
-                <p>Infinitas son las razones por las que te amo. Tu bondad, tu inteligencia, tu forma única de ver la vida y esa manera especial que tienes de hacerme sentir completo.</p>
+                <p>Infinitas son las razones por las que te amo: tu risa contagiosa que ilumina mis días más grises, tu sabiduría que me inspira a ser mejor persona, y esa forma única que tienes de hacer que hasta los momentos más simples se vuelvan mágicos.</p>
                 
-                <p>Dulces son los sueños que construyo a tu lado. Imagino un futuro lleno de aventuras, crecimiento mutuo y un amor que trasciende el tiempo y las circunstancias.</p>
+                <p>Dulces son los sueños que construyo a tu lado. Veo nuestro futuro lleno de aventuras por descubrir, metas por alcanzar juntos, y un amor que crezca más fuerte con cada amanecer que compartamos.</p>
                 
-                <p>Amarte es la decisión más fácil que he tomado en mi vida, porque contigo todo tiene sentido. Eres mi compañera perfecta, mi alma gemela, mi para siempre.</p>
+                <p>Amarte es la decisión más natural y hermosa que he tomado en mi vida. Contigo he encontrado no solo a mi pareja perfecta, sino a mi mejor amiga, mi confidente, mi cómplice de vida y mi alma gemela para toda la eternidad.</p>
             </div>
 
             <div class="signature">
-                <div class="signature-line">Con amor eterno</div>
+                <div class="signature-line">Con amor infinito</div>
                 <div class="date">Septiembre 2025</div>
             </div>
         </div>
