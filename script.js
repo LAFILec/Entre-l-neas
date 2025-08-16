@@ -525,7 +525,6 @@ function goToHomePage() {
     
     setTimeout(() => {
         document.body.style.transform = 'scale(1)';
-        alert('Ir a Página Principal\nAquí pondrías tu URL: /home o /index');
     }, 300);
 }
 
@@ -537,7 +536,6 @@ function goBack() {
     
     setTimeout(() => {
         document.body.style.transform = 'translateX(0)';
-        alert('Función RETORNAR - Aquí irías a la página principal');
     }, 300);
 }
 
@@ -545,15 +543,9 @@ function openNewTab(platform) {
     playRetroSound('click');
     
     const urls = {
-        'crowdfunding': 'https://tu-crowdfunding-url.com',
-        'instagram': 'https://instagram.com/tu-usuario'
+        'crowdfunding': 'https://lafilec.github.io/crowdfunding/',
+        'instagram': 'https://www.instagram.com/lafil.ec/?igsh=MTc1MzY4MjdsYXZhYg%3D%3D'
     };
-    
-    if (platform === 'crowdfunding') {
-        alert('Abrir pestaña de Crowdfunding\nAquí pondrías tu URL real: ' + urls.crowdfunding);
-    } else if (platform === 'instagram') {
-        alert('Abrir Instagram\nAquí pondrías tu URL real: ' + urls.instagram);
-    }
 }
 
 function downloadFile(filename) {
