@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carta de Oro - Lujo y Sofisticación</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Magia Dorada - Oro sobre Sombras</title>
     <style>
         * {
             margin: 0;
@@ -13,303 +12,1011 @@
         }
 
         body {
-            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
             background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-            padding: 20px;
-        }
-
-        .card-container {
-            perspective: 1000px;
-        }
-
-        .luxury-card {
-            width: 350px;
-            height: 500px;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%);
-            border-radius: 20px;
-            position: relative;
             overflow: hidden;
-            cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
-        }
-
-        .luxury-card:hover {
-            transform: rotateY(5deg) rotateX(5deg) translateZ(20px);
-            box-shadow: 
-                0 30px 80px rgba(255, 215, 0, 0.3),
-                0 15px 40px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 215, 0, 0.1);
-        }
-
-        .golden-frame {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 2px solid transparent;
-            border-radius: 15px;
-            background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700, #DAA520) border-box;
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) padding-box, 
-                linear-gradient(#fff 0 0);
-            mask: 
-                linear-gradient(#fff 0 0) padding-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { 
-                background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700, #DAA520) border-box;
-            }
-            50% { 
-                background: linear-gradient(135deg, #DAA520, #FFD700, #FFA500, #FFD700) border-box;
-            }
-        }
-
-        .card-content {
+            height: 100vh;
+            cursor: none;
             position: relative;
+        }
+
+        #canvas {
+            display: block;
+            cursor: none;
+            background: transparent;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            padding: 40px 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            z-index: 2;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .title {
-            font-size: 28px;
-            font-weight: 300;
-            color: #FFD700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 
-                    0 0 5px #FFD700,
-                    0 0 10px #FFD700,
-                    0 0 15px #FFD700;
-            }
-            to {
-                text-shadow: 
-                    0 0 10px #FFD700,
-                    0 0 20px #FFD700,
-                    0 0 30px #FFD700;
-            }
-        }
-
-        .subtitle {
-            font-size: 14px;
-            color: #C0C0C0;
-            font-weight: 300;
-            letter-spacing: 1.5px;
-            opacity: 0.8;
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        .quote {
-            font-size: 18px;
-            color: #FFFFFF;
-            line-height: 1.6;
-            font-weight: 300;
-            font-style: italic;
-            margin-bottom: 25px;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 0.5s forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .ornament {
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #FFD700, transparent);
-            margin: 0 auto 25px;
-            opacity: 0;
-            animation: fadeIn 1s ease-out 1s forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .footer {
-            text-align: center;
-        }
-
-        .signature {
-            font-size: 16px;
-            color: #DAA520;
-            font-weight: 600;
-            letter-spacing: 1px;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 1.5s forwards;
-        }
-
-        .luxury-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
-            animation: patternMove 8s ease-in-out infinite;
-        }
-
-        @keyframes patternMove {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(10px, -10px) scale(1.05); }
-            66% { transform: translate(-5px, 10px) scale(0.95); }
-        }
-
-        .corner-accent {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border: 1px solid #FFD700;
-            opacity: 0.6;
-        }
-
-        .corner-accent.top-left {
-            top: 25px;
-            left: 25px;
-            border-right: none;
-            border-bottom: none;
-        }
-
-        .corner-accent.top-right {
-            top: 25px;
-            right: 25px;
-            border-left: none;
-            border-bottom: none;
-        }
-
-        .corner-accent.bottom-left {
-            bottom: 25px;
-            left: 25px;
-            border-right: none;
-            border-top: none;
-        }
-
-        .corner-accent.bottom-right {
-            bottom: 25px;
-            right: 25px;
-            border-left: none;
-            border-top: none;
-        }
-
-        .floating-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
             pointer-events: none;
+            z-index: -1;
         }
 
-        .particle {
+        .star {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #FFD700;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
             border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
+            animation: twinkle 2s infinite alternate;
         }
 
-        .particle:nth-child(1) { left: 20%; animation-delay: 0s; }
-        .particle:nth-child(2) { left: 40%; animation-delay: 1s; }
-        .particle:nth-child(3) { left: 60%; animation-delay: 2s; }
-        .particle:nth-child(4) { left: 80%; animation-delay: 3s; }
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(100px) scale(0);
-                opacity: 0;
+
+
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .cursor {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffd700;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.5), transparent);
+            pointer-events: none;
+            z-index: 1001;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px #ffd700;
+        }
+
+        @media (max-width: 768px) {
+            .ui-panel {
+                font-size: 12px;
+                padding: 10px;
             }
-            50% {
-                transform: translateY(-100px) scale(1);
-                opacity: 1;
+            
+            .btn {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="card-container">
-        <div class="luxury-card">
-            <div class="luxury-pattern"></div>
-            <div class="golden-frame"></div>
-            
-            <div class="corner-accent top-left"></div>
-            <div class="corner-accent top-right"></div>
-            <div class="corner-accent bottom-left"></div>
-            <div class="corner-accent bottom-right"></div>
-            
-            <div class="floating-particles">
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-            </div>
-            
-            <div class="card-content">
-                <div class="header">
-                    <h1 class="title">SOMBRAS DE ORO</h1>
-                    <p class="subtitle">POESÍA NOCTURNA</p>
-                </div>
-                
-                <div class="main-content">
-                    <p class="quote">
-                        "En las sombras más profundas<br>
-                        brilla la luz más pura,<br>
-                        donde el oro encuentra<br>
-                        su verdadero esplendor"
-                    </p>
-                    
-                    <div class="ornament"></div>
-                    
-                    <div class="signature">EXCLUSIVO</div>
-                </div>
-            </div>
-        </div>
+    <div class="stars"></div>
+    
+    <div class="controls">
+        <button class="btn" onclick="clearCanvas()">Limpiar</button>
+        <button class="btn" onclick="createRandomArt()">Creación Mágica</button>
     </div>
+
+    <div class="cursor"></div>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const cursor = document.querySelector('.cursor');
+        
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let currentPath = [];
+        let autoDrawMode = true;
+        let animationId;
+        let particles = [];
+        let artObjects = [];
+        let autoDrawQueue = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = Math.random() * 3 + 1 + 'px';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+
+        class Particle {
+            constructor(x, y, type = 'normal') {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 4;
+                this.vy = (Math.random() - 0.5) * 4;
+                this.life = 1;
+                this.decay = 0.015;
+                this.size = Math.random() * 4 + 1;
+                this.type = type;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx *= 0.99;
+                this.vy *= 0.99;
+                this.life -= this.decay;
+                this.size *= 0.99;
+                this.rotation += this.rotationSpeed;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                
+                if (this.type === 'star') {
+                    this.drawStar();
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsl(${45 + Math.sin(Date.now() * 0.001) * 10}, 100%, ${50 + this.life * 30}%)`;
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+
+            drawStar() {
+                const spikes = 5;
+                const outerRadius = this.size;
+                const innerRadius = this.size * 0.5;
+                
+                ctx.beginPath();
+                for (let i = 0; i < spikes * 2; i++) {
+                    const radius = i % 2 === 0 ? outerRadius : innerRadius;
+                    const angle = (i / (spikes * 2)) * Math.PI * 2;
+                    const x = Math.cos(angle) * radius;
+                    const y = Math.sin(angle) * radius;
+                    
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.fillStyle = `hsl(${50 + Math.sin(Date.now() * 0.002) * 20}, 90%, 70%)`;
+                ctx.fill();
+            }
+        }
+
+        class RealisticRose {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.petals = [];
+                this.leaves = [];
+                this.stem = [];
+                this.size = 0;
+                this.maxSize = 25; 
+                this.rotation = Math.random() * Math.PI * 2;
+                this.growth = 0.3;
+                this.isComplete = false;
+                this.drawingProgress = 0;
+                this.sparkles = [];
+
+                this.colorPalette = this.getRandomFlowerColor();
+                
+                this.initializePetals(); 
+                this.initializeLeaves();
+                this.initializeStem();
+                this.initializeSparkles();
+            }
+
+            getRandomFlowerColor() {
+                const flowerColors = [
+                    {
+                        primary: '#DC143C',
+                        secondary: '#B22222',
+                        accent: '#8B0000',
+                        highlight: '#FF69B4'
+                    },
+                    {
+                        primary: '#FF1493',
+                        secondary: '#FF69B4',
+                        accent: '#C71585',
+                        highlight: '#FFB6C1'
+                    },
+                    {
+                        primary: '#FFD700',
+                        secondary: '#FFA500',
+                        accent: '#FF8C00',
+                        highlight: '#FFFF99'
+                    },
+                    {
+                        primary: '#F8F8FF',
+                        secondary: '#E6E6FA',
+                        accent: '#D8BFD8',
+                        highlight: '#FFFFFF'
+                    },
+                    {
+                        primary: '#9370DB',
+                        secondary: '#8A2BE2',
+                        accent: '#4B0082',
+                        highlight: '#DDA0DD'
+                    },
+                    {
+                        primary: '#FF6347',
+                        secondary: '#FF4500',
+                        accent: '#DC143C',
+                        highlight: '#FFA07A'
+                    },
+                    {
+                        primary: '#FF7F50',
+                        secondary: '#FF6B6B',
+                        accent: '#CD5C5C',
+                        highlight: '#FFE4E1'
+                    }
+                ];
+                
+                return flowerColors[Math.floor(Math.random() * flowerColors.length)];
+            }
+
+            initializePetals() {
+                const numPetals = 16;
+                const flowerSize = Math.random();
+                
+                if (flowerSize < 0.33) {
+                    this.flowerScale = 0.65;
+                    this.maxSize = 22;
+                    this.uniformPetalSize = 0.6;
+                } else if (flowerSize < 0.67) {
+                    this.flowerScale = 0.85;
+                    this.maxSize = 35;
+                    this.uniformPetalSize = 0.75; 
+                } else {
+                    this.flowerScale = 1.1;
+                    this.maxSize = 50;
+                    this.uniformPetalSize = 0.9; 
+                }
+                
+                for (let i = 0; i < numPetals; i++) {
+                    const angle = (Math.PI * 2 / numPetals) * i + Math.random() * 0.03;
+                    const layer = Math.floor(i / 5);
+
+                    const radius = (2 + layer * 0.8) * this.flowerScale;
+                    
+                    this.petals.push({
+                        angle: angle,
+                        radius: radius,
+                        baseSize: this.uniformPetalSize,
+                        opacity: 1 - layer * 0.03,
+                        rotation: Math.random() * 0.1 - 0.05,
+                        layer: layer,
+                        asymmetry: Math.random() * 0.03 - 0.015 
+                    });
+                }
+            }
+
+            initializeLeaves() {
+                for (let i = 0; i < 3; i++) {
+                    const angle = (Math.PI * 2 / 3) * i + Math.PI;
+                    this.leaves.push({
+                        angle: angle,
+                        size: 12 * this.flowerScale, 
+                        rotation: Math.random() * 0.3 - 0.15
+                    });
+                }
+            }
+
+            initializeStem() {
+                const stemHeight = 30 * this.flowerScale;
+                
+                for (let i = 0; i < 20; i++) {
+                    this.stem.push({
+                        x: Math.sin(i * 0.1) * 2 * this.flowerScale,
+                        y: i * (stemHeight / 20),
+                        width: 2.5 * this.flowerScale - (i * 0.08 * this.flowerScale)
+                    });
+                }
+            }
+
+            initializeSparkles() {
+                const sparkleCount = Math.floor(6 + this.flowerScale * 4);
+                
+                for (let i = 0; i < sparkleCount; i++) {
+                    this.sparkles.push({
+                        angle: (Math.PI * 2 / sparkleCount) * i,
+                        distance: 35 * this.flowerScale,
+                        phase: Math.random() * Math.PI * 2,
+                        speed: 0.002 + Math.random() * 0.002
+                    });
+                }
+            }
+
+            update() {
+                if (this.size < this.maxSize) {
+                    this.size += this.growth;
+                    this.drawingProgress = Math.min(this.drawingProgress + 0.02, 1);
+                }
+                
+                if (this.size >= this.maxSize && !this.isComplete) {
+                    this.isComplete = true;
+                }
+                
+                this.rotation += 0.005;
+            }
+
+            draw() {
+                const progress = this.drawingProgress;
+                
+                ctx.save();
+                ctx.translate(this.x, this.y);
+
+                if (progress > 0.3) {
+                    ctx.save();
+                    const stemGradient = ctx.createLinearGradient(-2, 0, 2, 40);
+                    stemGradient.addColorStop(0, '#228B22');
+                    stemGradient.addColorStop(1, '#006400');
+                    ctx.fillStyle = stemGradient;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(-2, 0);
+                    this.stem.forEach((point, i) => {
+                        if (i / this.stem.length < (progress - 0.3) * 2) {
+                            ctx.lineTo(point.x - point.width/2, point.y);
+                        }
+                    });
+                    this.stem.reverse().forEach((point, i) => {
+                        if ((this.stem.length - i) / this.stem.length < (progress - 0.3) * 2) {
+                            ctx.lineTo(point.x + point.width/2, point.y);
+                        }
+                    });
+                    this.stem.reverse();
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.restore();
+                }
+
+                if (progress > 0.5) {
+                    this.leaves.forEach((leaf, i) => {
+                        if (i / this.leaves.length < (progress - 0.5) * 3) {
+                            ctx.save();
+                            ctx.rotate(leaf.angle + leaf.rotation);
+                            ctx.translate(0, -20);
+                            
+                            const leafGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, leaf.size);
+                            leafGradient.addColorStop(0, '#90EE90');
+                            leafGradient.addColorStop(0.5, '#32CD32');
+                            leafGradient.addColorStop(1, '#228B22');
+                            
+                            ctx.fillStyle = leafGradient;
+                            ctx.beginPath();
+                            ctx.ellipse(0, 0, leaf.size * 0.4, leaf.size, 0, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.restore();
+                        }
+                    });
+                }
+
+                ctx.rotate(this.rotation);
+                
+                this.petals.forEach((petal, i) => {
+                    if (i / this.petals.length < progress) {
+                        ctx.save();
+                        ctx.rotate(petal.angle + petal.rotation);
+                        ctx.globalAlpha = petal.opacity;
+                        
+                        ctx.translate(petal.asymmetry * 2, -petal.radius);
+                        
+                        const finalPetalSize = this.uniformPetalSize * 22 * this.flowerScale;
+                        
+                        const petalGradient = ctx.createRadialGradient(
+                            -finalPetalSize * 0.05, -finalPetalSize * 0.1, 0, 
+                            0, 0, finalPetalSize
+                        );
+                        
+                        if (petal.layer === 0) {
+                            petalGradient.addColorStop(0, this.colorPalette.highlight);
+                            petalGradient.addColorStop(0.3, this.colorPalette.primary);
+                            petalGradient.addColorStop(0.7, this.colorPalette.secondary);
+                            petalGradient.addColorStop(1, this.colorPalette.accent);
+                        } else if (petal.layer === 1) {
+                            petalGradient.addColorStop(0, this.colorPalette.primary);
+                            petalGradient.addColorStop(0.4, this.colorPalette.secondary);
+                            petalGradient.addColorStop(0.8, this.colorPalette.accent);
+                            petalGradient.addColorStop(1, this.mixColor(this.colorPalette.accent, '#000000', 0.2));
+                        } else {
+                            petalGradient.addColorStop(0, this.colorPalette.secondary);
+                            petalGradient.addColorStop(0.5, this.colorPalette.accent);
+                            petalGradient.addColorStop(1, this.mixColor(this.colorPalette.accent, '#000000', 0.4));
+                        }
+                        
+                        ctx.fillStyle = petalGradient;
+
+                        ctx.beginPath();
+                        ctx.moveTo(0, finalPetalSize * 0.05);
+                        ctx.bezierCurveTo(
+                            -finalPetalSize * 0.35, -finalPetalSize * 0.2,
+                            -finalPetalSize * 0.25, -finalPetalSize * 0.7,
+                            0, -finalPetalSize * 0.8
+                        );
+                        ctx.bezierCurveTo(
+                            finalPetalSize * 0.25, -finalPetalSize * 0.7,
+                            finalPetalSize * 0.35, -finalPetalSize * 0.2,
+                            0, finalPetalSize * 0.05
+                        );
+                        ctx.closePath();
+                        ctx.fill();
+
+                        ctx.globalAlpha = petal.opacity * 0.8;
+                        ctx.fillStyle = this.mixColor(this.colorPalette.primary, this.colorPalette.secondary, 0.5);
+                        ctx.beginPath();
+                        ctx.ellipse(0, finalPetalSize * 0.02, finalPetalSize * 0.15, finalPetalSize * 0.08, 0, 0, Math.PI * 2);
+                        ctx.fill();
+
+                        ctx.strokeStyle = this.mixColor(this.colorPalette.accent, '#000000', 0.3);
+                        ctx.lineWidth = 0.5 * this.flowerScale;
+                        ctx.globalAlpha = 0.25;
+                        ctx.beginPath();
+                        ctx.moveTo(0, finalPetalSize * 0.05);
+                        ctx.lineTo(0, -finalPetalSize * 0.6);
+                        ctx.moveTo(-finalPetalSize * 0.1, -finalPetalSize * 0.2);
+                        ctx.lineTo(0, -finalPetalSize * 0.4);
+                        ctx.moveTo(finalPetalSize * 0.1, -finalPetalSize * 0.2);
+                        ctx.lineTo(0, -finalPetalSize * 0.4);
+                        ctx.stroke();
+
+                        ctx.globalAlpha = 0.08;
+                        ctx.fillStyle = this.mixColor(this.colorPalette.accent, '#000000', 0.6);
+                        ctx.beginPath();
+                        ctx.moveTo(1, finalPetalSize * 0.05);
+                        ctx.bezierCurveTo(
+                            -finalPetalSize * 0.3 + 1, -finalPetalSize * 0.2 + 1,
+                            -finalPetalSize * 0.2 + 1, -finalPetalSize * 0.6 + 1,
+                            1, -finalPetalSize * 0.7 + 1
+                        );
+                        ctx.bezierCurveTo(
+                            finalPetalSize * 0.2 + 1, -finalPetalSize * 0.6 + 1,
+                            finalPetalSize * 0.3 + 1, -finalPetalSize * 0.2 + 1,
+                            1, finalPetalSize * 0.05
+                        );
+                        ctx.closePath();
+                        ctx.fill();
+                        
+                        ctx.restore();
+                    }
+                });
+
+                if (progress > 0.8) {
+                    const centerSize = 12 * this.flowerScale; 
+                    
+                    const centerGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, centerSize);
+                    centerGradient.addColorStop(0, this.mixColor(this.colorPalette.highlight, '#FFFFFF', 0.3));
+                    centerGradient.addColorStop(0.3, this.colorPalette.primary);
+                    centerGradient.addColorStop(0.7, this.mixColor(this.colorPalette.accent, '#8B4513', 0.4));
+                    centerGradient.addColorStop(1, '#8B4513');
+                    
+                    ctx.fillStyle = centerGradient;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, centerSize, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    const stamenCount = Math.floor(6 + this.flowerScale * 3);
+                    for (let i = 0; i < stamenCount; i++) {
+                        const angle = (Math.PI * 2 / stamenCount) * i;
+                        const x = Math.cos(angle) * centerSize * 0.6;
+                        const y = Math.sin(angle) * centerSize * 0.6;
+                        
+                        ctx.fillStyle = '#F0E68C';
+                        ctx.beginPath();
+                        ctx.arc(x, y, 1 * this.flowerScale, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+
+                    ctx.fillStyle = this.mixColor(this.colorPalette.accent, '#000000', 0.5);
+                    ctx.beginPath();
+                    ctx.arc(0, 0, centerSize * 0.35, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+
+                if (this.isComplete) {
+                    this.sparkles.forEach(sparkle => {
+                        sparkle.phase += sparkle.speed;
+                        const sparkleX = this.x + Math.cos(sparkle.angle + sparkle.phase) * sparkle.distance;
+                        const sparkleY = this.y + Math.sin(sparkle.angle + sparkle.phase) * sparkle.distance;
+                        
+                        ctx.save();
+                        ctx.globalAlpha = 0.6 + 0.4 * Math.sin(sparkle.phase * 3);
+                        ctx.beginPath();
+                        ctx.arc(sparkleX, sparkleY, 1.5, 0, Math.PI * 2);
+                        ctx.fillStyle = this.colorPalette.highlight;
+                        ctx.fill();
+                        
+                        ctx.shadowColor = this.colorPalette.primary;
+                        ctx.shadowBlur = 5;
+                        ctx.beginPath();
+                        ctx.arc(sparkleX, sparkleY, 0.5, 0, Math.PI * 2);
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.fill();
+                        ctx.restore();
+                    });
+                }
+            }
+
+            mixColor(color1, color2, ratio) {
+                const hex = (color) => {
+                    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+                    return result ? {
+                        r: parseInt(result[1], 16),
+                        g: parseInt(result[2], 16),
+                        b: parseInt(result[3], 16)
+                    } : null;
+                };
+                
+                const c1 = hex(color1);
+                const c2 = hex(color2);
+                
+                if (!c1 || !c2) return color1;
+                
+                const r = Math.round(c1.r * (1 - ratio) + c2.r * ratio);
+                const g = Math.round(c1.g * (1 - ratio) + c2.g * ratio);
+                const b = Math.round(c1.b * (1 - ratio) + c2.b * ratio);
+                
+                return `rgb(${r}, ${g}, ${b})`;
+            }
+        }
+
+        class GoldenButterfly {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = 0;
+                this.maxSize = 20;
+                this.growth = 0.4;
+                this.wingBeat = 0;
+                this.drawingProgress = 0;
+                this.path = this.generateFlightPath();
+                this.pathIndex = 0;
+            }
+
+            generateFlightPath() {
+                const path = [];
+                for (let i = 0; i < 50; i++) {
+                    path.push({
+                        x: this.x + Math.sin(i * 0.2) * 30,
+                        y: this.y + Math.cos(i * 0.1) * 20 - i * 2
+                    });
+                }
+                return path;
+            }
+
+            update() {
+                if (this.size < this.maxSize) {
+                    this.size += this.growth;
+                    this.drawingProgress = Math.min(this.drawingProgress + 0.03, 1);
+                }
+                
+                this.wingBeat += 0.3;
+                
+                if (this.drawingProgress >= 1 && this.pathIndex < this.path.length - 1) {
+                    this.pathIndex += 0.5;
+                    const currentPoint = this.path[Math.floor(this.pathIndex)];
+                    if (currentPoint) {
+                        this.x = currentPoint.x;
+                        this.y = currentPoint.y;
+                    }
+                }
+            }
+
+            draw() {
+                if (this.drawingProgress === 0) return;
+
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                
+                const wingScale = Math.sin(this.wingBeat) * 0.3 + 0.7;
+                
+                if (this.drawingProgress > 0.25) {
+                    ctx.save();
+                    ctx.scale(wingScale, 1);
+
+                    const wingGradient = ctx.createRadialGradient(-8, -5, 0, -8, -5, 12);
+                    wingGradient.addColorStop(0, '#FFD700');
+                    wingGradient.addColorStop(0.7, '#FFA500');
+                    wingGradient.addColorStop(1, 'rgba(255, 165, 0, 0.3)');
+                    
+                    ctx.fillStyle = wingGradient;
+                    ctx.beginPath();
+                    ctx.ellipse(-8, -5, 12, 8, Math.PI * 0.1, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.ellipse(8, -5, 12, 8, -Math.PI * 0.1, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.restore();
+                }
+
+                if (this.drawingProgress > 0.5) {
+                    ctx.save();
+                    ctx.scale(wingScale * 0.8, 1);
+                    
+                    const lowerWingGradient = ctx.createRadialGradient(-6, 2, 0, -6, 2, 8);
+                    lowerWingGradient.addColorStop(0, '#FFED4A');
+                    lowerWingGradient.addColorStop(0.7, '#FFB347');
+                    lowerWingGradient.addColorStop(1, 'rgba(255, 179, 71, 0.3)');
+                    
+                    ctx.fillStyle = lowerWingGradient;
+                    ctx.beginPath();
+                    ctx.ellipse(-6, 2, 8, 6, Math.PI * 0.05, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.beginPath();
+                    ctx.ellipse(6, 2, 8, 6, -Math.PI * 0.05, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.restore();
+                }
+ 
+                if (this.drawingProgress > 0.75) {
+                    const bodyGradient = ctx.createLinearGradient(0, -6, 0, 6);
+                    bodyGradient.addColorStop(0, '#8B4513');
+                    bodyGradient.addColorStop(1, '#A0522D');
+                    
+                    ctx.fillStyle = bodyGradient;
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, 1.5, 8, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#8B4513';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(-2, -6);
+                    ctx.lineTo(-3, -8);
+                    ctx.moveTo(2, -6);
+                    ctx.lineTo(3, -8);
+                    ctx.stroke();
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        class GoldenSpiral {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.angle = 0;
+                this.maxAngle = Math.PI * 6;
+                this.drawingSpeed = 0.1;
+                this.points = [];
+            }
+
+            update() {
+                if (this.angle < this.maxAngle) {
+                    this.angle += this.drawingSpeed;
+                    const radius = this.angle * 3;
+                    const x = this.x + Math.cos(this.angle) * radius;
+                    const y = this.y + Math.sin(this.angle) * radius;
+                    this.points.push({x, y});
+                }
+            }
+
+            draw() {
+                if (this.points.length < 2) return;
+
+                ctx.save();
+                ctx.strokeStyle = '#FFD700';
+                ctx.lineWidth = 3;
+                ctx.shadowColor = '#FFD700';
+                ctx.shadowBlur = 10;
+                ctx.lineCap = 'round';
+
+                ctx.beginPath();
+                ctx.moveTo(this.points[0].x, this.points[0].y);
+                
+                for (let i = 1; i < this.points.length; i++) {
+                    ctx.lineTo(this.points[i].x, this.points[i].y);
+                }
+                
+                ctx.stroke();
+                ctx.restore();
+                if (this.points.length > 10) {
+                    const lastPoint = this.points[this.points.length - 1];
+                    if (Math.random() < 0.3) {
+                        particles.push(new Particle(lastPoint.x, lastPoint.y, 'star'));
+                    }
+                }
+            }
+        }
+
+        class AutoDrawer {
+            constructor() {
+                this.isDrawing = false;
+                this.currentPath = [];
+                this.drawingSpeed = 2;
+                this.targetObject = null;
+                this.objectTypes = ['rose', 'rose', 'rose', 'rose', 'rose', 'rose', 'rose', 'butterfly', 'spiral', 'mandala'];
+            }
+
+            startRandomDrawing() {
+                if (this.isDrawing) return;
+
+                const centerX = canvas.width * (0.2 + Math.random() * 0.6);
+                const centerY = canvas.height * (0.2 + Math.random() * 0.6);
+                const objectType = this.objectTypes[Math.floor(Math.random() * this.objectTypes.length)];
+
+                this.drawObject(centerX, centerY, objectType);
+            }
+
+            drawObject(x, y, type) {
+                this.isDrawing = true;
+                
+                switch(type) {
+                    case 'rose':
+                        artObjects.push(new RealisticRose(x, y));
+                        break;
+                    case 'butterfly':
+                        artObjects.push(new GoldenButterfly(x, y));
+                        break;
+                    case 'spiral':
+                        artObjects.push(new GoldenSpiral(x, y));
+                        break;
+                    case 'mandala':
+                        this.drawMandala(x, y);
+                        break;
+                }
+
+                // Efectos de partículas
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        particles.push(new Particle(x, y, Math.random() < 0.3 ? 'star' : 'normal'));
+                    }, i * 100);
+                }
+
+                setTimeout(() => {
+                    this.isDrawing = false;
+                }, 2000);
+            }
+
+            drawMandala(centerX, centerY) {
+                const layers = 3;
+                const pointsPerLayer = 8;
+
+                for (let layer = 0; layer < layers; layer++) {
+                    const radius = (layer + 1) * 25;
+                    
+                    for (let i = 0; i < pointsPerLayer; i++) {
+                        const angle = (Math.PI * 2 / pointsPerLayer) * i;
+                        const x = centerX + Math.cos(angle) * radius;
+                        const y = centerY + Math.sin(angle) * radius;
+
+                        setTimeout(() => {
+                            ctx.save();
+                            ctx.strokeStyle = '#FFD700';
+                            ctx.lineWidth = 2;
+                            ctx.shadowColor = '#FFD700';
+                            ctx.shadowBlur = 8;
+                            ctx.beginPath();
+                            ctx.moveTo(centerX, centerY);
+                            ctx.lineTo(x, y);
+                            ctx.stroke();
+
+                            ctx.fillStyle = '#FFD700';
+                            ctx.beginPath();
+                            ctx.arc(x, y, 3, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.restore();
+
+                            particles.push(new Particle(x, y, 'star'));
+                        }, (layer * pointsPerLayer + i) * 100);
+                    }
+                }
+            }
+        }
+
+        const autoDrawer = new AutoDrawer();
+
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = getCoordinates(e);
+            currentPath = [{x: lastX, y: lastY}];
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const [currentX, currentY] = getCoordinates(e);
+            
+            const smoothX = lastX + (currentX - lastX) * 0.7;
+            const smoothY = lastY + (currentY - lastY) * 0.7;
+            
+            const distance = Math.sqrt((currentX - lastX) ** 2 + (currentY - lastY) ** 2);
+            const lineWidth = Math.max(1, Math.min(5, 8 - distance * 0.1));
+            
+            ctx.save();
+            ctx.strokeStyle = '#ffd700';
+            ctx.lineWidth = lineWidth;
+            ctx.shadowColor = '#ffd700';
+            ctx.shadowBlur = 8;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.quadraticCurveTo(lastX, lastY, smoothX, smoothY);
+            ctx.stroke();
+            ctx.restore();
+
+            if (Math.random() < 0.4) {
+                particles.push(new Particle(smoothX, smoothY, Math.random() < 0.2 ? 'star' : 'normal'));
+            }
+
+            currentPath.push({x: smoothX, y: smoothY});
+
+            [lastX, lastY] = [smoothX, smoothY];
+        }
+
+        function stopDrawing() {
+            if (!isDrawing) return;
+            isDrawing = false;
+            
+            if (autoDrawMode && currentPath.length > 15) {
+                analyzePathAndCreateArt();
+            }
+        }
+
+        function analyzePathAndCreateArt() {
+            if (currentPath.length === 0) return;
+            
+            let centerX = currentPath.reduce((sum, point) => sum + point.x, 0) / currentPath.length;
+            let centerY = currentPath.reduce((sum, point) => sum + point.y, 0) / currentPath.length;
+            
+            const pathLength = currentPath.length;
+            const startPoint = currentPath[0];
+            const endPoint = currentPath[pathLength - 1];
+            const distance = Math.sqrt((endPoint.x - startPoint.x) ** 2 + (endPoint.y - startPoint.y) ** 2);
+
+            let artType;
+            const random = Math.random();
+            if (random < 0.75) { 
+                artType = 'rose';
+            } else if (distance < 50 && pathLength > 20) {
+                artType = 'rose';
+            } else if (pathLength > 30 && distance > 100) {
+                artType = 'butterfly'; 
+            } else if (pathLength > 25) {
+                artType = 'spiral'; 
+            } else {
+                artType = 'rose'; 
+            }
+
+            setTimeout(() => {
+                autoDrawer.drawObject(centerX, centerY, artType);
+            }, 500);
+        }
+
+        function getCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            return [clientX - rect.left, clientY - rect.top];
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles = [];
+            artObjects = [];
+            currentPath = [];
+        }
+
+        function createRandomArt() {
+            for (let i = 0; i < 2; i++) {
+                setTimeout(() => {
+                    autoDrawer.startRandomDrawing();
+                }, i * 1000);
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.02)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles = particles.filter(particle => {
+                particle.update();
+                particle.draw();
+                return particle.life > 0 && particle.size > 0.1;
+            });
+
+            artObjects = artObjects.filter(artObject => {
+                artObject.update();
+                artObject.draw();
+                return true; 
+            });
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startDrawing(e);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            draw(e);
+        });
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            stopDrawing();
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (e.scale !== 1) { e.preventDefault(); }
+        }, { passive: false });
+        animate();
+
+        setTimeout(() => {
+        autoDrawer.drawObject(canvas.width * 0.75, canvas.height * 0.25, 'rose');
+        }, 1000);
+
+        setTimeout(() => {
+         autoDrawer.drawObject(canvas.width * 0.25, canvas.height * 0.75, 'butterfly');
+        }, 2500);
+
+        // Auto-creación periódica eliminada para control manual completo
+        // let inactivityTimer;
+        // function resetInactivityTimer() {
+        //     clearTimeout(inactivityTimer);
+        //     inactivityTimer = setTimeout(() => {
+        //         if (!isDrawing && !autoDrawer.isDrawing) {
+        //             autoDrawer.startRandomDrawing();
+        //         }
+        //     }, 15000);
+        // }
+
+        // canvas.addEventListener('mousedown', resetInactivityTimer);
+        // canvas.addEventListener('touchstart', resetInactivityTimer);
+        // resetInactivityTimer();
+    </script>
 </body>
 </html>
