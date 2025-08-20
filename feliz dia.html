@@ -418,8 +418,19 @@
                 font-size: 14px;
             }
 
+            .address-lines {
+                bottom: 35px;
+                left: 25px;
+                right: 70px;
+            }
+
             .surprise-text {
                 font-size: 2.2rem;
+            }
+
+            .candle {
+                width: 14px;
+                height: 60px;
             }
 
             .birthday-card {
@@ -500,9 +511,20 @@
                 right: 15px;
             }
 
+            .address-lines {
+                bottom: 30px;
+                left: 20px;
+                right: 60px;
+            }
+
             .surprise-text {
                 font-size: 1.8rem;
                 letter-spacing: 1px;
+            }
+
+            .candle {
+                width: 12px;
+                height: 50px;
             }
 
             .birthday-card {
@@ -559,7 +581,6 @@
         </div>
         <div class="click-hint">👆 Haz click para abrir</div>
     </div>
-    
     <div class="birthday-card" id="birthdayCard">
         <div class="card-header">
             <div class="birthday-emoji">🎉</div>
@@ -620,9 +641,8 @@
         function openEnvelope() {
             const envelopeContainer = document.getElementById('envelopeContainer');
             const birthdayCard = document.getElementById('birthdayCard');
-            
+
             envelopeContainer.classList.add('opened');
-            
             setTimeout(() => {
                 birthdayCard.classList.add('show');
 
