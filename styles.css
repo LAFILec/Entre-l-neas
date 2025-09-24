@@ -884,6 +884,8 @@ body {
 .image-placeholder {
     z-index: 2;
     text-align: center;
+    font-size: 8px;
+    color: #00ffff;
 }
 
 .pixel-border {
@@ -946,6 +948,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    text-decoration: none;
 }
 
 .download-btn {
@@ -1012,7 +1015,7 @@ body {
     padding: 0;
     border: 3px solid #00ffff;
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     box-shadow: 0 0 30px rgba(0,255,255,0.3);
     animation: modalSlide 0.3s ease;
     position: relative;
@@ -1065,7 +1068,27 @@ body {
     color: #88ccff;
     font-size: 8px;
     margin-bottom: 15px;
-    line-height: 1.4;
+    line-height: 1.5;
+}
+
+.pricing-info {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid rgba(255,255,0,0.3);
+    background: rgba(255,255,0,0.05);
+}
+
+.pricing-info h4 {
+    color: #ffff00;
+    font-size: 9px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 8px rgba(255,255,0,0.4);
+}
+
+.pricing-note {
+    font-style: italic;
+    color: #aaccff !important;
+    font-size: 7px !important;
 }
 
 .contact-info {
@@ -1095,7 +1118,7 @@ body {
     background: linear-gradient(145deg, #25D366, #128C7E);
     border: 2px solid #25D366;
     color: #ffffff;
-    padding: 10px 15px;
+    padding: 8px 12px;
     text-decoration: none;
     font-family: inherit;
     font-size: 7px;
@@ -1133,9 +1156,21 @@ body {
     box-shadow: 0 2px 4px rgba(37, 211, 102, 0.3);
 }
 
-.whatsapp-icon {
-    font-size: 12px;
+.whatsapp-icon-vintage {
+    width: 12px;
+    height: 12px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.829.358 1.474.575 1.979.735.832.266 1.589.228 2.188.138.667-.099 2.053-.84 2.34-1.65.288-.81.288-1.504.202-1.65-.087-.15-.322-.237-.677-.416z"/></svg>') no-repeat center;
+    background-size: contain;
+    flex-shrink: 0;
+    image-rendering: pixelated;
     animation: pulse 1.5s ease-in-out infinite;
+}
+
+.footer-text {
+    color: #aaccff;
+    font-size: 7px;
+    line-height: 1.4;
+    margin-top: 15px;
 }
 
 .modal-pixels {
@@ -1182,22 +1217,21 @@ body {
     margin-bottom: 15px;
 }
 
-.footer-pixel {
+.footer .footer-pixel {
     width: 6px;
     height: 6px;
     background: #00ffff;
     animation: float 3s ease-in-out infinite;
 }
 
-.footer-pixel:nth-child(2) { animation-delay: 1s; }
-.footer-pixel:nth-child(3) { animation-delay: 2s; }
+.footer .footer-pixel:nth-child(2) { animation-delay: 1s; }
+.footer .footer-pixel:nth-child(3) { animation-delay: 2s; }
 
 .footer p {
     font-size: 8px;
     color: #88ccff;
     margin: 0;
 }
-
 @media (max-width: 1024px) {
     .container {
         padding: 0 15px;
@@ -1484,7 +1518,8 @@ body {
     }
     
     .download-btn,
-    .customize-btn {
+    .customize-btn,
+    .link-btn {
         font-size: 7px;
         padding: 10px 12px;
     }
@@ -1558,6 +1593,16 @@ body {
     .footer-message {
         font-size: 7px;
     }
+    
+    .whatsapp-btn {
+        padding: 6px 10px;
+        font-size: 6px;
+    }
+    
+    .whatsapp-icon-vintage {
+        width: 10px;
+        height: 10px;
+    }
 }
 
 @keyframes slideDown {
@@ -1578,6 +1623,10 @@ body {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+    
+    .background-elements {
+        opacity: 0.5;
     }
 }
 
@@ -1608,4 +1657,26 @@ body {
     .product-image {
         height: 120px;
     }
+}
+
+button:focus,
+.btn:focus,
+.download-btn:focus,
+.link-btn:focus,
+.customize-btn:focus,
+.whatsapp-btn:focus {
+    outline: 2px solid #00ffff;
+    outline-offset: 2px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
