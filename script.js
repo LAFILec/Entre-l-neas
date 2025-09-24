@@ -16,18 +16,34 @@ function handleImageErrors() {
             this.style.display = 'none';
             const placeholder = document.createElement('div');
             placeholder.className = 'logo-placeholder';
-            placeholder.textContent = 'LOGO';
+            placeholder.textContent = 'LA FIL';
             placeholder.onclick = goToHomePage;
+            placeholder.style.cssText = `
+                width: 60px;
+                height: 60px;
+                border: 2px solid #00ffff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(45deg, #00ffff, #0088ff);
+                color: #000000;
+                font-size: 8px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                animation: glow 3s ease-in-out infinite;
+            `;
             this.parentNode.appendChild(placeholder);
         });
     }
+
     const productImages = document.querySelectorAll('.product-img');
     productImages.forEach((img, index) => {
         img.addEventListener('error', function() {
             this.style.display = 'none';
             const placeholder = document.createElement('div');
             placeholder.className = 'image-placeholder';
-            placeholder.textContent = `[IMAGEN PRODUCTO ${index + 1}]`;
+            placeholder.textContent = `PRODUCTO ${index + 1}`;
             placeholder.style.cssText = `
                 display: flex;
                 align-items: center;
@@ -37,9 +53,12 @@ function handleImageErrors() {
                 text-align: center;
                 width: 100%;
                 height: 100%;
+                border: 1px dashed rgba(0,255,255,0.3);
+                background: rgba(0,255,255,0.05);
             `;
             this.parentNode.appendChild(placeholder);
         });
+        
         img.addEventListener('load', function() {
             console.log(`Imagen cargada: ${this.src}`);
         });
@@ -53,6 +72,26 @@ function initializeApp() {
     setupModalHandlers();
     createRetroEffects();
     setupResponsiveHandlers();
+    setupAccessibilityFeatures();
+}
+
+function setupAccessibilityFeatures() {
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+        document.body.style.setProperty('--text-contrast', '1.2');
+    }
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            const focusedElement = document.activeElement;
+            if (focusedElement && (focusedElement.classList.contains('btn') || 
+                focusedElement.classList.contains('download-btn') ||
+                focusedElement.classList.contains('link-btn') ||
+                focusedElement.classList.contains('customize-btn'))) {
+                event.preventDefault();
+                focusedElement.click();
+            }
+        }
+    });
 }
 
 function setupHamburgerMenu() {
@@ -61,8 +100,11 @@ function setupHamburgerMenu() {
     
     if (hamburgerBtn && navButtons) {
         hamburgerBtn.addEventListener('click', function() {
-            hamburgerBtn.classList.toggle('active');
+            const isActive = hamburgerBtn.classList.toggle('active');
             navButtons.classList.toggle('active');
+            hamburgerBtn.setAttribute('aria-expanded', isActive);
+            navButtons.setAttribute('aria-hidden', !isActive);
+            
             playRetroSound('menu');
         });
 
@@ -72,6 +114,8 @@ function setupHamburgerMenu() {
                 if (window.innerWidth <= 768) {
                     hamburgerBtn.classList.remove('active');
                     navButtons.classList.remove('active');
+                    hamburgerBtn.setAttribute('aria-expanded', false);
+                    navButtons.setAttribute('aria-hidden', true);
                 }
             });
         });
@@ -80,6 +124,8 @@ function setupHamburgerMenu() {
             if (window.innerWidth > 768) {
                 hamburgerBtn.classList.remove('active');
                 navButtons.classList.remove('active');
+                hamburgerBtn.setAttribute('aria-expanded', false);
+                navButtons.setAttribute('aria-hidden', false);
             }
         });
     }
@@ -93,6 +139,8 @@ function initSnakeGame() {
     const size = window.innerWidth <= 480 ? 60 : window.innerWidth <= 768 ? 80 : 100;
     canvas.width = size;
     canvas.height = size;
+    canvas.setAttribute('aria-label', 'Juego Snake decorativo en segundo plano');
+    
     resetSnakeGame();
     startSnakeGame();
 }
@@ -168,6 +216,7 @@ function updateSnake() {
 function drawGame() {
     ctx.fillStyle = '#001122';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
     ctx.fillStyle = '#00ffff';
     snake.forEach((segment, index) => {
         if (index === 0) {
@@ -180,6 +229,7 @@ function drawGame() {
 
     ctx.fillStyle = '#ff6666';
     ctx.fillRect(food.x, food.y, 8, 8);
+    
     ctx.strokeStyle = '#003366';
     ctx.lineWidth = 1;
     for (let x = 0; x < canvas.width; x += 10) {
@@ -251,7 +301,7 @@ function activateGeekMode() {
     });
 
     setTimeout(() => {
-        alert('🤓 ¡MODO GEEK ACTIVADO! 🕹️\n¡El maestro del retro-tech ha despertado!');
+        showNotification('MODO GEEK ACTIVADO', 'El maestro del retro-tech ha despertado', 'success');
 
         setTimeout(() => {
             statue.style.animation = 'statueBreath 8s ease-in-out infinite';
@@ -277,33 +327,43 @@ function activateGeekMode() {
     }, 500);
 }
 
-function addRetroLoadingEffect() {
-    const loadingBar = document.createElement('div');
-    loadingBar.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 3px;
-        background: linear-gradient(90deg, #00ffff, #0088ff);
-        z-index: 10000;
-        transition: width 2s ease-out;
-        box-shadow: 0 0 10px rgba(0,255,255,0.5);
+function showNotification(title, message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <h4>${title}</h4>
+            <p>${message}</p>
+        </div>
     `;
     
-    document.body.appendChild(loadingBar);
-
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(145deg, #001122, #002233);
+        border: 2px solid ${type === 'success' ? '#00ff88' : '#00ffff'};
+        color: ${type === 'success' ? '#00ff88' : '#00ffff'};
+        padding: 15px 20px;
+        font-family: 'Press Start 2P', cursive;
+        font-size: 8px;
+        z-index: 10000;
+        animation: notificationSlide 0.5s ease-out;
+        box-shadow: 0 0 20px rgba(${type === 'success' ? '0,255,136' : '0,255,255'},0.3);
+        max-width: 300px;
+        word-wrap: break-word;
+    `;
+    
+    document.body.appendChild(notification);
+    
     setTimeout(() => {
-        loadingBar.style.width = '100%';
-    }, 100);
-    setTimeout(() => {
-        loadingBar.style.opacity = '0';
+        notification.style.animation = 'notificationFadeOut 0.5s ease-in forwards';
         setTimeout(() => {
-            if (loadingBar.parentNode) {
-                loadingBar.parentNode.removeChild(loadingBar);
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
             }
         }, 500);
-    }, 2500);
+    }, 3000);
 }
 
 function createSubtleParticles() {
@@ -413,6 +473,10 @@ function addButtonEffects() {
     const buttons = document.querySelectorAll('.btn, .download-btn, .customize-btn, .link-btn');
     
     buttons.forEach(button => {
+        if (!button.hasAttribute('tabindex')) {
+            button.setAttribute('tabindex', '0');
+        }
+        
         button.addEventListener('mouseenter', function() {
             playRetroSound('hover');
             createButtonSparkles(this);
@@ -421,6 +485,12 @@ function addButtonEffects() {
         button.addEventListener('click', function() {
             playRetroSound('click');
             createClickEffect(this);
+        });
+        button.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                this.click();
+            }
         });
     });
 }
@@ -519,33 +589,25 @@ function flashScreen(color, opacity) {
 
 function goToHomePage() {
     playRetroSound('click');
-    console.log('Navegando a página principal...');
+    console.log('Redirigiendo a la página principal de La Fil...');
     document.body.style.transform = 'scale(0.95)';
     document.body.style.transition = 'transform 0.3s ease-in-out';
     
     setTimeout(() => {
-        document.body.style.transform = 'scale(1)';
+        window.location.href = 'https://lafilec.github.io/LAFILec/';
     }, 300);
 }
 
 function goBack() {
     playRetroSound('click');
-    console.log('Navegando hacia atrás...');
+    console.log('Redirigiendo hacia atrás...');
+    
     document.body.style.transform = 'translateX(-100%)';
     document.body.style.transition = 'transform 0.3s ease-in-out';
     
     setTimeout(() => {
-        document.body.style.transform = 'translateX(0)';
+        window.location.href = 'https://lafilec.github.io/LAFILec/';
     }, 300);
-}
-
-function openNewTab(platform) {
-    playRetroSound('click');
-    
-    const urls = {
-        'crowdfunding': 'https://lafilec.github.io/crowdfunding/',
-        'instagram': 'https://www.instagram.com/lafil.ec/?igsh=MTc1MzY4MjdsYXZhYg%3D%3D'
-    };
 }
 
 function downloadFile(filename) {
@@ -555,9 +617,12 @@ function downloadFile(filename) {
     downloadLink.href = filename;
     downloadLink.download = filename;
     downloadLink.style.display = 'none';
+    downloadLink.setAttribute('aria-label', `Descargar archivo ${filename}`);
     document.body.appendChild(downloadLink);
 
     const downloadEffect = document.createElement('div');
+    downloadEffect.setAttribute('role', 'status');
+    downloadEffect.setAttribute('aria-live', 'polite');
     downloadEffect.style.cssText = `
         position: fixed;
         top: 50%;
@@ -575,8 +640,9 @@ function downloadFile(filename) {
         min-width: 200px;
         box-shadow: 0 0 20px rgba(0,255,136,0.3);
     `;
+    
     downloadEffect.innerHTML = `
-        <div>📄 DESCARGANDO...</div>
+        <div>DESCARGANDO ARCHIVO...</div>
         <div style="margin-top: 10px; font-size: 6px;">${filename}</div>
         <div style="margin-top: 15px;">
             <div style="width: 100%; height: 4px; background: #003366; border: 1px solid #00ff88;">
@@ -590,6 +656,7 @@ function downloadFile(filename) {
     setTimeout(() => {
         downloadLink.click();
         console.log(`Iniciando descarga: ${filename}`);
+        showNotification('DESCARGA INICIADA', `Archivo ${filename} descargándose`, 'success');
     }, 500);
 
     setTimeout(() => {
@@ -606,6 +673,8 @@ function openExternalLink(url) {
     playRetroSound('click');
     
     const linkEffect = document.createElement('div');
+    linkEffect.setAttribute('role', 'status');
+    linkEffect.setAttribute('aria-live', 'polite');
     linkEffect.style.cssText = `
         position: fixed;
         top: 50%;
@@ -623,16 +692,18 @@ function openExternalLink(url) {
         min-width: 200px;
         box-shadow: 0 0 20px rgba(0,170,255,0.3);
     `;
+    
     linkEffect.innerHTML = `
-        <div>🔗 ABRIENDO ENLACE...</div>
-        <div style="margin-top: 15px; font-size: 6px; word-break: break-all;">${url}</div>
+        <div>ABRIENDO EXPERIENCIA...</div>
+        <div style="margin-top: 15px; font-size: 6px; word-break: break-all;">Redirigiendo a contenido externo</div>
     `;
     
     document.body.appendChild(linkEffect);
 
     setTimeout(() => {
         window.open(url, '_blank', 'noopener,noreferrer');
-        console.log(`Abriendo enlace: ${url}`);
+        console.log(`Abriendo experiencia en: ${url}`);
+        showNotification('EXPERIENCIA ABIERTA', 'Nueva pestaña iniciada correctamente', 'success');
     }, 800);
 
     setTimeout(() => {
@@ -648,6 +719,13 @@ function setupModalHandlers() {
     
     if (closeBtn) {
         closeBtn.addEventListener('click', closeCustomModal);
+        closeBtn.setAttribute('tabindex', '0');
+        closeBtn.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                closeCustomModal();
+            }
+        });
     }
 
     window.addEventListener('click', function(event) {
@@ -672,7 +750,10 @@ function setupModalHandlers() {
         whatsappBtn.addEventListener('click', function() {
             playRetroSound('click');
             createClickEffect(this);
+            
             const whatsappEffect = document.createElement('div');
+            whatsappEffect.setAttribute('role', 'status');
+            whatsappEffect.setAttribute('aria-live', 'polite');
             whatsappEffect.style.cssText = `
                 position: fixed;
                 top: 50%;
@@ -690,8 +771,8 @@ function setupModalHandlers() {
                 box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
             `;
             whatsappEffect.innerHTML = `
-                <div>💬 ABRIENDO WHATSAPP...</div>
-                <div style="margin-top: 8px; font-size: 6px;">¡Listo para personalizar!</div>
+                <div>ABRIENDO WHATSAPP...</div>
+                <div style="margin-top: 8px; font-size: 6px;">Contactando desarrollador</div>
             `;
             
             document.body.appendChild(whatsappEffect);
@@ -710,7 +791,12 @@ function openCustomModal() {
     const modal = document.getElementById('customModal');
     if (modal) {
         modal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; 
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            const closeBtn = modal.querySelector('.close');
+            if (closeBtn) closeBtn.focus();
+        }, 100);
 
         createModalPixels();
     }
@@ -721,7 +807,10 @@ function closeCustomModal() {
     const modal = document.getElementById('customModal');
     if (modal) {
         modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = 'auto';
+        const customizeBtn = document.querySelector('.customize-btn');
+        if (customizeBtn) customizeBtn.focus();
     }
 }
 
@@ -739,6 +828,7 @@ function createModalPixels() {
                 background: #00ffff;
                 opacity: 0.8;
                 animation: modalPixelFloat 2s ease-out forwards;
+                pointer-events: none;
             `;
             
             const rect = modal.getBoundingClientRect();
@@ -767,7 +857,6 @@ function handleResize() {
         canvas.width = size;
         canvas.height = size;
     }
-
     if (window.innerWidth <= 768) {
         gameRunning = false;
     } else {
@@ -787,6 +876,8 @@ function handleOrientationChange() {
         if (hamburgerBtn && navButtons) {
             hamburgerBtn.classList.remove('active');
             navButtons.classList.remove('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+            navButtons.setAttribute('aria-hidden', 'false');
         }
     }, 100);
 }
@@ -864,23 +955,46 @@ function addDynamicStyles() {
             }
         }
         
-        /* Mejoras de rendimiento */
+        @keyframes notificationSlide {
+            0% { 
+                transform: translateX(100%); 
+                opacity: 0; 
+            }
+            100% { 
+                transform: translateX(0); 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes notificationFadeOut {
+            0% { 
+                transform: translateX(0); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateX(100%); 
+                opacity: 0; 
+            }
+        }
+        
         .background-elements * {
             will-change: transform;
         }
         
-        /* Suavizar animaciones en dispositivos de bajo rendimiento */
         @media (prefers-reduced-motion: reduce) {
             .background-elements {
-                display: none;
+                opacity: 0.3;
+            }
+            
+            .background-elements * {
+                animation-duration: 0.1s !important;
+                animation-iteration-count: 1 !important;
             }
         }
     `;
     
     document.head.appendChild(style);
 }
-
-document.addEventListener('DOMContentLoaded', addDynamicStyles);
 
 function debounce(func, wait) {
     let timeout;
@@ -899,4 +1013,13 @@ window.addEventListener('resize', debouncedResize);
 
 window.addEventListener('beforeunload', function() {
     gameRunning = false;
+
+    const particles = document.querySelectorAll('.subtle-particle');
+    particles.forEach(particle => {
+        if (particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+        }
+    });
 });
+
+document.addEventListener('DOMContentLoaded', addDynamicStyles);
