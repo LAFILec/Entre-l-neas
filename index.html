@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vintage Store</title>
+    <title>Cartas Virtuales</title>
+    <link rel="icon" type="image/png" href="lafilp.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -104,16 +105,16 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="lafilp.png" alt="Logo" class="logo-image" onclick="goToHomePage()">
+                    <img src="lafilp.png" alt="Logo La Fil" class="logo-image" onclick="goToHomePage()">
                 </div>
 
-                <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+                <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú de navegación">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
                 
-                <nav class="nav-buttons" id="navButtons">
+                <nav class="nav-buttons" id="navButtons" role="navigation">
                     <a href="https://lafilec.github.io/LAFILec/" class="btn" onclick="goBack()">
                         <div class="icon icon-back"></div>
                         <span class="btn-text">RETORNAR</span>
@@ -131,13 +132,13 @@
         </div>
     </header>
 
-    <main class="main">
+    <main class="main" role="main">
         <div class="container">
-            <div class="nokia-status">
-                <div class="battery-indicator">
+            <div class="nokia-status" aria-label="Estado del sistema estilo Nokia">
+                <div class="battery-indicator" aria-label="Indicador de batería">
                     <div class="battery-level"></div>
                 </div>
-                <div class="signal-bars">
+                <div class="signal-bars" aria-label="Indicador de señal">
                     <div class="bar"></div>
                     <div class="bar"></div>
                     <div class="bar"></div>
@@ -153,7 +154,7 @@
                             <div class="pixel-dot"></div>
                             <div class="pixel-dot"></div>
                         </div>
-                        <h2 class="instructions-title">CÓMO COMPARTIR LA CARTA</h2>
+                        <h2 class="instructions-title">INSTRUCCIONES DE USO</h2>
                         <div class="header-decoration">
                             <div class="pixel-dot"></div>
                             <div class="pixel-dot"></div>
@@ -163,43 +164,44 @@
                     
                     <div class="instructions-grid">
                         <div class="instruction-card download-instruction">
-                            <div class="instruction-icon">📄⬇️</div>
-                            <h3>VITRINAS 1-3: ARCHIVOS HTML</h3>
+                            <div class="instruction-icon">⬇</div>
+                            <h3>PRODUCTOS 1-3: ARCHIVOS DESCARGABLES</h3>
                             <p>
-                                Descarga estos archivos HTML especiales y compártelos 
-                                por <strong>WhatsApp</strong> con tu mejor amigo. 
-                                ¡Solo tiene que abrirlos en su navegador y disfrutar 
-                                de una carta retro personalizada! 
+                                Estos productos son archivos HTML interactivos. 
+                                Una vez descargados, puedes abrirlos en cualquier navegador web 
+                                y compartirlos fácilmente por <strong>WhatsApp</strong>, email o 
+                                cualquier plataforma de mensajería. Perfectos para invitaciones,
+                                felicitaciones y más.
                             </p>
                             <div class="instruction-steps">
-                                <span>1. Click en DESCARGAR</span>
-                                <span>2. Envía por WhatsApp</span>
-                                <span>3. Tu amigo lo abre</span>
-                                <span>4. ¡A disfrutar!</span>
+                                <span>1. Hacer clic en DESCARGAR</span>
+                                <span>2. Guardar archivo en tu dispositivo</span>
+                                <span>3. Compartir por WhatsApp o email</span>
+                                <span>4. El destinatario abre en navegador</span>
                             </div>
                         </div>
 
                         <div class="instruction-card link-instruction">
-                            <div class="instruction-icon">🔗🌐</div>
-                            <h3>VITRINAS 4-5: ENLACES WEB</h3>
+                            <div class="instruction-icon">🔗</div>
+                            <h3>PRODUCTOS 4-5: EXPERIENCIAS EN LÍNEA</h3>
                             <p>
-                                Estos abren páginas web especiales. Copia el enlace 
-                                que se abre y compártelo con tu mejor amigo. 
-                                ¡Ambos pueden disfrutar de experiencias retro 
-                                únicas juntos!
+                                Estas experiencias se ejecutan directamente en el navegador web. 
+                                Al hacer clic en "ABRIR ENLACE", se abrirá una nueva pestaña 
+                                con contenido interactivo. Copia la URL de la pestaña nueva 
+                                para compartir estas experiencias inmersivas con otros usuarios.
                             </p>
                             <div class="instruction-steps">
-                                <span>1. Click en ABRIR ENLACE</span>
-                                <span>2. Copia la URL</span>
-                                <span>3. Comparte con tu amigo</span>
-                                <span>4. ¡A disfrutar!</span>
+                                <span>1. Hacer clic en ABRIR ENLACE</span>
+                                <span>2. Se abre nueva pestaña del navegador</span>
+                                <span>3. Copiar URL de la barra de direcciones</span>
+                                <span>4. Compartir enlace copiado</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="instructions-footer">
                         <div class="footer-message">
-                            🕹️ <span class="glow-text">¡COMPARTE LA NOSTALGIA!</span> 🕹️
+                            <span class="glow-text">COMPARTE LA EXPERIENCIA</span>
                         </div>
                         <div class="footer-pixels">
                             <div class="footer-pixel"></div>
@@ -215,82 +217,82 @@
             <div class="products-grid">
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="HB.jpg" alt="Producto 1" class="product-img">
+                        <img src="HB.jpg" alt="Tarjeta de cumpleaños vintage estilo retro" class="product-img">
                         <div class="pixel-border"></div>
                     </div>
-                    <h3 class="product-title">Sopla y Pide un Deseo</h3>
+                    <h3 class="product-title">Carta Interactiva de Cumpleaños</h3>
                     <p class="product-description">
-                       Celebra con alegría cada año de vida.
+                        Un detalle único que combina luces, animación y buenos deseos para sorprender en grande. Compatible con todos los navegadores modernos.
                     </p>
-                    <button class="download-btn" onclick="downloadFile('feliz dia.html')">
+                    <button class="download-btn" onclick="downloadFile('feliz dia.html')" aria-label="Descargar tarjeta de cumpleaños">
                         <div class="btn-icon">⬇</div>
-                        DESCARGAR
+                        DESCARGAR ARCHIVO
                     </button>
                 </div>
 
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="rose.jpg" alt="Producto 2" class="product-img">
+                        <img src="rose.jpg" alt="Carta de amor digital con diseño romántico vintage" class="product-img">
                         <div class="pixel-border"></div>
                     </div>
-                    <h3 class="product-title">Latidos en Papel</h3>
+                    <h3 class="product-title">Carta con Magia Romántica</h3>
                     <p class="product-description">
-                        Un mensaje eterno para quien hace vibrar tu corazón.
+                        Un detalle digital lleno de brillo, pétalos y palabras que llegan directo al corazón.
                     </p>
-                    <button class="download-btn" onclick="downloadFile('rose.html')">
+                    <button class="download-btn" onclick="downloadFile('rose.html')" aria-label="Descargar carta romántica">
                         <div class="btn-icon">⬇</div>
-                        DESCARGAR
+                        DESCARGAR ARCHIVO
                     </button>
                 </div>
 
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="dark.jpg" alt="Producto 3" class="product-img">
+                        <img src="dark.jpg" alt="Invitación elegante con diseño dorado sobre fondo oscuro" class="product-img">
                         <div class="pixel-border"></div>
                     </div>
-                    <h3 class="product-title">Oro sobre Oscuridad</h3>
+                    <h3 class="product-title">Generador Visual Interactivo</h3>
                     <p class="product-description">
-                        El arte de invitar con distinción.
+                        Traza, observa y sorprende... Partículas, mariposas que cobran vida al instante.
                     </p>
-                    <button class="download-btn" onclick="downloadFile('sombras.html')">
+                    <button class="download-btn" onclick="downloadFile('sombras.html')" aria-label="Descargar invitación elegante">
                         <div class="btn-icon">⬇</div>
-                        DESCARGAR
+                        DESCARGAR ARCHIVO
                     </button>
                 </div>
 
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="historia.jpg" alt="Producto 4" class="product-img">
+                        <img src="historia.jpg" alt="Experiencia web interactiva con narrativa histórica" class="product-img">
                         <div class="pixel-border"></div>
                     </div>
-                    <h3 class="product-title">Tinta del Recuerdo</h3>
+                    <h3 class="product-title">Alejandro: El Conquistador del Mundo Antiguo</h3>
                     <p class="product-description">
-                        Un viaje al pasado en cada palabra.
+                        Descubre la vida del hombre que con solo 32 años cambió para siempre la historia y unió culturas bajo un mismo imperio.
                     </p>
-                    <button class="link-btn" onclick="openExternalLink('https://erick04a.github.io/Historia/')">
+                    <button class="link-btn" onclick="openExternalLink('https://erick04a.github.io/Historia/')" aria-label="Abrir experiencia Tinta del Recuerdo">
                         <div class="btn-icon">🔗</div>
-                        ABRIR ENLACE
+                        ABRIR EXPERIENCIA
                     </button>
                 </div>
 
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="VL.jpg" alt="Producto 5" class="product-img">
+                        <img src="VL.jpg" alt="Simulación espacial interactiva de la Vía Láctea" class="product-img">
                         <div class="pixel-border"></div>
                     </div>
-                    <h3 class="product-title">Vía Láctea</h3>
+                    <h3 class="product-title">Sumérgete en la Inmensidad del Espacio</h3>
                     <p class="product-description">
-                        Explora la inmensidad del universo y déjate envolver por el brillo eterno de las estrellas.
+                        Explora estrellas, mundos y el silencio infinito desde tu pantalla.
                     </p>
-                    <button class="link-btn" onclick="openExternalLink('https://erick04a.github.io/galaxy/')">
+                    <button class="link-btn" onclick="openExternalLink('https://erick04a.github.io/galaxy/')" aria-label="Abrir simulación Vía Láctea">
                         <div class="btn-icon">🔗</div>
-                        ABRIR ENLACE
+                        ABRIR EXPERIENCIA
                     </button>
                 </div>
 
                 <div class="product-card special-card">
                     <div class="product-image">
-                        <img src="carta.jpg" alt="Personalización" class="product-img">
+                        <img src="carta.jpg" alt="Servicios de personalización de productos digitales" class="product-img">
                         <div class="pixel-border special-border"></div>
                         <div class="sparkles">
                             <div class="sparkle"></div>
@@ -300,43 +302,47 @@
                     </div>
                     <h3 class="product-title">PRODUCTOS PERSONALIZADOS</h3>
                     <p class="product-description">
-                        ¿Tienes una idea específica? Creamos productos únicos 
-                        adaptados a tus necesidades y visión.
+                        Explora, siente y crea. Lo que imaginas aquí puede transformarse en tu producto personalizado.
                     </p>
-                    <button class="customize-btn" onclick="openCustomModal()">
+                    <button class="customize-btn" onclick="openCustomModal()" aria-label="Abrir información de personalización">
                         <div class="btn-icon">✨</div>
-                        PERSONALIZAR
+                        SOLICITAR COTIZACIÓN
                     </button>
                 </div>
             </div>
         </div>
     </main>
 
-    <div id="customModal" class="modal">
+    <div id="customModal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close" onclick="closeCustomModal()">&times;</span>
+                <span class="close" onclick="closeCustomModal()" aria-label="Cerrar ventana modal">&times;</span>
                 <div class="modal-decoration"></div>
             </div>
-            <h3>PRODUCTOS PERSONALIZADOS</h3>
+            <h3 id="modal-title">PRODUCTOS PERSONALIZADOS</h3>
             <div class="modal-body">
-                <p>Ofrecemos productos completamente personalizados adaptandolos a tus necesidades específicas.</p>
+                <p>Desarrollamos productos digitales completamente personalizados, adaptados a tus necesidades específicas.</p>
+
+                <div class="pricing-info">
+                    <h4>Rango de precios estimados:</h4>
+                    <p><strong>Archivos descargables:</strong> $3 - $6 USD</p>
+                    <p><strong>Experiencias web:</strong> $5 - $10 USD</p>
+                    <p class="pricing-note">Los precios varían según complejidad, tiempo de desarrollo y recursos requeridos. Cada proyecto recibe una cotización personalizada.</p>
+                </div>
+                
                 <div class="contact-info">
-                    <p>Para más información y cotización de precios, contáctate con:</p>
-                    <p class="contact-name">Erick</p>
+                    <p>Para cotización detallada y consultas técnicas:</p>
+                    <p class="contact-name">Erick - Desarrollador</p>
                     <div class="whatsapp-contact">
-                        <a href="https://wa.me/593991389252" target="_blank" class="whatsapp-btn">
-                            <div class="whatsapp-icon">💬</div>
+                        <a href="https://wa.me/593991389252" target="_blank" class="whatsapp-btn" aria-label="Contactar por WhatsApp">
+                            <div class="whatsapp-icon-vintage"></div>
                             <span>WhatsApp: +593 991 389 252</span>
                         </a>
                     </div>
                 </div>
-                <p>Rango de precios:</p>
-                <p>Archivos descargables: $3 - $6
-                <p>Enlaces: $5 - $10</p>
-                <p>Recuerda que son precios referenciales y todo depende del timepo, complejidad y recursos utilizados.</p>
-                <p>Juntos podemos crear algo único que supere tus expectativas.</p>
-                </p>
+                
+                <p class="footer-text">Aseguramos que el resultado supere tus expectativas y mantenga la calidad técnica y estética que nos distingue.</p>
+                
                 <div class="modal-pixels">
                     <div class="modal-pixel"></div>
                     <div class="modal-pixel"></div>
@@ -346,7 +352,7 @@
         </div>
     </div>
 
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-decoration">
                 <div class="footer-pixel"></div>
