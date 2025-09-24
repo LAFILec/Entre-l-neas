@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Magia Dorada - Oro sobre Sombras</title>
     <style>
         * {
@@ -13,17 +13,19 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            background: radial-gradient(ellipse at center, #2a1810 0%, #1a1006 50%, #000000 100%);
             overflow: hidden;
             height: 100vh;
             cursor: none;
             position: relative;
+            touch-action: none;
         }
 
         #canvas {
             display: block;
             cursor: none;
             background: transparent;
+            touch-action: none;
         }
 
         .stars {
@@ -38,103 +40,116 @@
 
         .star {
             position: absolute;
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            background: radial-gradient(circle, #ffd700, transparent);
             border-radius: 50%;
-            animation: twinkle 2s infinite alternate;
+            animation: twinkle 3s infinite alternate ease-in-out;
         }
 
         @keyframes twinkle {
-            0% { opacity: 0.3; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.2); }
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 0.9; transform: scale(1.3); }
         }
 
         .controls {
-            position: absolute;
-            bottom: 30px;
+            position: fixed;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 15px;
+            gap: 12px;
             z-index: 1000;
-            padding: 0 20px;
+            padding: 0 15px;
+            max-width: 100vw;
+            justify-content: center;
         }
 
         .btn {
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffa500 100%);
             border: none;
-            padding: 15px 25px;
-            border-radius: 25px;
+            padding: 12px 20px;
+            border-radius: 20px;
             color: #000;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-            font-size: 16px;
-            min-height: 50px;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            min-height: 44px;
             white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
+            user-select: none;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
         }
 
         .btn:active {
-            transform: translateY(0px);
+            transform: translateY(0);
         }
 
         .cursor {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             border: 2px solid #ffd700;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.5), transparent);
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3), transparent);
             pointer-events: none;
             z-index: 1001;
-            transition: all 0.1s ease;
-            box-shadow: 0 0 20px #ffd700;
+            transition: all 0.08s ease;
         }
 
         @media (max-width: 768px) {
+            body { cursor: auto; }
+            
+            .cursor { display: none; }
+            
             .controls {
-                bottom: 40px;
-                flex-direction: column;
-                align-items: center;
-                gap: 12px;
-                width: 100%;
-                max-width: 300px;
+                bottom: 15px;
+                gap: 8px;
+                padding: 0 10px;
+                flex-wrap: wrap;
             }
             
             .btn {
-                padding: 18px 30px;
-                font-size: 18px;
-                width: 200px;
-                min-height: 55px;
-                border-radius: 30px;
-                box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
-            }
-            
-            .btn:hover, .btn:active {
-                transform: none;
-                box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
-            }
-            
-            .cursor {
-                display: none;
+                padding: 14px 18px;
+                font-size: 13px;
+                min-height: 48px;
+                border-radius: 24px;
+                min-width: 120px;
+                touch-action: manipulation;
             }
         }
 
         @media (max-width: 480px) {
             .controls {
-                bottom: 50px;
+                bottom: 10px;
+                gap: 6px;
+                padding: 0 8px;
             }
             
             .btn {
-                padding: 20px 35px;
-                font-size: 19px;
-                width: 220px;
-                min-height: 60px;
+                padding: 16px 20px;
+                font-size: 12px;
+                min-height: 52px;
+                min-width: 130px;
+                border-radius: 26px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                width: calc(100% - 20px);
+                max-width: 200px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 180px;
             }
         }
     </style>
@@ -159,46 +174,79 @@
         let lastX = 0;
         let lastY = 0;
         let currentPath = [];
-        let autoDrawMode = true;
-        let animationId;
         let particles = [];
         let artObjects = [];
+        let animationId;
+        
+        const MAX_PARTICLES = 150;
+        const MAX_ART_OBJECTS = 8;
+        const isMobile = window.innerWidth <= 768;
+
+        const ColorUtils = {
+            hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                } : null;
+            },
+            
+            mixColors(color1, color2, ratio) {
+                const c1 = this.hexToRgb(color1);
+                const c2 = this.hexToRgb(color2);
+                
+                if (!c1 || !c2) return color1;
+                
+                const r = Math.round(c1.r * (1 - ratio) + c2.r * ratio);
+                const g = Math.round(c1.g * (1 - ratio) + c2.g * ratio);
+                const b = Math.round(c1.b * (1 - ratio) + c2.b * ratio);
+                
+                return `rgb(${r}, ${g}, ${b})`;
+            }
+        };
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
+        
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
         function createStars() {
             const starsContainer = document.querySelector('.stars');
-            for (let i = 0; i < 50; i++) {
+            const starCount = isMobile ? 30 : 60;
+            
+            for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.width = star.style.height = Math.random() * 3 + 1 + 'px';
-                star.style.animationDelay = Math.random() * 2 + 's';
+                star.style.width = star.style.height = Math.random() * 2 + 1 + 'px';
+                star.style.animationDelay = Math.random() * 3 + 's';
                 starsContainer.appendChild(star);
             }
         }
+        
         createStars();
 
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX - 10 + 'px';
-            cursor.style.top = e.clientY - 10 + 'px';
-        });
+        if (!isMobile) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX - 8 + 'px';
+                cursor.style.top = e.clientY - 8 + 'px';
+            });
+        }
 
         class Particle {
             constructor(x, y, type = 'normal') {
                 this.x = x;
                 this.y = y;
-                this.vx = (Math.random() - 0.5) * 4;
-                this.vy = (Math.random() - 0.5) * 4;
+                this.vx = (Math.random() - 0.5) * 3;
+                this.vy = (Math.random() - 0.5) * 3;
                 this.life = 1;
-                this.decay = 0.015;
-                this.size = Math.random() * 4 + 1;
+                this.decay = 0.02;
+                this.size = Math.random() * 3 + 1;
                 this.type = type;
                 this.rotation = Math.random() * Math.PI * 2;
                 this.rotationSpeed = (Math.random() - 0.5) * 0.1;
@@ -207,16 +255,16 @@
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                this.vx *= 0.99;
-                this.vy *= 0.99;
+                this.vx *= 0.98;
+                this.vy *= 0.98;
                 this.life -= this.decay;
-                this.size *= 0.99;
+                this.size *= 0.995;
                 this.rotation += this.rotationSpeed;
             }
 
             draw() {
                 ctx.save();
-                ctx.globalAlpha = this.life;
+                ctx.globalAlpha = this.life * 0.8;
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation);
                 
@@ -225,7 +273,7 @@
                 } else {
                     ctx.beginPath();
                     ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `hsl(${45 + Math.sin(Date.now() * 0.001) * 10}, 100%, ${50 + this.life * 30}%)`;
+                    ctx.fillStyle = `hsl(${45 + Math.sin(Date.now() * 0.001) * 10}, 85%, ${60 + this.life * 20}%)`;
                     ctx.fill();
                 }
                 ctx.restore();
@@ -234,7 +282,7 @@
             drawStar() {
                 const spikes = 5;
                 const outerRadius = this.size;
-                const innerRadius = this.size * 0.5;
+                const innerRadius = this.size * 0.4;
                 
                 ctx.beginPath();
                 for (let i = 0; i < spikes * 2; i++) {
@@ -247,406 +295,60 @@
                     else ctx.lineTo(x, y);
                 }
                 ctx.closePath();
-                ctx.fillStyle = `hsl(${50 + Math.sin(Date.now() * 0.002) * 20}, 90%, 70%)`;
+                ctx.fillStyle = `hsl(${50 + Math.sin(Date.now() * 0.002) * 15}, 90%, 75%)`;
                 ctx.fill();
             }
         }
 
-        class RealisticRose {
+        class Rose {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.petals = [];
-                this.leaves = [];
-                this.stem = [];
                 this.size = 0;
-                this.maxSize = 25;
+                this.maxSize = isMobile ? 35 : 45;
+                this.growth = 0.4;
                 this.rotation = Math.random() * Math.PI * 2;
-                this.growth = 0.3;
-                this.isComplete = false;
                 this.drawingProgress = 0;
                 this.sparkles = [];
-                
                 this.colorPalette = this.getRandomFlowerColor();
-                
-                this.initializePetals();
-                this.initializeLeaves();
-                this.initializeStem();
+                this.petals = this.initializePetals();
                 this.initializeSparkles();
             }
 
             getRandomFlowerColor() {
-                const flowerColors = [
-                    {
-                        primary: '#DC143C',
-                        secondary: '#B22222',
-                        accent: '#8B0000',
-                        highlight: '#FF69B4'
-                    },
-                    {
-                        primary: '#FF1493',
-                        secondary: '#FF69B4',
-                        accent: '#C71585',
-                        highlight: '#FFB6C1'
-                    },
-                    {
-                        primary: '#FFD700',
-                        secondary: '#FFA500',
-                        accent: '#FF8C00',
-                        highlight: '#FFFF99'
-                    },
-                    {
-                        primary: '#F8F8FF',
-                        secondary: '#E6E6FA',
-                        accent: '#D8BFD8',
-                        highlight: '#FFFFFF'
-                    },
-                    {
-                        primary: '#9370DB',
-                        secondary: '#8A2BE2',
-                        accent: '#4B0082',
-                        highlight: '#DDA0DD'
-                    },
-                    {
-                        primary: '#FF6347',
-                        secondary: '#FF4500',
-                        accent: '#DC143C',
-                        highlight: '#FFA07A'
-                    },
-                    {
-                        primary: '#FF7F50',
-                        secondary: '#FF6B6B',
-                        accent: '#CD5C5C',
-                        highlight: '#FFE4E1'
-                    }
+                const colors = [
+                    { primary: '#DC143C', secondary: '#B22222', accent: '#8B0000', highlight: '#FF69B4' },
+                    { primary: '#FFD700', secondary: '#FFA500', accent: '#FF8C00', highlight: '#FFFF99' },
+                    { primary: '#FF1493', secondary: '#FF69B4', accent: '#C71585', highlight: '#FFB6C1' },
+                    { primary: '#9370DB', secondary: '#8A2BE2', accent: '#4B0082', highlight: '#DDA0DD' },
+                    { primary: '#F8F8FF', secondary: '#E6E6FA', accent: '#D8BFD8', highlight: '#FFFFFF' }
                 ];
-                
-                return flowerColors[Math.floor(Math.random() * flowerColors.length)];
+                return colors[Math.floor(Math.random() * colors.length)];
             }
 
             initializePetals() {
-                const numPetals = 16;
-                const flowerSize = Math.random();
-                
-                if (flowerSize < 0.33) {
-                    this.flowerScale = 0.65;
-                    this.maxSize = 22;
-                    this.uniformPetalSize = 0.6;
-                } else if (flowerSize < 0.67) {
-                    this.flowerScale = 1.1;
-                    this.maxSize = 50;
-                    this.uniformPetalSize = 0.9;
-                } else {
-                    this.flowerScale = 1.4;
-                    this.maxSize = 68;
-                    this.uniformPetalSize = 1.15;
-                }
+                const petals = [];
+                const numPetals = 12;
                 
                 for (let i = 0; i < numPetals; i++) {
-                    const angle = (Math.PI * 2 / numPetals) * i + Math.random() * 0.03;
-                    const layer = Math.floor(i / 5);
-                    const radius = (2 + layer * 0.8) * this.flowerScale;
+                    const angle = (Math.PI * 2 / numPetals) * i;
+                    const layer = Math.floor(i / 4);
                     
-                    this.petals.push({
+                    petals.push({
                         angle: angle,
-                        radius: radius,
-                        baseSize: this.uniformPetalSize,
-                        opacity: 1 - layer * 0.03,
-                        rotation: Math.random() * 0.1 - 0.05,
+                        radius: 2 + layer * 0.6,
                         layer: layer,
-                        asymmetry: Math.random() * 0.03 - 0.015
+                        opacity: 1 - layer * 0.1
                     });
                 }
-            }
-
-            initializeLeaves() {
-                for (let i = 0; i < 3; i++) {
-                    const angle = (Math.PI * 2 / 3) * i + Math.PI;
-                    this.leaves.push({
-                        angle: angle,
-                        size: 12 * this.flowerScale,
-                        rotation: Math.random() * 0.3 - 0.15
-                    });
-                }
-            }
-
-            initializeStem() {
-                const stemHeight = 30 * this.flowerScale;
-                
-                for (let i = 0; i < 20; i++) {
-                    this.stem.push({
-                        x: Math.sin(i * 0.1) * 2 * this.flowerScale,
-                        y: i * (stemHeight / 20),
-                        width: 2.5 * this.flowerScale - (i * 0.08 * this.flowerScale)
-                    });
-                }
+                return petals;
             }
 
             initializeSparkles() {
-                const sparkleCount = Math.floor(6 + this.flowerScale * 4);
-                
-                for (let i = 0; i < sparkleCount; i++) {
+                for (let i = 0; i < 6; i++) {
                     this.sparkles.push({
-                        angle: (Math.PI * 2 / sparkleCount) * i,
-                        distance: 35 * this.flowerScale,
-                        phase: Math.random() * Math.PI * 2,
-                        speed: 0.002 + Math.random() * 0.002
-                    });
-                }
-            }
-
-            update() {
-                if (this.size < this.maxSize) {
-                    this.size += this.growth;
-                    this.drawingProgress = Math.min(this.drawingProgress + 0.02, 1);
-                }
-                
-                if (this.size >= this.maxSize && !this.isComplete) {
-                    this.isComplete = true;
-                }
-                
-                this.rotation += 0.005;
-            }
-
-            draw() {
-                const progress = this.drawingProgress;
-                
-                ctx.save();
-                ctx.translate(this.x, this.y);
-
-                if (progress > 0.3) {
-                    ctx.save();
-                    const stemGradient = ctx.createLinearGradient(-2, 0, 2, 40);
-                    stemGradient.addColorStop(0, '#228B22');
-                    stemGradient.addColorStop(1, '#006400');
-                    ctx.fillStyle = stemGradient;
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(-2, 0);
-                    this.stem.forEach((point, i) => {
-                        if (i / this.stem.length < (progress - 0.3) * 2) {
-                            ctx.lineTo(point.x - point.width/2, point.y);
-                        }
-                    });
-                    this.stem.reverse().forEach((point, i) => {
-                        if ((this.stem.length - i) / this.stem.length < (progress - 0.3) * 2) {
-                            ctx.lineTo(point.x + point.width/2, point.y);
-                        }
-                    });
-                    this.stem.reverse();
-                    ctx.closePath();
-                    ctx.fill();
-                    ctx.restore();
-                }
-
-                if (progress > 0.5) {
-                    this.leaves.forEach((leaf, i) => {
-                        if (i / this.leaves.length < (progress - 0.5) * 3) {
-                            ctx.save();
-                            ctx.rotate(leaf.angle + leaf.rotation);
-                            ctx.translate(0, -20);
-                            
-                            const leafGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, leaf.size);
-                            leafGradient.addColorStop(0, '#90EE90');
-                            leafGradient.addColorStop(0.5, '#32CD32');
-                            leafGradient.addColorStop(1, '#228B22');
-                            
-                            ctx.fillStyle = leafGradient;
-                            ctx.beginPath();
-                            ctx.ellipse(0, 0, leaf.size * 0.4, leaf.size, 0, 0, Math.PI * 2);
-                            ctx.fill();
-                            ctx.restore();
-                        }
-                    });
-                }
-
-                ctx.rotate(this.rotation);
-                
-                this.petals.forEach((petal, i) => {
-                    if (i / this.petals.length < progress) {
-                        ctx.save();
-                        ctx.rotate(petal.angle + petal.rotation);
-                        ctx.globalAlpha = petal.opacity;
-                        
-                        ctx.translate(petal.asymmetry * 2, -petal.radius);
-                        
-                        const finalPetalSize = this.uniformPetalSize * 22 * this.flowerScale;
-                        
-                        const petalGradient = ctx.createRadialGradient(
-                            -finalPetalSize * 0.05, -finalPetalSize * 0.1, 0, 
-                            0, 0, finalPetalSize
-                        );
-                        
-                        if (petal.layer === 0) {
-                            petalGradient.addColorStop(0, this.colorPalette.highlight);
-                            petalGradient.addColorStop(0.3, this.colorPalette.primary);
-                            petalGradient.addColorStop(0.7, this.colorPalette.secondary);
-                            petalGradient.addColorStop(1, this.colorPalette.accent);
-                        } else if (petal.layer === 1) {
-                            petalGradient.addColorStop(0, this.colorPalette.primary);
-                            petalGradient.addColorStop(0.4, this.colorPalette.secondary);
-                            petalGradient.addColorStop(0.8, this.colorPalette.accent);
-                            petalGradient.addColorStop(1, this.mixColor(this.colorPalette.accent, '#000000', 0.2));
-                        } else {
-                            petalGradient.addColorStop(0, this.colorPalette.secondary);
-                            petalGradient.addColorStop(0.5, this.colorPalette.accent);
-                            petalGradient.addColorStop(1, this.mixColor(this.colorPalette.accent, '#000000', 0.4));
-                        }
-                        
-                        ctx.fillStyle = petalGradient;
-                        
-                        ctx.beginPath();
-                        ctx.moveTo(0, finalPetalSize * 0.05);
-                        ctx.bezierCurveTo(
-                            -finalPetalSize * 0.35, -finalPetalSize * 0.2,
-                            -finalPetalSize * 0.25, -finalPetalSize * 0.7,
-                            0, -finalPetalSize * 0.8
-                        );
-                        ctx.bezierCurveTo(
-                            finalPetalSize * 0.25, -finalPetalSize * 0.7,
-                            finalPetalSize * 0.35, -finalPetalSize * 0.2,
-                            0, finalPetalSize * 0.05
-                        );
-                        ctx.closePath();
-                        ctx.fill();
-                        
-                        ctx.globalAlpha = petal.opacity * 0.8;
-                        ctx.fillStyle = this.mixColor(this.colorPalette.primary, this.colorPalette.secondary, 0.5);
-                        ctx.beginPath();
-                        ctx.ellipse(0, finalPetalSize * 0.02, finalPetalSize * 0.15, finalPetalSize * 0.08, 0, 0, Math.PI * 2);
-                        ctx.fill();
-                        
-                        ctx.strokeStyle = this.mixColor(this.colorPalette.accent, '#000000', 0.3);
-                        ctx.lineWidth = 0.5 * this.flowerScale;
-                        ctx.globalAlpha = 0.25;
-                        ctx.beginPath();
-                        ctx.moveTo(0, finalPetalSize * 0.05);
-                        ctx.lineTo(0, -finalPetalSize * 0.6);
-                        ctx.moveTo(-finalPetalSize * 0.1, -finalPetalSize * 0.2);
-                        ctx.lineTo(0, -finalPetalSize * 0.4);
-                        ctx.moveTo(finalPetalSize * 0.1, -finalPetalSize * 0.2);
-                        ctx.lineTo(0, -finalPetalSize * 0.4);
-                        ctx.stroke();
-                        
-                        ctx.globalAlpha = 0.08;
-                        ctx.fillStyle = this.mixColor(this.colorPalette.accent, '#000000', 0.6);
-                        ctx.beginPath();
-                        ctx.moveTo(1, finalPetalSize * 0.05);
-                        ctx.bezierCurveTo(
-                            -finalPetalSize * 0.3 + 1, -finalPetalSize * 0.2 + 1,
-                            -finalPetalSize * 0.2 + 1, -finalPetalSize * 0.6 + 1,
-                            1, -finalPetalSize * 0.7 + 1
-                        );
-                        ctx.bezierCurveTo(
-                            finalPetalSize * 0.2 + 1, -finalPetalSize * 0.6 + 1,
-                            finalPetalSize * 0.3 + 1, -finalPetalSize * 0.2 + 1,
-                            1, finalPetalSize * 0.05
-                        );
-                        ctx.closePath();
-                        ctx.fill();
-                        
-                        ctx.restore();
-                    }
-                });
-
-                if (progress > 0.8) {
-                    const centerSize = 12 * this.flowerScale;
-                    
-                    const centerGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, centerSize);
-                    centerGradient.addColorStop(0, this.mixColor(this.colorPalette.highlight, '#FFFFFF', 0.3));
-                    centerGradient.addColorStop(0.3, this.colorPalette.primary);
-                    centerGradient.addColorStop(0.7, this.mixColor(this.colorPalette.accent, '#8B4513', 0.4));
-                    centerGradient.addColorStop(1, '#8B4513');
-                    
-                    ctx.fillStyle = centerGradient;
-                    ctx.beginPath();
-                    ctx.arc(0, 0, centerSize, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    const stamenCount = Math.floor(6 + this.flowerScale * 3);
-                    for (let i = 0; i < stamenCount; i++) {
-                        const angle = (Math.PI * 2 / stamenCount) * i;
-                        const x = Math.cos(angle) * centerSize * 0.6;
-                        const y = Math.sin(angle) * centerSize * 0.6;
-                        
-                        ctx.fillStyle = '#F0E68C';
-                        ctx.beginPath();
-                        ctx.arc(x, y, 1 * this.flowerScale, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                    
-                    ctx.fillStyle = this.mixColor(this.colorPalette.accent, '#000000', 0.5);
-                    ctx.beginPath();
-                    ctx.arc(0, 0, centerSize * 0.35, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-
-                ctx.restore();
-
-                if (this.isComplete) {
-                    this.sparkles.forEach(sparkle => {
-                        sparkle.phase += sparkle.speed;
-                        const sparkleX = this.x + Math.cos(sparkle.angle + sparkle.phase) * sparkle.distance;
-                        const sparkleY = this.y + Math.sin(sparkle.angle + sparkle.phase) * sparkle.distance;
-                        
-                        ctx.save();
-                        ctx.globalAlpha = 0.6 + 0.4 * Math.sin(sparkle.phase * 3);
-                        ctx.beginPath();
-                        ctx.arc(sparkleX, sparkleY, 1.5, 0, Math.PI * 2);
-                        ctx.fillStyle = this.colorPalette.highlight;
-                        ctx.fill();
-                        
-                        ctx.shadowColor = this.colorPalette.primary;
-                        ctx.shadowBlur = 5;
-                        ctx.beginPath();
-                        ctx.arc(sparkleX, sparkleY, 0.5, 0, Math.PI * 2);
-                        ctx.fillStyle = '#FFFFFF';
-                        ctx.fill();
-                        ctx.restore();
-                    });
-                }
-            }
-
-            mixColor(color1, color2, ratio) {
-                const hex = (color) => {
-                    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
-                    return result ? {
-                        r: parseInt(result[1], 16),
-                        g: parseInt(result[2], 16),
-                        b: parseInt(result[3], 16)
-                    } : null;
-                };
-                
-                const c1 = hex(color1);
-                const c2 = hex(color2);
-                
-                if (!c1 || !c2) return color1;
-                
-                const r = Math.round(c1.r * (1 - ratio) + c2.r * ratio);
-                const g = Math.round(c1.g * (1 - ratio) + c2.g * ratio);
-                const b = Math.round(c1.b * (1 - ratio) + c2.b * ratio);
-                
-                return `rgb(${r}, ${g}, ${b})`;
-            }
-        }
-
-        class MagicalHummingbird {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.size = 0;
-                this.maxSize = 15;
-                this.growth = 0.3;
-                this.wingBeat = 0;
-                this.drawingProgress = 0;
-                this.hoverOffset = 0;
-                this.sparkles = [];
-                this.colorHue = Math.random() * 60 + 120;
-                
-                for (let i = 0; i < 8; i++) {
-                    this.sparkles.push({
-                        angle: (Math.PI * 2 / 8) * i,
-                        distance: 25 + Math.random() * 10,
+                        angle: (Math.PI * 2 / 6) * i,
+                        distance: 30,
                         phase: Math.random() * Math.PI * 2
                     });
                 }
@@ -655,107 +357,77 @@
             update() {
                 if (this.size < this.maxSize) {
                     this.size += this.growth;
-                    this.drawingProgress = Math.min(this.drawingProgress + 0.04, 1);
+                    this.drawingProgress = Math.min(this.drawingProgress + 0.025, 1);
                 }
-                
-                this.wingBeat += 0.8;
-                this.hoverOffset += 0.05;
+                this.rotation += 0.003;
             }
 
             draw() {
-                if (this.drawingProgress === 0) return;
-
-                const hoverY = Math.sin(this.hoverOffset) * 3;
+                const progress = this.drawingProgress;
                 
                 ctx.save();
-                ctx.translate(this.x, this.y + hoverY);
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
                 
-                const wingScale = Math.abs(Math.sin(this.wingBeat)) * 0.8 + 0.2;
-                
-                if (this.drawingProgress > 0.3) {
-                    const bodyGradient = ctx.createLinearGradient(0, -8, 0, 8);
-                    bodyGradient.addColorStop(0, `hsl(${this.colorHue}, 70%, 60%)`);
-                    bodyGradient.addColorStop(0.5, `hsl(${this.colorHue + 20}, 80%, 50%)`);
-                    bodyGradient.addColorStop(1, `hsl(${this.colorHue - 10}, 60%, 40%)`);
+                this.petals.forEach((petal, i) => {
+                    if (i / this.petals.length < progress) {
+                        ctx.save();
+                        ctx.rotate(petal.angle);
+                        ctx.globalAlpha = petal.opacity;
+                        
+                        const petalSize = 18;
+                        const gradient = ctx.createRadialGradient(0, -petal.radius, 0, 0, 0, petalSize);
+                        gradient.addColorStop(0, this.colorPalette.highlight);
+                        gradient.addColorStop(0.5, this.colorPalette.primary);
+                        gradient.addColorStop(1, this.colorPalette.accent);
+                        
+                        ctx.fillStyle = gradient;
+                        ctx.beginPath();
+                        ctx.ellipse(0, -petal.radius, petalSize * 0.4, petalSize, 0, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.restore();
+                    }
+                });
+
+                if (progress > 0.8) {
+                    const centerGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 8);
+                    centerGradient.addColorStop(0, this.colorPalette.highlight);
+                    centerGradient.addColorStop(0.7, this.colorPalette.accent);
+                    centerGradient.addColorStop(1, '#8B4513');
                     
-                    ctx.fillStyle = bodyGradient;
+                    ctx.fillStyle = centerGradient;
                     ctx.beginPath();
-                    ctx.ellipse(0, 0, 2, 8, 0, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                
-                if (this.drawingProgress > 0.5) {
-                    ctx.save();
-                    ctx.scale(wingScale, 1);
-                    
-                    const wingGradient = ctx.createRadialGradient(-6, -2, 0, -6, -2, 10);
-                    wingGradient.addColorStop(0, `hsl(${this.colorHue + 40}, 80%, 70%)`);
-                    wingGradient.addColorStop(0.6, `hsl(${this.colorHue + 20}, 70%, 60%)`);
-                    wingGradient.addColorStop(1, 'rgba(255, 255, 255, 0.3)');
-                    
-                    ctx.fillStyle = wingGradient;
-                    ctx.beginPath();
-                    ctx.ellipse(-6, -2, 10, 4, Math.PI * 0.1, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    ctx.beginPath();
-                    ctx.ellipse(6, -2, 10, 4, -Math.PI * 0.1, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    ctx.restore();
-                }
-                
-                if (this.drawingProgress > 0.7) {
-                    ctx.fillStyle = `hsl(${this.colorHue + 10}, 75%, 55%)`;
-                    ctx.beginPath();
-                    ctx.arc(0, -6, 3, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    ctx.strokeStyle = '#FFD700';
-                    ctx.lineWidth = 1.5;
-                    ctx.beginPath();
-                    ctx.moveTo(0, -6);
-                    ctx.lineTo(-8, -8);
-                    ctx.stroke();
-                    
-                    ctx.fillStyle = '#000000';
-                    ctx.beginPath();
-                    ctx.arc(-1, -7, 0.8, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                
-                if (this.drawingProgress > 0.8) {
-                    ctx.fillStyle = `hsl(${this.colorHue - 20}, 60%, 45%)`;
-                    ctx.beginPath();
-                    ctx.ellipse(0, 6, 1.5, 4, 0, 0, Math.PI * 2);
+                    ctx.arc(0, 0, 8, 0, Math.PI * 2);
                     ctx.fill();
                 }
                 
                 ctx.restore();
 
-                this.sparkles.forEach(sparkle => {
-                    sparkle.phase += 0.03;
-                    const sparkleX = this.x + Math.cos(sparkle.angle + sparkle.phase) * sparkle.distance;
-                    const sparkleY = this.y + hoverY + Math.sin(sparkle.angle + sparkle.phase) * sparkle.distance;
-                    
-                    ctx.save();
-                    ctx.globalAlpha = 0.7 + 0.3 * Math.sin(sparkle.phase * 2);
-                    ctx.fillStyle = `hsl(${this.colorHue + 60}, 90%, 70%)`;
-                    ctx.beginPath();
-                    ctx.arc(sparkleX, sparkleY, 1.5, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.restore();
-                });
+                if (this.drawingProgress >= 1) {
+                    this.sparkles.forEach(sparkle => {
+                        sparkle.phase += 0.02;
+                        const sparkleX = this.x + Math.cos(sparkle.angle + sparkle.phase) * sparkle.distance;
+                        const sparkleY = this.y + Math.sin(sparkle.angle + sparkle.phase) * sparkle.distance;
+                        
+                        ctx.save();
+                        ctx.globalAlpha = 0.6 + 0.4 * Math.sin(sparkle.phase * 2);
+                        ctx.beginPath();
+                        ctx.arc(sparkleX, sparkleY, 1.2, 0, Math.PI * 2);
+                        ctx.fillStyle = this.colorPalette.highlight;
+                        ctx.fill();
+                        ctx.restore();
+                    });
+                }
             }
         }
 
-        class GoldenButterfly {
+        class Butterfly {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
                 this.size = 0;
-                this.maxSize = 20;
-                this.growth = 0.4;
+                this.maxSize = isMobile ? 15 : 20;
+                this.growth = 0.5;
                 this.wingBeat = 0;
                 this.drawingProgress = 0;
                 this.path = this.generateFlightPath();
@@ -764,10 +436,10 @@
 
             generateFlightPath() {
                 const path = [];
-                for (let i = 0; i < 50; i++) {
+                for (let i = 0; i < 40; i++) {
                     path.push({
-                        x: this.x + Math.sin(i * 0.2) * 30,
-                        y: this.y + Math.cos(i * 0.1) * 20 - i * 2
+                        x: this.x + Math.sin(i * 0.3) * 25,
+                        y: this.y + Math.cos(i * 0.15) * 15 - i * 1.5
                     });
                 }
                 return path;
@@ -776,13 +448,13 @@
             update() {
                 if (this.size < this.maxSize) {
                     this.size += this.growth;
-                    this.drawingProgress = Math.min(this.drawingProgress + 0.03, 1);
+                    this.drawingProgress = Math.min(this.drawingProgress + 0.04, 1);
                 }
                 
-                this.wingBeat += 0.3;
+                this.wingBeat += 0.4;
                 
                 if (this.drawingProgress >= 1 && this.pathIndex < this.path.length - 1) {
-                    this.pathIndex += 0.5;
+                    this.pathIndex += 0.8;
                     const currentPoint = this.path[Math.floor(this.pathIndex)];
                     if (currentPoint) {
                         this.x = currentPoint.x;
@@ -799,66 +471,32 @@
                 
                 const wingScale = Math.sin(this.wingBeat) * 0.3 + 0.7;
                 
-                if (this.drawingProgress > 0.25) {
+                if (this.drawingProgress > 0.3) {
                     ctx.save();
                     ctx.scale(wingScale, 1);
                     
-                    const wingGradient = ctx.createRadialGradient(-8, -5, 0, -8, -5, 12);
+                    const wingGradient = ctx.createRadialGradient(-6, -4, 0, -6, -4, 10);
                     wingGradient.addColorStop(0, '#FFD700');
                     wingGradient.addColorStop(0.7, '#FFA500');
-                    wingGradient.addColorStop(1, 'rgba(255, 165, 0, 0.3)');
+                    wingGradient.addColorStop(1, 'rgba(255, 165, 0, 0.4)');
                     
                     ctx.fillStyle = wingGradient;
                     ctx.beginPath();
-                    ctx.ellipse(-8, -5, 12, 8, Math.PI * 0.1, 0, Math.PI * 2);
+                    ctx.ellipse(-6, -4, 10, 6, Math.PI * 0.1, 0, Math.PI * 2);
                     ctx.fill();
                     
                     ctx.beginPath();
-                    ctx.ellipse(8, -5, 12, 8, -Math.PI * 0.1, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    ctx.restore();
-                }
-                
-                if (this.drawingProgress > 0.5) {
-                    ctx.save();
-                    ctx.scale(wingScale * 0.8, 1);
-                    
-                    const lowerWingGradient = ctx.createRadialGradient(-6, 2, 0, -6, 2, 8);
-                    lowerWingGradient.addColorStop(0, '#FFED4A');
-                    lowerWingGradient.addColorStop(0.7, '#FFB347');
-                    lowerWingGradient.addColorStop(1, 'rgba(255, 179, 71, 0.3)');
-                    
-                    ctx.fillStyle = lowerWingGradient;
-                    ctx.beginPath();
-                    ctx.ellipse(-6, 2, 8, 6, Math.PI * 0.05, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    ctx.beginPath();
-                    ctx.ellipse(6, 2, 8, 6, -Math.PI * 0.05, 0, Math.PI * 2);
+                    ctx.ellipse(6, -4, 10, 6, -Math.PI * 0.1, 0, Math.PI * 2);
                     ctx.fill();
                     
                     ctx.restore();
                 }
                 
-                if (this.drawingProgress > 0.75) {
-                    const bodyGradient = ctx.createLinearGradient(0, -6, 0, 6);
-                    bodyGradient.addColorStop(0, '#8B4513');
-                    bodyGradient.addColorStop(1, '#A0522D');
-                    
-                    ctx.fillStyle = bodyGradient;
+                if (this.drawingProgress > 0.7) {
+                    ctx.fillStyle = '#8B4513';
                     ctx.beginPath();
-                    ctx.ellipse(0, 0, 1.5, 8, 0, 0, Math.PI * 2);
+                    ctx.ellipse(0, 0, 1, 6, 0, 0, Math.PI * 2);
                     ctx.fill();
-                    
-                    ctx.strokeStyle = '#8B4513';
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(-2, -6);
-                    ctx.lineTo(-3, -8);
-                    ctx.moveTo(2, -6);
-                    ctx.lineTo(3, -8);
-                    ctx.stroke();
                 }
                 
                 ctx.restore();
@@ -870,16 +508,15 @@
                 this.x = x;
                 this.y = y;
                 this.angle = 0;
-                this.maxAngle = Math.PI * 4.5;
-                this.drawingSpeed = 0.08;
+                this.maxAngle = Math.PI * 3;
+                this.drawingSpeed = 0.1;
                 this.points = [];
-                this.scale = 0.75;
             }
 
             update() {
                 if (this.angle < this.maxAngle) {
                     this.angle += this.drawingSpeed;
-                    const radius = this.angle * 2.25 * this.scale;
+                    const radius = this.angle * 1.5;
                     const x = this.x + Math.cos(this.angle) * radius;
                     const y = this.y + Math.sin(this.angle) * radius;
                     this.points.push({x, y});
@@ -891,9 +528,7 @@
 
                 ctx.save();
                 ctx.strokeStyle = '#FFD700';
-                ctx.lineWidth = 3;
-                ctx.shadowColor = '#FFD700';
-                ctx.shadowBlur = 10;
+                ctx.lineWidth = 2.5;
                 ctx.lineCap = 'round';
 
                 ctx.beginPath();
@@ -906,11 +541,9 @@
                 ctx.stroke();
                 ctx.restore();
 
-                if (this.points.length > 10) {
+                if (this.points.length > 8 && Math.random() < 0.2) {
                     const lastPoint = this.points[this.points.length - 1];
-                    if (Math.random() < 0.3) {
-                        particles.push(new Particle(lastPoint.x, lastPoint.y, 'star'));
-                    }
+                    particles.push(new Particle(lastPoint.x, lastPoint.y, 'star'));
                 }
             }
         }
@@ -918,17 +551,14 @@
         class AutoDrawer {
             constructor() {
                 this.isDrawing = false;
-                this.currentPath = [];
-                this.drawingSpeed = 2;
-                this.targetObject = null;
-                this.objectTypes = ['rose', 'rose', 'rose', 'rose', 'rose', 'rose', 'butterfly', 'spiral', 'mandala', 'hummingbird'];
+                this.objectTypes = ['rose', 'rose', 'rose', 'butterfly', 'spiral'];
             }
 
             startRandomDrawing() {
                 if (this.isDrawing) return;
 
-                const centerX = canvas.width * (0.2 + Math.random() * 0.6);
-                const centerY = canvas.height * (0.2 + Math.random() * 0.6);
+                const centerX = canvas.width * (0.25 + Math.random() * 0.5);
+                const centerY = canvas.height * (0.25 + Math.random() * 0.5);
                 const objectType = this.objectTypes[Math.floor(Math.random() * this.objectTypes.length)];
 
                 this.drawObject(centerX, centerY, objectType);
@@ -937,72 +567,38 @@
             drawObject(x, y, type) {
                 this.isDrawing = true;
                 
+                if (artObjects.length >= MAX_ART_OBJECTS) {
+                    artObjects.shift();
+                }
+                
                 switch(type) {
                     case 'rose':
-                        artObjects.push(new RealisticRose(x, y));
+                        artObjects.push(new Rose(x, y));
                         break;
                     case 'butterfly':
-                        artObjects.push(new GoldenButterfly(x, y));
+                        artObjects.push(new Butterfly(x, y));
                         break;
                     case 'spiral':
                         artObjects.push(new GoldenSpiral(x, y));
                         break;
-                    case 'hummingbird':
-                        artObjects.push(new MagicalHummingbird(x, y));
-                        break;
-                    case 'mandala':
-                        this.drawMandala(x, y);
-                        break;
                 }
 
-                for (let i = 0; i < 15; i++) {
+                for (let i = 0; i < 8; i++) {
                     setTimeout(() => {
-                        particles.push(new Particle(x, y, Math.random() < 0.3 ? 'star' : 'normal'));
-                    }, i * 100);
+                        if (particles.length < MAX_PARTICLES) {
+                            particles.push(new Particle(x, y, Math.random() < 0.4 ? 'star' : 'normal'));
+                        }
+                    }, i * 80);
                 }
 
                 setTimeout(() => {
                     this.isDrawing = false;
-                }, 2000);
-            }
-
-            drawMandala(centerX, centerY) {
-                const layers = 3;
-                const pointsPerLayer = 8;
-
-                for (let layer = 0; layer < layers; layer++) {
-                    const radius = (layer + 1) * 25;
-                    
-                    for (let i = 0; i < pointsPerLayer; i++) {
-                        const angle = (Math.PI * 2 / pointsPerLayer) * i;
-                        const x = centerX + Math.cos(angle) * radius;
-                        const y = centerY + Math.sin(angle) * radius;
-
-                        setTimeout(() => {
-                            ctx.save();
-                            ctx.strokeStyle = '#FFD700';
-                            ctx.lineWidth = 2;
-                            ctx.shadowColor = '#FFD700';
-                            ctx.shadowBlur = 8;
-                            ctx.beginPath();
-                            ctx.moveTo(centerX, centerY);
-                            ctx.lineTo(x, y);
-                            ctx.stroke();
-
-                            ctx.fillStyle = '#FFD700';
-                            ctx.beginPath();
-                            ctx.arc(x, y, 3, 0, Math.PI * 2);
-                            ctx.fill();
-                            ctx.restore();
-
-                            particles.push(new Particle(x, y, 'star'));
-                        }, (layer * pointsPerLayer + i) * 100);
-                    }
-                }
+                }, 1500);
             }
         }
 
         const autoDrawer = new AutoDrawer();
+
         function startDrawing(e) {
             isDrawing = true;
             [lastX, lastY] = getCoordinates(e);
@@ -1013,41 +609,34 @@
             if (!isDrawing) return;
             
             const [currentX, currentY] = getCoordinates(e);
-            
-            const smoothX = lastX + (currentX - lastX) * 0.7;
-            const smoothY = lastY + (currentY - lastY) * 0.7;
-            
             const distance = Math.sqrt((currentX - lastX) ** 2 + (currentY - lastY) ** 2);
-            const lineWidth = Math.max(1, Math.min(5, 8 - distance * 0.1));
+            const lineWidth = Math.max(1.5, Math.min(4, 6 - distance * 0.08));
             
             ctx.save();
             ctx.strokeStyle = '#ffd700';
             ctx.lineWidth = lineWidth;
-            ctx.shadowColor = '#ffd700';
-            ctx.shadowBlur = 8;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
 
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
-            ctx.quadraticCurveTo(lastX, lastY, smoothX, smoothY);
+            ctx.lineTo(currentX, currentY);
             ctx.stroke();
             ctx.restore();
 
-            if (Math.random() < 0.4) {
-                particles.push(new Particle(smoothX, smoothY, Math.random() < 0.2 ? 'star' : 'normal'));
+            if (Math.random() < 0.3 && particles.length < MAX_PARTICLES) {
+                particles.push(new Particle(currentX, currentY, Math.random() < 0.15 ? 'star' : 'normal'));
             }
 
-            currentPath.push({x: smoothX, y: smoothY});
-
-            [lastX, lastY] = [smoothX, smoothY];
+            currentPath.push({x: currentX, y: currentY});
+            [lastX, lastY] = [currentX, currentY];
         }
 
         function stopDrawing() {
             if (!isDrawing) return;
             isDrawing = false;
             
-            if (autoDrawMode && currentPath.length > 15) {
+            if (currentPath.length > 10) {
                 analyzePathAndCreateArt();
             }
         }
@@ -1055,35 +644,14 @@
         function analyzePathAndCreateArt() {
             if (currentPath.length === 0) return;
             
-            let centerX = currentPath.reduce((sum, point) => sum + point.x, 0) / currentPath.length;
-            let centerY = currentPath.reduce((sum, point) => sum + point.y, 0) / currentPath.length;
+            const centerX = currentPath.reduce((sum, point) => sum + point.x, 0) / currentPath.length;
+            const centerY = currentPath.reduce((sum, point) => sum + point.y, 0) / currentPath.length;
             
-            const pathLength = currentPath.length;
-            const startPoint = currentPath[0];
-            const endPoint = currentPath[pathLength - 1];
-            const distance = Math.sqrt((endPoint.x - startPoint.x) ** 2 + (endPoint.y - startPoint.y) ** 2);
-            
-            let artType;
-            const random = Math.random();
-            if (random < 0.6) {
-                artType = 'rose';
-            } else if (random < 0.75) {
-                if (distance < 50 && pathLength > 20) {
-                    artType = 'rose';
-                } else if (pathLength > 30 && distance > 100) {
-                    artType = 'butterfly';
-                } else if (pathLength > 25) {
-                    artType = 'spiral';
-                } else {
-                    artType = 'rose';
-                }
-            } else {
-                artType = Math.random() < 0.6 ? 'hummingbird' : 'mandala';
-            }
+            const artType = Math.random() < 0.7 ? 'rose' : (Math.random() < 0.5 ? 'butterfly' : 'spiral');
             
             setTimeout(() => {
                 autoDrawer.drawObject(centerX, centerY, artType);
-            }, 500);
+            }, 300);
         }
 
         function getCoordinates(e) {
@@ -1095,33 +663,29 @@
 
         function clearCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles = [];
-            artObjects = [];
-            currentPath = [];
+            particles.length = 0;
+            artObjects.length = 0;
+            currentPath.length = 0;
         }
 
         function createRandomArt() {
-            for (let i = 0; i < 2; i++) {
-                setTimeout(() => {
-                    autoDrawer.startRandomDrawing();
-                }, i * 1000);
-            }
+            autoDrawer.startRandomDrawing();
+            setTimeout(() => autoDrawer.startRandomDrawing(), 800);
         }
 
         function animate() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.02)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.03)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             particles = particles.filter(particle => {
                 particle.update();
                 particle.draw();
-                return particle.life > 0 && particle.size > 0.1;
+                return particle.life > 0 && particle.size > 0.2;
             });
 
-            artObjects = artObjects.filter(artObject => {
+            artObjects.forEach(artObject => {
                 artObject.update();
                 artObject.draw();
-                return true;
             });
 
             animationId = requestAnimationFrame(animate);
@@ -1135,30 +699,27 @@
         canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
             startDrawing(e);
-        });
+        }, { passive: false });
 
         canvas.addEventListener('touchmove', (e) => {
             e.preventDefault();
             draw(e);
-        });
+        }, { passive: false });
 
         canvas.addEventListener('touchend', (e) => {
             e.preventDefault();
             stopDrawing();
-        });
+        }, { passive: false });
 
         document.addEventListener('touchmove', (e) => {
-            if (e.scale !== 1) { e.preventDefault(); }
+            e.preventDefault();
         }, { passive: false });
+
         animate();
 
         setTimeout(() => {
-            const initialElements = ['rose', 'hummingbird', 'butterfly', 'spiral'];
-            const randomElement = initialElements[Math.floor(Math.random() * initialElements.length)];
-            const x = canvas.width * (0.3 + Math.random() * 0.4);
-            const y = canvas.height * (0.3 + Math.random() * 0.4);
-            autoDrawer.drawObject(x, y, randomElement);
-        }, 1500);
+            autoDrawer.startRandomDrawing();
+        }, 1000);
     </script>
 </body>
 </html>
